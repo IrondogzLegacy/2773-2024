@@ -26,19 +26,19 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(1)
         self.timer = wpilib.Timer()
 
-    def autonomousInit(self):
-        """This function is run once each time the robot enters autonomous mode."""
-        self.timer.reset()
-        self.timer.start()
+    # def autonomousInit(self):
+    #     """This function is run once each time the robot enters autonomous mode."""
+    #     self.timer.reset()
+    #     self.timer.start()
 
-    def autonomousPeriodic(self):
-        """This function is called periodically during autonomous."""
+    # def autonomousPeriodic(self):
+    #     """This function is called periodically during autonomous."""
 
-        # Drive for two seconds
-        if self.timer.get() < 2.0:
-            self.drive.arcadeDrive(-0.5, 0)  # Drive forwards at half speed
-        else:
-            self.drive.arcadeDrive(0, 0)  # Stop robot
+    #     # Drive for two seconds
+    #     if self.timer.get() < 2.0:
+    #         self.drive.arcadeDrive(-0.5, 0)  # Drive forwards at half speed
+    #     else:
+    #         self.drive.arcadeDrive(0, 0)  # Stop robot
 
     def teleopPeriodic(self):
         """This function is called periodically during operator control."""
