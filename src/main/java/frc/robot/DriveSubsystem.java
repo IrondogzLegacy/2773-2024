@@ -53,4 +53,32 @@ public class DriveSubsystem extends SubsystemBase {
     blMotor.directionalDrive(speed, -3*Math.PI/4);
     flMotor.directionalDrive(speed, -Math.PI/4);
   }
+
+  public void defaultDrive(double distance, double speed) {
+    double WHEEL_DISTANCE = 0.5207;
+    distance = 1/distance;
+    // if (distance > 0 ) {
+    //   distance = distance * 4 + WHEEL_DISTANCE;
+    // } else {
+    //   distance = distance * 4 - WHEEL_DISTANCE;
+    // }
+    
+    // double constant = 1/distance;
+    // distance = distance * constant;
+    // WHEEL_DISTANCE = WHEEL_DISTANCE * constant;
+    //Radius is x
+    double flCoordinateAngle = Math.atan2(distance + WHEEL_DISTANCE, WHEEL_DISTANCE);
+    double flTangent = -flCoordinateAngle;
+    double frCoordinateAngle = Math.atan2(distance - WHEEL_DISTANCE, WHEEL_DISTANCE);
+    double frTangent = -frCoordinateAngle;
+    double blCoordinateAngle = Math.atan2(distance + WHEEL_DISTANCE, -WHEEL_DISTANCE);
+    double blTangent = -blCoordinateAngle;
+    double brCoordinateAngle = Math.atan2(distance - WHEEL_DISTANCE, -WHEEL_DISTANCE);
+    double brTangent = -brCoordinateAngle;
+  
+    frMotor.directionalDrive(speed, frTangent);
+    brMotor.directionalDrive(speed, brTangent);
+    blMotor.directionalDrive(speed, blTangent);
+    flMotor.directionalDrive(speed, flTangent);
+  }
 }

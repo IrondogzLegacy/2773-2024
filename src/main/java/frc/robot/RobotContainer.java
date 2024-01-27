@@ -11,17 +11,18 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
-  DriveSubsystem t = new DriveSubsystem();
+  DriveSubsystem driveSubsystem = new DriveSubsystem();
   XboxController joy = new XboxController(0);
-  DriveCommand driveCommand = new DriveCommand(t, joy);
+  DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy);
+  CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   JoystickButton button = new JoystickButton(joy, 1);
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-    t.setDefaultCommand(driveCommand);
-    button.whileTrue(new RunCommand(() -> t.reset(), t));
+    driveSubsystem.setDefaultCommand(driveCommand);
+    button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
   }
 
   public Command getAutonomousCommand() {
