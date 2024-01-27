@@ -14,6 +14,8 @@ import com.revrobotics.CANSparkMax;
 
 /** Add your docs here. */
 public class SwerveDriveModule {
+  private static final double ROTATION_LIMIT_SPEED = 0.7;
+
   CANSparkMax driveMotor;
   CANSparkMax rotateMotor;
   CANcoder encoder;
@@ -27,7 +29,7 @@ public class SwerveDriveModule {
     encoder = new CANcoder(encoderId);
     id = encoderId;
     this.alpha = alpha;
-    this.pidRotate = new PIDController(4 / 2 / 3.14, 0, 0);
+    this.pidRotate = new PIDController(0.63, 0, 0);
   }
 
   public void drive(double speed, double rotate) {
@@ -44,9 +46,9 @@ public class SwerveDriveModule {
     while (pos > Math.PI)
       pos -= 2 * Math.PI;
     // -0.5 < pos <= 0.5
-    double s = pidRotate.calculate(pos);
-    s = MathUtil.clamp(s, -0.7, 0.7);
-    rotateMotor.set(s);
+    double speedOfRotation = pidRotate.calculate(pos);
+    speedOfRotation = MathUtil.clamp(speedOfRotation, -ROTATION_LIMIT_SPEED, ROTATION_LIMIT_SPEED);
+    rotateMotor.set(speedOfRotation);
     driveMotor.set(speed);
   }
 
@@ -63,7 +65,7 @@ public class SwerveDriveModule {
   public void reset() {
     pidRotate.setSetpoint(0);
     double s = pidRotate.calculate(-position());
-    s = MathUtil.clamp(s, -0.7, 0.7);
+    s = MathUtil.clamp(s, -ROTATION_LIMIT_SPEED, ROTATION_LIMIT_SPEED);
     rotateMotor.set(s);
   }
 

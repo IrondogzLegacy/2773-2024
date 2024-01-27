@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class DriveCommand extends Command {
-  TestSubsystem s;
+  DriveSubsystem swerveModules;
   XboxController joy;
   /** Creates a new DriveCommand. */
-  public DriveCommand(TestSubsystem s, XboxController joy) {
-    this.s = s;
+  public DriveCommand(DriveSubsystem s, XboxController joy) {
+    this.swerveModules = s;
     this.joy = joy;
     addRequirements(s);
   }
@@ -24,14 +24,19 @@ public class DriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //s.drive(joy.getLeftY() * 0.4, joy.getRightX() * 0.3);
+    
     double x = joy.getLeftX(), y = joy.getLeftY();
     double speed = Math.sqrt(x * x + y * y) * 0.4;
     double angle = Math.atan2(y, x);
     if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
-      s.stop();
+      double rotate = joy.getRightX();
+      if (Math.abs(rotate) > 0.01) {
+        swerveModules.rotate(0.4 * rotate);
+      } else {
+        swerveModules.stop();
+      }
     } else {
-      s.directionalDrive(speed, angle);
+      swerveModules.directionalDrive(speed, angle);
     } 
   }
 
