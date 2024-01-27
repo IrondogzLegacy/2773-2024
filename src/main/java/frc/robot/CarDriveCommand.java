@@ -26,7 +26,7 @@ public class CarDriveCommand extends Command {
   @Override
   public void execute() {
     if (Math.abs(joy.getLeftY()) > 0.1 || Math.abs(joy.getLeftX()) > 0.1) {
-      driveSubsystem.defaultDrive(joy.getLeftX(), joy.getLeftY() * 0.3);
+      driveSubsystem.defaultDrive(joy.getLeftX(), joy.getLeftY() * 0.5);
     } else {
       driveSubsystem.stop();
     }

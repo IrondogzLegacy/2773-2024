@@ -41,15 +41,26 @@ public class SwerveDriveModule {
   public void directionalDrive(double speed, double angle) {
     pidRotate.setSetpoint(0);
     double pos = -position() - angle;
-    while (pos <= -Math.PI)
+    while (pos < -Math.PI)
       pos += 2 * Math.PI;
-    while (pos > Math.PI)
+    while (pos >= Math.PI)
       pos -= 2 * Math.PI;
-    // -0.5 < pos <= 0.5
+    // -PI =< pos < PI
+
+    double direction = 1.0;
+    if (pos < -Math.PI / 2) {
+      direction = -1.0;
+      pos += Math.PI;
+    }
+    if (pos > Math.PI / 2) {
+      direction = -1.0;
+      pos -= Math.PI;
+    }
     double speedOfRotation = pidRotate.calculate(pos);
     speedOfRotation = MathUtil.clamp(speedOfRotation, -ROTATION_LIMIT_SPEED, ROTATION_LIMIT_SPEED);
     rotateMotor.set(speedOfRotation);
-    driveMotor.set(speed);
+
+    driveMotor.set(speed * direction);
   }
 
   private double position() {
