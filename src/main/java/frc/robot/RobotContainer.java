@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -16,6 +17,8 @@ public class RobotContainer {
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   JoystickButton button = new JoystickButton(joy, 1);
+  JoystickButton switchButton = new JoystickButton(joy, 2);
+  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   public RobotContainer() {
     configureBindings();
   }
@@ -23,9 +26,20 @@ public class RobotContainer {
   private void configureBindings() {
     driveSubsystem.setDefaultCommand(carDriveCommand);
     button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
+    switchButton.onTrue(switchCommand);
   }
 
-  public Command getAutonomousCommand() {
+    // A chooser for autonomous commands
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+
+  public Command getMiddleAutonomousCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getLeftAutoCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
 }
