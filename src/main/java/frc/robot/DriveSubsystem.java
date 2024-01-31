@@ -79,7 +79,7 @@ public class DriveSubsystem extends SubsystemBase {
     } else {
       kr = rl / rr;
     }
-    System.out.println(kl + " " + kr);
+
     frMotor.directionalDrive(kr*speed, frAngle);
     brMotor.directionalDrive(kr*speed, brAngle);
     blMotor.directionalDrive(kl*speed, blAngle);
