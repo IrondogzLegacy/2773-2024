@@ -16,6 +16,8 @@ public class RobotContainer {
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   JoystickButton button = new JoystickButton(joy, 1);
+  JoystickButton switchButton = new JoystickButton(joy, 2);
+  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   public RobotContainer() {
     configureBindings();
   }
@@ -23,6 +25,7 @@ public class RobotContainer {
   private void configureBindings() {
     driveSubsystem.setDefaultCommand(carDriveCommand);
     button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
+    switchButton.onTrue(switchCommand);
   }
 
   public Command getAutonomousCommand() {
