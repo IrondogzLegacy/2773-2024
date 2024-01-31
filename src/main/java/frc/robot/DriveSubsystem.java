@@ -56,6 +56,15 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void carDrive(double distance, double speed) {
+
+    if(distance/9>speed*2) {
+      frMotor.directionalDrive(distance, 135*(Math.PI/180));
+      flMotor.directionalDrive(distance, 135*(Math.PI/180));
+      brMotor.directionalDrive(distance, 135*(Math.PI/180));
+      blMotor.directionalDrive(distance, 135*(Math.PI/180));
+      return;
+    }
+
     double HALF_WHEEL_DISTANCE = 0.5207;
     distance = 1 / (distance + 1e-7);
 
