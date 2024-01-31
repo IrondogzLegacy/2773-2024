@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -25,7 +26,17 @@ public class RobotContainer {
     button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
   }
 
-  public Command getAutonomousCommand() {
+    // A chooser for autonomous commands
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+
+  public Command getMiddleAutonomousCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getLeftAutoCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
 }
