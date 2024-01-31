@@ -55,26 +55,35 @@ public class DriveSubsystem extends SubsystemBase {
     flMotor.directionalDrive(speed, -Math.PI / 4);
   }
 
-  public void defaultDrive(double distance, double speed) {
-    double WHEEL_DISTANCE = 0.5207;
-    distance = 1 / distance;
+  public void carDrive(double distance, double speed) {
+    double HALF_WHEEL_DISTANCE = 0.5207;
+    distance = 1 / (distance + 1e-7);
 
-    speed *= -Math.copySign(1, distance);
+    speed *= Math.copySign(1, distance);
 
-    double flCoordinateAngle = Math.atan2(distance + WHEEL_DISTANCE, WHEEL_DISTANCE);
-    double flTangent = -flCoordinateAngle;
-    double frCoordinateAngle = Math.atan2(distance - WHEEL_DISTANCE, WHEEL_DISTANCE);
-    double frTangent = -frCoordinateAngle;
-    double blCoordinateAngle = Math.atan2(distance + WHEEL_DISTANCE, -WHEEL_DISTANCE);
-    double blTangent = -blCoordinateAngle;
-    double brCoordinateAngle = Math.atan2(distance - WHEEL_DISTANCE, -WHEEL_DISTANCE);
-    double brTangent = -brCoordinateAngle;
+    double rl = Math.sqrt(
+        HALF_WHEEL_DISTANCE * HALF_WHEEL_DISTANCE +
+            (distance - HALF_WHEEL_DISTANCE) * (distance - HALF_WHEEL_DISTANCE));
+    double rr = Math.sqrt(
+        HALF_WHEEL_DISTANCE * HALF_WHEEL_DISTANCE +
+            (distance + HALF_WHEEL_DISTANCE) * (distance + HALF_WHEEL_DISTANCE));
 
-    frMotor.directionalDrive(speed, frTangent);
-    brMotor.directionalDrive(speed, brTangent);
-    blMotor.directionalDrive(speed, blTangent);
-    flMotor.directionalDrive(speed, flTangent);
+    double flAngle = Math.atan2(distance + HALF_WHEEL_DISTANCE, -HALF_WHEEL_DISTANCE);
+    double frAngle = Math.atan2(distance - HALF_WHEEL_DISTANCE, -HALF_WHEEL_DISTANCE);
+    double blAngle = Math.atan2(distance + HALF_WHEEL_DISTANCE, HALF_WHEEL_DISTANCE);
+    double brAngle = Math.atan2(distance - HALF_WHEEL_DISTANCE, HALF_WHEEL_DISTANCE);
 
+    double kl = 1, kr = 1;
+    if (distance < 0) {
+      kl = rr / rl;
+    } else {
+      kr = rl / rr;
+    }
+
+    frMotor.directionalDrive(kr*speed, frAngle);
+    brMotor.directionalDrive(kr*speed, brAngle);
+    blMotor.directionalDrive(kl*speed, blAngle);
+    flMotor.directionalDrive(kl*speed, flAngle);
 
   }
 }
