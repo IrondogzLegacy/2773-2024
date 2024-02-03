@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -13,9 +15,19 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private static final String kMiddleAuto = "Middle Position";
+  private static final String kLeftAuto = "Left Position";
+  private static final String kRightAuto = "Right Position";
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    m_chooser.setDefaultOption("Middle Position", kMiddleAuto);
+    m_chooser.addOption("Left Position", kLeftAuto);
+    m_chooser.addOption("Right Position", kRightAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
   }
 
   @Override
@@ -34,15 +46,33 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autoSelected = m_chooser.getSelected();
+    System.out.println("Auto selected: " + m_autoSelected);
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+/*
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    } */
+  }
 
+  @Override
+  public void autonomousPeriodic() {
+    switch (m_autoSelected) {
+      case kLeftAuto:
+        m_autonomousCommand = m_robotContainer.getLeftAutoCommand();
+        break;
+      case kRightAuto:
+        m_autonomousCommand = m_robotContainer.getRightAutoCommand();
+      case kMiddleAuto:
+      default:
+        m_autonomousCommand = m_robotContainer.getMiddleAutonomousCommand();
+        break;
+    }
+    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
   }
-
-  @Override
-  public void autonomousPeriodic() {}
 
   @Override
   public void autonomousExit() {}
