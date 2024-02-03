@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class NavigationSubsystem extends SubsystemBase {
 
   AHRS gyro = new AHRS(SPI.Port.kMXP);
+  double angle;
+  double x;
+  double y;
+  double z;
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem() {
     Shuffleboard.getTab("Navigation").add(gyro);
@@ -22,6 +26,9 @@ public class NavigationSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    angle = gyro.getAngle();
+    x = gyro.getDisplacementX();
+    y = gyro.getDisplacementY();
+    z = gyro.getDisplacementZ();
   }
 }

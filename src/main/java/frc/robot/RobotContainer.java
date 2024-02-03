@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   DriveSubsystem driveSubsystem = new DriveSubsystem();
   XboxController joy = new XboxController(0);
-  DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy);
-  CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem();
+  DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy, navigationSubsystem);
+  CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   JoystickButton button = new JoystickButton(joy, 1);
   JoystickButton switchButton = new JoystickButton(joy, 2);
   SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);

@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class DriveCommand extends Command {
   DriveSubsystem driveSubsystem;
   XboxController joy;
+  NavigationSubsystem navigationSubsystem;
 
   /** Creates a new DriveCommand. */
-  public DriveCommand(DriveSubsystem driveSubsystem, XboxController joy) {
+  public DriveCommand(DriveSubsystem driveSubsystem, XboxController joy, NavigationSubsystem navigationSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.joy = joy;
+    this.navigationSubsystem = navigationSubsystem;
     addRequirements(driveSubsystem);
   }
 
@@ -29,6 +31,7 @@ public class DriveCommand extends Command {
     double x = joy.getLeftX(), y = joy.getLeftY();
     double speed = Math.sqrt(x * x + y * y) * 0.4;
     double angle = Math.atan2(y, x);
+    double gyroAngle = navigationSubsystem.angle;
     if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
       double rotate = joy.getRightX();
       if (Math.abs(rotate) > 0.01) {
@@ -37,7 +40,7 @@ public class DriveCommand extends Command {
         driveSubsystem.stop();
       }
     } else {
-      driveSubsystem.directionalDrive(speed, angle);
+      driveSubsystem.directionalDrive(speed, angle-gyroAngle);
     }
   }
 
