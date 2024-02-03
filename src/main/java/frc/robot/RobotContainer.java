@@ -15,6 +15,7 @@ public class RobotContainer {
   XboxController joy = new XboxController(0);
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
+  NavigationSubsystem navigationSubsystem = new NavigationSubsystem();
   JoystickButton button = new JoystickButton(joy, 1);
   public RobotContainer() {
     configureBindings();
