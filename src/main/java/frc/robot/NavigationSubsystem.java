@@ -20,7 +20,7 @@ public class NavigationSubsystem extends SubsystemBase {
   private AHRS gyro = new AHRS(SPI.Port.kMXP);
   private double angle;
 
-  /*SwerveDriveKinematics kinematics = new SwerveDriveKinematics();
+  SwerveDriveKinematics kinematics = new SwerveDriveKinematics();
   SwerveModulePosition[] positions;
   SwerveDriveWheelPositions modulePositions = new SwerveDriveWheelPositions(positions);
   Rotation2d gyroRotation2d = gyro.getRotation2d();
@@ -53,7 +53,7 @@ public class NavigationSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     angle = gyro.getAngle() / 180.0 * Math.PI;
-    /*pitch = gyro.getPitch();
+    pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions);
     x = gyro.getDisplacementX();
     y = gyro.getDisplacementY();
@@ -62,9 +62,9 @@ public class NavigationSubsystem extends SubsystemBase {
     fry = hypo * Math.sin(angle + 45);
     flx = hypo * Math.cos(angle + 135);
     fly = hypo * Math.sin(angle + 135);
-    frx = hypo * Math.cos(angle + 225);
-    fry = hypo * Math.sin(angle + 225);d
-    frx = hypo * Math.cos(angle + 315);
-    fry = hypo * Math.sin(angle + 315);*/
+    brx = hypo * Math.cos(angle + 225);
+    bry = hypo * Math.sin(angle + 225);
+    blx = hypo * Math.cos(angle + 315);
+    bly = hypo * Math.sin(angle + 315);
   }
 }
