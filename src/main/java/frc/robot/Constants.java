@@ -5,5 +5,7 @@
 package frc.robot;
 
 public final class Constants {
-
+    // Half of the distance between swerve wheels
+    public static final double HALF_WHEEL_DISTANCE = 0.5207;
+    
 }

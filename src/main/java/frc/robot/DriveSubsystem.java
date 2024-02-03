@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void carDrive(double rotationFactor, double speed) {
-    double HALF_WHEEL_DISTANCE = 0.5207;
+    final double HALF_WHEEL_DISTANCE = Constants.HALF_WHEEL_DISTANCE;
     double distance = 1 / (rotationFactor + 1e-7);
 
     speed *= Math.copySign(1, distance);
