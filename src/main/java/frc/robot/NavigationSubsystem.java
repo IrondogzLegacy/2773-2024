@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -15,14 +17,24 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveWheelPositions;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import frc.robot.DriveSubsystem;
 
 public class NavigationSubsystem extends SubsystemBase {
   private AHRS gyro = new AHRS(SPI.Port.kMXP);
   private double angle;
+  // Locations for the swerve drive modules relative to the robot center.
+  Translation2d m_frontLeftLocation = new Translation2d(Constants.HALF_WHEEL_DISTANCE, Constants.HALF_WHEEL_DISTANCE);
+  Translation2d m_frontRightLocation = new Translation2d(Constants.HALF_WHEEL_DISTANCE, -Constants.HALF_WHEEL_DISTANCE);
+  Translation2d m_backLeftLocation = new Translation2d(-Constants.HALF_WHEEL_DISTANCE, Constants.HALF_WHEEL_DISTANCE);
+  Translation2d m_backRightLocation = new Translation2d(-Constants.HALF_WHEEL_DISTANCE, -Constants.HALF_WHEEL_DISTANCE);
 
-  // SwerveDriveKinematics kinematics = new SwerveDriveKinematics();
+  // Creating my kinematics object using the module locations
+  SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+      m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
+
   // SwerveModulePosition[] positions;
   // SwerveDriveWheelPositions modulePositions = new
   // SwerveDriveWheelPositions(positions);
@@ -34,13 +46,15 @@ public class NavigationSubsystem extends SubsystemBase {
   double x;
   double y;
   double z;
+  private Supplier<SwerveModulePosition[]> modulePositions;
 
   // double hypo = Math.sqrt(Constants.HALF_WHEEL_DISTANCE *
   // Constants.HALF_WHEEL_DISTANCE + Constants.HALF_WHEEL_DISTANCE *
   // Constants.HALF_WHEEL_DISTANCE);
 
   /** Creates a new NavigationSubsystem. */
-  public NavigationSubsystem() {
+  public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
+    this.modulePositions = modulePositions;
     Shuffleboard.getTab("Navigation").add(gyro);
 
     Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
@@ -69,5 +83,7 @@ public class NavigationSubsystem extends SubsystemBase {
     y = gyro.getDisplacementY();
     z = gyro.getDisplacementZ();
 
+    SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
+        m_kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
   }
 }

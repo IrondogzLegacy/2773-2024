@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -11,6 +13,14 @@ public class DriveSubsystem extends SubsystemBase {
   SwerveDriveModule brMotor = new SwerveDriveModule(10, 11, 54, 0.13037109375);
   SwerveDriveModule frMotor = new SwerveDriveModule(22, 23, 55, -0.43115234375);
   SwerveDriveModule flMotor = new SwerveDriveModule(19, 12, 53, 0.244873046875);
+
+  public SwerveModulePosition[] getPositions()
+  {
+    return new SwerveModulePosition[] {
+    flMotor.getPosition(), frMotor.getPosition(),
+    blMotor.getPosition(), brMotor.getPosition()
+  };
+  }
 
   /** Creates a new TestSubsystem. */
   public DriveSubsystem() {
