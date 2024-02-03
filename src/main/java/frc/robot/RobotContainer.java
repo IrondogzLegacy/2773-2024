@@ -25,7 +25,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveSubsystem.setDefaultCommand(carDriveCommand);
+    driveSubsystem.setDefaultCommand(driveCommand);
     button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
     switchButton.onTrue(switchCommand);
   }

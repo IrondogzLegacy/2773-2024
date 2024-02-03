@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  SwerveDriveModule blMotor = new SwerveDriveModule(17, 21, 52, 0.111083984375);
+  SwerveDriveModule blMotor = new SwerveDriveModule(17, 16, 52, 0.111083984375);
   SwerveDriveModule brMotor = new SwerveDriveModule(10, 11, 54, 0.13037109375);
   SwerveDriveModule frMotor = new SwerveDriveModule(22, 23, 55, -0.43115234375);
   SwerveDriveModule flMotor = new SwerveDriveModule(19, 12, 53, 0.244873046875);
@@ -55,18 +55,9 @@ public class DriveSubsystem extends SubsystemBase {
     flMotor.directionalDrive(speed, -Math.PI / 4);
   }
 
-  public void carDrive(double distance, double speed) {
-
-    if(distance/9>speed*2) {
-      frMotor.directionalDrive(distance, 135*(Math.PI/180));
-      flMotor.directionalDrive(distance, 135*(Math.PI/180));
-      brMotor.directionalDrive(distance, 135*(Math.PI/180));
-      blMotor.directionalDrive(distance, 135*(Math.PI/180));
-      return;
-    }
-
+  public void carDrive(double rotationFactor, double speed) {
     double HALF_WHEEL_DISTANCE = 0.5207;
-    distance = 1 / (distance + 1e-7);
+    double distance = 1 / (rotationFactor + 1e-7);
 
     speed *= Math.copySign(1, distance);
 
@@ -93,6 +84,5 @@ public class DriveSubsystem extends SubsystemBase {
     brMotor.directionalDrive(kr*speed, brAngle);
     blMotor.directionalDrive(kl*speed, blAngle);
     flMotor.directionalDrive(kl*speed, flAngle);
-
   }
 }
