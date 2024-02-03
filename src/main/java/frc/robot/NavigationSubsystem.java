@@ -7,13 +7,16 @@ package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class NavigationSubsystem extends SubsystemBase {
 
   AHRS gyro = new AHRS(SPI.Port.kMXP);
   /** Creates a new NavigationSubsystem. */
-  public NavigationSubsystem() {}
+  public NavigationSubsystem() {
+    Shuffleboard.getTab("Navigation").add(gyro);
+  }
 
 
 
