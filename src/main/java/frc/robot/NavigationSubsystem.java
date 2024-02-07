@@ -40,6 +40,18 @@ public class NavigationSubsystem extends SubsystemBase {
   double x;
   double y;
   double z;
+  double flx;
+  double fly;
+  double[] fl = {flx, fly};
+  double frx;
+  double fry;
+  double[] fr = {frx, fry};
+  double blx;
+  double bly;
+  double[] bl = {blx, bly};
+  double brx;
+  double bry;
+  double[] br = {brx, bry};
 
   private SwerveDriveOdometry odometry;
   private Pose2d pose;
@@ -51,6 +63,22 @@ public class NavigationSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
+
+    Shuffleboard.getTab("Swerve Coordinates");
+
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Left", () -> {
+      return new double[] {flx, fly};
+    });
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Right", () -> {
+      return new double[] {frx, fry};
+    });
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Left", () -> {
+      return new double[] {blx, bly};
+    });
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Right", () -> {
+      return new double[] {brx, bry};
+    });
+
      odometry = new SwerveDriveOdometry(
       m_kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
   }
@@ -86,6 +114,14 @@ public class NavigationSubsystem extends SubsystemBase {
     SwerveModulePosition br = positions[3];
     double brdistance = br.distanceMeters;
     double brangle = br.angle.getRadians();
+    flx = fldistance * Math.cos(flangle);
+    fly = fldistance * Math.sin(flangle);
+    frx = frdistance * Math.cos(frangle);
+    fry = frdistance * Math.sin(frangle);
+    blx = bldistance * Math.cos(blangle);
+    bly = bldistance * Math.sin(blangle);
+    brx = brdistance * Math.cos(brangle);
+    bry = brdistance * Math.sin(brangle);
     
 
     
