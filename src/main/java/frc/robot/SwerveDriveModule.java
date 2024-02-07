@@ -46,7 +46,7 @@ public class SwerveDriveModule {
     System.out.println(id + " " + distanceEncoder.getPosition());
   }
 
-  public SwerveModulePosition getPosition() {
+  public SwerveModulePosition getMotorEncoderPosition() {
     return new SwerveModulePosition(
         distanceEncoder.getPosition(), new Rotation2d(rotationEncoder.getPosition()));
   }

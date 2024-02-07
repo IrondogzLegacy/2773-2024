@@ -17,8 +17,8 @@ public class DriveSubsystem extends SubsystemBase {
   public SwerveModulePosition[] getPositions()
   {
     return new SwerveModulePosition[] {
-    flMotor.getPosition(), frMotor.getPosition(),
-    blMotor.getPosition(), brMotor.getPosition()
+    flMotor.getMotorEncoderPosition(), frMotor.getMotorEncoderPosition(),
+    blMotor.getMotorEncoderPosition(), brMotor.getMotorEncoderPosition()
   };
   }
 
