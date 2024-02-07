@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
+    SmartDashboard.putData(m_chooser);
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 /*
     if (m_autonomousCommand != null) {
