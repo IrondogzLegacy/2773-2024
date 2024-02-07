@@ -46,7 +46,16 @@ public class NavigationSubsystem extends SubsystemBase {
   double x;
   double y;
   double z;
+  double flx;
+  double fly;
+  double frx;
+  double fry;
+  double blx;
+  double bly;
+  double brx;
+  double bry;
   private Supplier<SwerveModulePosition[]> modulePositions;
+  
 
   // double hypo = Math.sqrt(Constants.HALF_WHEEL_DISTANCE *
   // Constants.HALF_WHEEL_DISTANCE + Constants.HALF_WHEEL_DISTANCE *
@@ -83,7 +92,22 @@ public class NavigationSubsystem extends SubsystemBase {
     y = gyro.getDisplacementY();
     z = gyro.getDisplacementZ();
 
-    SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
-        m_kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
+    SwerveModulePosition[] positions = modulePositions.get();
+    SwerveModulePosition fl = positions[0];
+    double fldistance = fl.distanceMeters;
+    double flangle = fl.angle.getRadians();
+    SwerveModulePosition fr = positions[0];
+    double frdistance = fr.distanceMeters;
+    double frangle = fr.angle.getRadians();
+    SwerveModulePosition bl = positions[0];
+    double bldistance = bl.distanceMeters;
+    double blangle = bl.angle.getRadians();
+    SwerveModulePosition br = positions[0];
+    double brdistance = br.distanceMeters;
+    double brangle = br.angle.getRadians();
+    
+
+    
+
   }
 }
