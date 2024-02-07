@@ -34,53 +34,31 @@ public class NavigationSubsystem extends SubsystemBase {
   // Creating my kinematics object using the module locations
   SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
       m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
-
-  // SwerveModulePosition[] positions;
-  // SwerveDriveWheelPositions modulePositions = new
-  // SwerveDriveWheelPositions(positions);
-  // Rotation2d gyroRotation2d = gyro.getRotation2d();
-  // SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics,
-  // gyroRotation2d, modulePositions.positions);
-  // Pose2d pose;
   double pitch;
-  double x;
-  double y;
-  double z;
-  double flx;
-  double fly;
-  double frx;
-  double fry;
-  double blx;
-  double bly;
-  double brx;
-  double bry;
   private Supplier<SwerveModulePosition[]> modulePositions;
   
 
-  // double hypo = Math.sqrt(Constants.HALF_WHEEL_DISTANCE *
-  // Constants.HALF_WHEEL_DISTANCE + Constants.HALF_WHEEL_DISTANCE *
-  // Constants.HALF_WHEEL_DISTANCE);
-
+  private SwerveDriveOdometry odometry;
+  private Pose2d pose;
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
     Shuffleboard.getTab("Navigation").add(gyro);
 
     Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
-      return new double[] { x, y };
+      return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
+     odometry = new SwerveDriveOdometry(
+      m_kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
   }
 
   public double angle() {
     return this.angle;
   }
 
-  public Pose3d pose3d() {
-    return new Pose3d(x, y, z, new Rotation3d(0, 0, angle));
-  }
 
   public Pose2d pose() {
-    return new Pose2d(x, y, new Rotation2d(angle));
+    return pose;
   }
 
   @Override
