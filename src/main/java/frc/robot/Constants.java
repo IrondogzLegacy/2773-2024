@@ -15,5 +15,8 @@ public final class Constants {
     public static final int shooterMotor2CANID = 24; 
     public static final double intakeSpeed = 0.3;
     public static final double shooterSpeed = 0.3;
+    public static final int armMotorCANID = 0;
+    public static final double rotationUpSpeed = 0.2;
+    public static final double rotationDownSpeed = -0.2;
     
 }

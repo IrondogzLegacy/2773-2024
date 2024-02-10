@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Arm.ArmSubsystem;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ShootCommand;
@@ -25,6 +26,7 @@ public class RobotContainer {
   DriveSubsystem driveSubsystem = new DriveSubsystem();
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
+  ArmSubsystem armSubsystem = new ArmSubsystem();
   
   //Controllers
   XboxController driveStick = new XboxController(0);
@@ -41,9 +43,12 @@ public class RobotContainer {
   JoystickButton switchButton = new JoystickButton(driveStick, 3);
   JoystickButton intakeButton = new JoystickButton(driveStick, 1);
   JoystickButton shootButton = new JoystickButton(driveStick, 2);
+  JoystickButton raiseArmButton = new JoystickButton(driveStick, 5);
+  JoystickButton lowerArmButton = new JoystickButton(driveStick, 6);
 
   //Instant Commands
-  
+  InstantCommand raiseArmCommand = new InstantCommand(armSubsystem::rotateUp);
+  InstantCommand lowerArmCommand = new InstantCommand(armSubsystem::rotateDown);
 
   //Composite Commands
   ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand); //for three seconds we intake  
@@ -61,6 +66,8 @@ public class RobotContainer {
     //switchButton.onTrue(switchCommand);
     intakeButton.onTrue(intake3sec);
     shootButton.onTrue(intakeThenShoot);
+    raiseArmButton.whileTrue(raiseArmCommand);
+    lowerArmButton.whileTrue(lowerArmCommand);
   }
 
   // A chooser for autonomous commands
