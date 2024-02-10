@@ -30,7 +30,7 @@ public class RobotContainer {
   JoystickButton switchButton = new JoystickButton(joy, 2);
   
   //Composite Commands
-  
+
   
   public RobotContainer() {
     configureBindings();
@@ -38,7 +38,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     driveSubsystem.setDefaultCommand(driveCommand);
-    button.whileTrue(new RunCommand(() -> driveSubsystem.reset(), driveSubsystem));
+    button.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
     switchButton.onTrue(switchCommand);
   }
 

@@ -44,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
     flMotor.directionalDrive(speed, angle);
   }
 
-  public void reset() {
+  public void resetMotors() {
     blMotor.reset();
     brMotor.reset();
     frMotor.reset();
