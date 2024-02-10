@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
+import frc.robot.IntakeShooter.ShootCommand;
 
 public class RobotContainer {
   //Subsystems
@@ -31,6 +32,7 @@ public class RobotContainer {
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
   SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+  ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   
   //Buttons
   JoystickButton button = new JoystickButton(joy, 1);
@@ -40,7 +42,10 @@ public class RobotContainer {
   
 
   //Composite Commands
-  ParallelRaceGroup intakeWithStart = new ParallelRaceGroup(new WaitCommand(3),intakeCommand); //for three seconds we intake  
+  ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand); //for three seconds we intake  
+  ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand); //intake for 1 second
+  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
+  SequentialCommandGroup intakeThenShoot = new SequentialCommandGroup(intake1sec, shootWithIntake);
 
   public RobotContainer() {
     configureBindings();
