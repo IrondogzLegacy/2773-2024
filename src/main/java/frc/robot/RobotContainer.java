@@ -22,17 +22,12 @@ import frc.robot.IntakeShooter.ShootCommand;
 
 public class RobotContainer {
   //Subsystems
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   
   //Controllers
   XboxController driveStick = new XboxController(0);
   
   //Commands from files
-  DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, navigationSubsystem);
-  CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
-  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   
@@ -56,9 +51,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveSubsystem.setDefaultCommand(driveCommand);
-    //resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
-    //switchButton.onTrue(switchCommand);
     intakeButton.onTrue(intake3sec);
     shootButton.onTrue(intakeThenShoot);
   }

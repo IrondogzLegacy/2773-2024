@@ -1,5 +1,0 @@
-https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/configuration.html
-https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/index.html
-https://pro.docs.ctr-electronics.com/en/latest/docs/hardware-reference/cancoder/index.html
-https://github.com/BroncBotz3481/YAGSL-Example/blob/cf4ef85d80759f07b902da09fc0ab10f0b818874/src/main/deploy/swerve/neo/controllerproperties.json
-https://www.chiefdelphi.com/t/navx-library-2023/421746/3
