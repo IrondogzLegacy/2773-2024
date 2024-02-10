@@ -30,8 +30,8 @@ public class SwerveDriveModule {
   private PIDController pidRotate;
 
   public SwerveDriveModule(int driveId, int rotateId, int encoderId, double alpha) {
-    driveMotor = new CANSparkMax(driveId, MotorType.kBrushless);
-    rotateMotor = new CANSparkMax(rotateId, MotorType.kBrushless);
+    driveMotor = new CANSparkMax(driveId, Constants.motorType);
+    rotateMotor = new CANSparkMax(rotateId, Constants.motorType);
     encoder = new CANcoder(encoderId);
     distanceEncoder = driveMotor.getEncoder();
     rotationEncoder = rotateMotor.getEncoder();

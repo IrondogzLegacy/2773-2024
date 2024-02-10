@@ -123,8 +123,5 @@ public class NavigationSubsystem extends SubsystemBase {
     brx = brdistance * Math.cos(brangle);
     bry = brdistance * Math.sin(brangle);
     
-
-    
-
   }
 }
