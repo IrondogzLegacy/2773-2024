@@ -7,8 +7,11 @@ package frc.robot.IntakeShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ShootCommand extends Command {
+  private final IntakeSubsystem shooterSubsystem;
   /** Creates a new ShootCommand. */
-  public ShootCommand() {
+
+    public ShootCommand(IntakeSubsystem shooterSubsystem) {
+      this.shooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,11 +21,15 @@ public class ShootCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    shooterSubsystem.startShooter();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooterSubsystem.stopShooter();
+  }
 
   // Returns true when the command should end.
   @Override
