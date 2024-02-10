@@ -30,11 +30,11 @@ public class IntakeSubsystem extends SubsystemBase {
   public void startShooter() {shooterMotor1.set(Constants.shooterSpeed); shooterMotor2.set(Constants.shooterSpeed);}
   public void stopShooter() {shooterMotor1.stopMotor(); shooterMotor2.stopMotor();}
 
-  InstantCommand startIntaking = new InstantCommand(IntakeSubsystem::startIntake);
+  /*InstantCommand startIntaking = new InstantCommand(IntakeSubsystem::startIntake);
   public Command fullIntake() {
     return null;
     return ParallelRaceGroup(new WaitCommand(8));
-  }
+  }*/
 
   @Override
   public void periodic() {
