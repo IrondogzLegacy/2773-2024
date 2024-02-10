@@ -12,14 +12,26 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
+  //Subsystems
   DriveSubsystem driveSubsystem = new DriveSubsystem();
-  XboxController joy = new XboxController(0);
+  IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
+  
+  //Controllers
+  XboxController joy = new XboxController(0);
+  
+  //Commands from files
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, joy, navigationSubsystem);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, joy);
+  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
+  
+  //Buttons
   JoystickButton button = new JoystickButton(joy, 1);
   JoystickButton switchButton = new JoystickButton(joy, 2);
-  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
+  
+  //Composite Commands
+  
+  
   public RobotContainer() {
     configureBindings();
   }
@@ -30,10 +42,10 @@ public class RobotContainer {
     switchButton.onTrue(switchCommand);
   }
 
-    // A chooser for autonomous commands
+  // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-
+//autonomous commands
   public Command getMiddleAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
