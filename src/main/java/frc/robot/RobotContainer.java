@@ -8,8 +8,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.IntakeShooter.IntakeSubsystem;
 
 public class RobotContainer {
   //Subsystems
@@ -29,8 +33,11 @@ public class RobotContainer {
   JoystickButton button = new JoystickButton(joy, 1);
   JoystickButton switchButton = new JoystickButton(joy, 2);
   
+  //Instant Commands
+   InstantCommand startIntake = new InstantCommand (intakeSubsystem::startIntake);
   //Composite Commands
-
+  ParallelRaceGroup fullIntake = new ParallelRaceGroup(new WaitCommand(3), startIntake); //for three seconds we intake
+  
   
   public RobotContainer() {
     configureBindings();
