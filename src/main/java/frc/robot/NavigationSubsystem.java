@@ -14,13 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveWheelPositions;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import frc.robot.DriveSubsystem;
 
 public class NavigationSubsystem extends SubsystemBase {
   private AHRS gyro = new AHRS(SPI.Port.kMXP);
@@ -52,6 +48,16 @@ public class NavigationSubsystem extends SubsystemBase {
   double brx;
   double bry;
   double[] br = {brx, bry};
+  
+  double sflx;
+  double sfly;
+  double sfrx;
+  double sfry;
+  double sblx;
+  double sbly;
+  double sbrx;
+  double sbry;
+
 
   private SwerveDriveOdometry odometry;
   private Pose2d pose;
@@ -67,16 +73,16 @@ public class NavigationSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Swerve Coordinates");
 
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Left", () -> {
-      return new double[] {flx, fly};
+      return new double[] {sflx, sfly};
     });
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Right", () -> {
-      return new double[] {frx, fry};
+      return new double[] {sfrx, sfry};
     });
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Left", () -> {
-      return new double[] {blx, bly};
+      return new double[] {sblx, sbly};
     });
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Right", () -> {
-      return new double[] {brx, bry};
+      return new double[] {sbrx, sbry};
     });
 
      odometry = new SwerveDriveOdometry(
@@ -102,26 +108,48 @@ public class NavigationSubsystem extends SubsystemBase {
     z = gyro.getDisplacementZ();
 
     SwerveModulePosition[] positions = modulePositions.get();
+
     SwerveModulePosition fl = positions[0];
-    double fldistance = fl.distanceMeters;
-    double flangle = fl.angle.getRadians();
+    double fld = fl.distanceMeters;
+    double fla = fl.angle.getRadians();
     SwerveModulePosition fr = positions[1];
-    double frdistance = fr.distanceMeters;
-    double frangle = fr.angle.getRadians();
+    double frd = fr.distanceMeters;
+    double fra = fr.angle.getRadians();
     SwerveModulePosition bl = positions[2];
-    double bldistance = bl.distanceMeters;
-    double blangle = bl.angle.getRadians();
+    double bld = bl.distanceMeters;
+    double bla = bl.angle.getRadians();
     SwerveModulePosition br = positions[3];
-    double brdistance = br.distanceMeters;
-    double brangle = br.angle.getRadians();
-    flx = fldistance * Math.cos(flangle);
-    fly = fldistance * Math.sin(flangle);
-    frx = frdistance * Math.cos(frangle);
-    fry = frdistance * Math.sin(frangle);
-    blx = bldistance * Math.cos(blangle);
-    bly = bldistance * Math.sin(blangle);
-    brx = brdistance * Math.cos(brangle);
-    bry = brdistance * Math.sin(brangle);
-    
+    double brd = br.distanceMeters;
+    double bra = br.angle.getRadians();
+
+    flx = fld * Math.cos(fla);
+    fly = fld * Math.sin(fla);
+    frx = frd * Math.cos(fra);
+    fry = frd * Math.sin(fra);
+    blx = bld * Math.cos(bla);
+    bly = bld * Math.sin(bla);
+    brx = brd * Math.cos(bra);
+    bry = brd * Math.sin(bra);
+
+    sflx += flx;
+    sfly += fly;
+    sfrx += frx;
+    sfry += fry;
+    sblx += blx;
+    sbly += bly;
+    sbrx += frx;
+    sbry += fry;
+  }
+
+  public Double[][] getCoordinates() {
+    //Returns 4 1D arrays, each representing the x and y of a module. Index 0, 1, 2, 3 represent
+    //the front left, front right, back left, and back right modules respectively.
+    Double[][] coordinates = {
+      {sflx, sfly}, 
+      {sfrx, sfry}, 
+      {sblx, sbly}, 
+      {sbrx, sbry}
+    };
+    return coordinates;
   }
 }
