@@ -58,6 +58,11 @@ public class NavigationSubsystem extends SubsystemBase {
   double sbrx;
   double sbry;
 
+  double fla;
+  double fra;
+  double bla;
+  double bra;
+
 
   private SwerveDriveOdometry odometry;
   private Pose2d pose;
@@ -111,16 +116,16 @@ public class NavigationSubsystem extends SubsystemBase {
 
     SwerveModulePosition fl = positions[0];
     double fld = fl.distanceMeters;
-    double fla = fl.angle.getRadians();
+    fla = fl.angle.getRadians();
     SwerveModulePosition fr = positions[1];
     double frd = fr.distanceMeters;
-    double fra = fr.angle.getRadians();
+    fra = fr.angle.getRadians();
     SwerveModulePosition bl = positions[2];
     double bld = bl.distanceMeters;
-    double bla = bl.angle.getRadians();
+    bla = bl.angle.getRadians();
     SwerveModulePosition br = positions[3];
     double brd = br.distanceMeters;
-    double bra = br.angle.getRadians();
+    bra = br.angle.getRadians();
 
     flx = fld * Math.cos(fla);
     fly = fld * Math.sin(fla);
