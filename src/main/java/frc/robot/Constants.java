@@ -19,4 +19,15 @@ public final class Constants {
     public static final double rotationUpSpeed = 0.2;
     public static final double rotationDownSpeed = -0.1;
     
+    public static final double ArmMaxDeg = 0;
+    public static final double ArmBottomVoltage = 0;
+    public static final double ArmTopVoltage = 0;
+    public static final double ArmMinDeg = 0;
+    public static final double armMaxRotationOverride = 0;
+    public static final double armMaxAngle = 0;
+    public static final double armMaxPositionOverride = 0;
+    public static final double armMaxPosition = 0;
+    public static final double ControllerDeadzone = 0;
+    public static final int ArmMaxRotationSpeed = 0;
+    
 }
