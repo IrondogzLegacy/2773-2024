@@ -15,7 +15,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private static final String kMiddleAuto = "Middle Position";
+  private static final String krMiddleAuto = "Red Middle Position";
+  private static final String kbMiddleAuto = "Blue Middle Position";
   private static final String krLeftAuto = "Red Left Position";
   private static final String kbLeftAuto = "Blue Left Position";
   private static final String krRightAuto = "Red Right Position";
@@ -26,7 +27,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    m_chooser.setDefaultOption("Middle Position", kMiddleAuto);
+    m_chooser.setDefaultOption("Red Middle Position", krMiddleAuto);
+    m_chooser.addOption("Blue Middle Position", kbMiddleAuto);
     m_chooser.addOption("Red Left Position", krLeftAuto);
     m_chooser.addOption("Red Right Position", krRightAuto);
     m_chooser.addOption("Blue Right Position", kbRightAuto);
@@ -75,11 +77,14 @@ public class Robot extends TimedRobot {
       case kbRightAuto:
         m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
         break;
-      case kMiddleAuto:
-        m_autonomousCommand = m_robotContainer.getMiddleAutonomousCommand();
+      case krMiddleAuto:
+        m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
+        break;
+      case kbMiddleAuto:
+        m_autonomousCommand = m_robotContainer.getBlueMiddleAutonomousCommand();
         break;
       default:
-        m_autonomousCommand = m_robotContainer.getMiddleAutonomousCommand();
+        m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
         break;
     }
     // schedule the autonomous command (example)
