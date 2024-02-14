@@ -18,6 +18,7 @@ public final class Constants {
     public static final int armMotorCANID = 0;
     public static final double rotationUpSpeed = 0.2;
     public static final double rotationDownSpeed = -0.1;
+    public static final double WHEEL_ROTATE_SPEED = 0.5;
     
     public static final double ArmMaxDeg = 0;
     public static final double ArmBottomVoltage = 0;
