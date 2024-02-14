@@ -3,3 +3,4 @@ https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/inde
 https://pro.docs.ctr-electronics.com/en/latest/docs/hardware-reference/cancoder/index.html
 https://github.com/BroncBotz3481/YAGSL-Example/blob/cf4ef85d80759f07b902da09fc0ab10f0b818874/src/main/deploy/swerve/neo/controllerproperties.json
 https://www.chiefdelphi.com/t/navx-library-2023/421746/3
+https://cad.onshape.com/documents/ec13980afa9cb8e105782b4d/w/22d61e9b45fbae8774c0e6c2/e/68b49396a9ff12cfe68c7ff1\

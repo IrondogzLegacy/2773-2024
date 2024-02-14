@@ -13,7 +13,7 @@ public class ArmSubsystem extends SubsystemBase {
 CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);
   /** Creates a new ArmSubsystem. */
   public ArmSubsystem() {
-    armMotor.setSmartCurrentLimit (20);
+    armMotor.setSmartCurrentLimit (30);
   }
 
   public void rotateUp() {armMotor.set(Constants.rotationUpSpeed);}

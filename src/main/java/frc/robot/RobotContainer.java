@@ -78,10 +78,13 @@ public class RobotContainer {
   public Command getMiddleAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
-  public Command getLeftAutoCommand() {
+  public Command getRedLeftAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
-  public Command getRightAutoCommand() {
+  public Command getBlueLeftAutoCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getRedRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
 }
