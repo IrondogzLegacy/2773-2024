@@ -1,0 +1,14 @@
+Ideals:
+1) Drive out of alliance area (forwards) +2
+2) Turn WHEELS RIGHT towards speaker
+3) Drive in front of speaker
+4) Shoot into speaker +5
+5) Drive towards nearest note
+6) Pick up note (while driving into it)
+7) Drive to speaker
+8) Shoot into speaker +5
+9) Drive towards nearest note
+10) Pick up note (while driving into it)
+11) Drive to speaker
+12) Shoot into speaker +5
+Total: 17 points in autonomous!
