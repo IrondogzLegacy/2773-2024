@@ -20,7 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 public class NavigationSubsystem extends SubsystemBase {
   private AHRS gyro = new AHRS(SPI.Port.kMXP);
-  private double angle;
+  public double angle;
   // Locations for the swerve drive modules relative to the robot center.
   Translation2d m_frontLeftLocation = new Translation2d(Constants.HALF_WHEEL_DISTANCE, Constants.HALF_WHEEL_DISTANCE);
   Translation2d m_frontRightLocation = new Translation2d(Constants.HALF_WHEEL_DISTANCE, -Constants.HALF_WHEEL_DISTANCE);
@@ -69,7 +69,7 @@ public class NavigationSubsystem extends SubsystemBase {
    /*  Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
-*/
+   */
     Shuffleboard.getTab("Swerve Coordinates");
 
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Left", () -> {

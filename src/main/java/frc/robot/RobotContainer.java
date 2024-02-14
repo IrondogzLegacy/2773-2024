@@ -37,6 +37,7 @@ public class RobotContainer {
   SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
+  MoveDistanceAngleCommand moveDACommand = new MoveDistanceAngleCommand(navigationSubsystem, driveSubsystem);
   
   //Buttons
   JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
