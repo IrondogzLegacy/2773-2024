@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public final class Constants {
     // Half of the distance between swerve wheels
-    public static final double HALF_WHEEL_DISTANCE = 0.3;
+    public static final double DISTANCE_BTW_WHEELS = 0.6;
     public static final MotorType motorType = MotorType.kBrushless;
     public static final int intakeMotorCANID = 18;
     public static final int shooterMotor1CANID = 20;
