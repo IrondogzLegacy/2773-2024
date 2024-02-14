@@ -75,7 +75,10 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 //autonomous commands
-  public Command getMiddleAutonomousCommand() {
+  public Command getRedMiddleAutonomousCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getBlueMiddleAutonomousCommand() { 
     return Commands.print("No autonomous command configured");
   }
   public Command getRedLeftAutoCommand() {
@@ -85,6 +88,9 @@ public class RobotContainer {
     return Commands.print("No autonomous command configured");
   }
   public Command getRedRightAutoCommand() {
+    return Commands.print("No autonomous command configured");
+  }
+  public Command getBlueRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
 }
