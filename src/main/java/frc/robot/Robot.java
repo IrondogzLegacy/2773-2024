@@ -16,8 +16,10 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private static final String kMiddleAuto = "Middle Position";
-  private static final String kLeftAuto = "Left Position";
-  private static final String kRightAuto = "Right Position";
+  private static final String krLeftAuto = "Red Left Position";
+  private static final String kbLeftAuto = "Blue Left Position";
+  private static final String krRightAuto = "Red Right Position";
+  private static final String kbRightAuto = "Blue Right Position";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -25,8 +27,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     m_chooser.setDefaultOption("Middle Position", kMiddleAuto);
-    m_chooser.addOption("Left Position", kLeftAuto);
-    m_chooser.addOption("Right Position", kRightAuto);
+    m_chooser.addOption("Red Left Position", krLeftAuto);
+    m_chooser.addOption("Red Right Position", krRightAuto);
+    m_chooser.addOption("Blue Right Position", kbRightAuto);
+    m_chooser.addOption("Blue Left Position", kbLeftAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
   }
 
@@ -59,12 +63,21 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kLeftAuto:
-        m_autonomousCommand = m_robotContainer.getLeftAutoCommand();
+      case krLeftAuto:
+        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
         break;
-      case kRightAuto:
-        m_autonomousCommand = m_robotContainer.getRightAutoCommand();
+      case krRightAuto:
+        m_autonomousCommand = m_robotContainer.getRedRightAutoCommand();
+        break;
+      case kbLeftAuto:
+        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
+        break;
+      case kbRightAuto:
+        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
+        break;
       case kMiddleAuto:
+        m_autonomousCommand = m_robotContainer.getMiddleAutonomousCommand();
+        break;
       default:
         m_autonomousCommand = m_robotContainer.getMiddleAutonomousCommand();
         break;
