@@ -28,7 +28,10 @@ public class RobotContainer {
   XboxController driveStick = new XboxController(0);
   
   //Commands from files
+  IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
+  IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   
   //Buttons
@@ -39,17 +42,17 @@ public class RobotContainer {
   
 
   //Composite Commands
-  ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand); //for three seconds we intake  
-  ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand); //intake for 1 second
+  ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake  
+  ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
   ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
-  ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(1).andThen(intake1sec), shootWithIntake);
+  ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
 
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-    intakeButton.onTrue(intake3sec);
+    intakeButton.whileTrue(intakeCommand);
     shootButton.onTrue(intakeThenShoot);
   }
 
