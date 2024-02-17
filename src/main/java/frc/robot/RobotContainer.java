@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Arm.ArmSubsystem;
+import frc.robot.Arm.RotateDownCommand;
+import frc.robot.Arm.RotateUpCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
@@ -39,6 +41,9 @@ public class RobotContainer {
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   ShootCommand shootWithIntakeCommand = new ShootCommand(intakeSubsystem);
+  RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
+  RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
+
   
   //Buttons
     JoystickButton intakeButton = new JoystickButton(driveStick, 1);
@@ -50,8 +55,7 @@ public class RobotContainer {
 
 
   //Instant Commands
-  InstantCommand raiseArmCommand = new InstantCommand(armSubsystem::rotateUp);
-  InstantCommand lowerArmCommand = new InstantCommand(armSubsystem::rotateDown);
+  
 
   //Commands
   
@@ -73,8 +77,8 @@ public class RobotContainer {
     //Controller 1
     reverseShooterButton.whileTrue(reverseShooterCommand);
     reverseIntakeButton.whileTrue(reverseIntakeCommand);
-    raiseArmButton.whileTrue(raiseArmCommand);
-    lowerArmButton.whileTrue(lowerArmCommand);
+    raiseArmButton.whileTrue(rotateUpCommand);
+    lowerArmButton.whileTrue(rotateDownCommand);
   }
 
   // A chooser for autonomous commands
