@@ -13,8 +13,8 @@ public final class Constants {
     public static final MotorType motorType = MotorType.kBrushless;
     //CANIDs for Intake, Shooter, Arm
     public static final int intakeMotorCANID = 18;
-    public static final int shooterMotor1CANID = 20;
-    public static final int shooterMotor2CANID = 24; 
+    public static final int shooterMotor1CANID = 13;
+    public static final int shooterMotor2CANID = 15; 
     public static final int armMotorCANID = 0;
     //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;

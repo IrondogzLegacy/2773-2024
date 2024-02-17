@@ -4,19 +4,14 @@
 
 package frc.robot;
 
-import javax.sound.sampled.ReverbType;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Arm.ArmSubsystem;
@@ -43,15 +38,13 @@ public class RobotContainer {
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
+  ShootCommand shootWithIntakeCommand = new ShootCommand(intakeSubsystem);
   
   //Buttons
     JoystickButton intakeButton = new JoystickButton(driveStick, 1);
-    JoystickButton shootButton = new JoystickButton(driveStick, 2);
-    JoystickButton switchButton = new JoystickButton(driveStick, 3);
-    JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
-    JoystickButton raiseArmButton = new JoystickButton(armStick, 3);
-    JoystickButton lowerArmButton = new JoystickButton(armStick, 4);
-    JoystickButton testButton = new JoystickButton(driveStick, 7);
+    JoystickButton shootButton = new JoystickButton(driveStick, 3);
+    JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
+    JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
     JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
     JoystickButton reverseShooterButton = new JoystickButton(armStick, 2);
 
@@ -65,7 +58,7 @@ public class RobotContainer {
   //Composite Commands
   ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake  
   ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
-  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
+  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootWithIntakeCommand); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
 
   public RobotContainer() {
@@ -74,10 +67,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     //Controller 0
-    //resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
-    //switchButton.onTrue(switchCommand);
     intakeButton.whileTrue(intakeCommand);
-    shootButton.onTrue(intakeThenShoot);
+    shootButton.onTrue(shootCommand);
     
     //Controller 1
     reverseShooterButton.whileTrue(reverseShooterCommand);
