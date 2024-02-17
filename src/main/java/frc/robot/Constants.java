@@ -16,6 +16,23 @@ public final class Constants {
     public static final int shooterMotor1CANID = 13;
     public static final int shooterMotor2CANID = 15; 
     public static final int armMotorCANID = 24;
+    //CANIDs for Swerve Modules
+        //Drive Motors
+    public static final int frontLeftModuleDriveCANID = 0;
+    public static final int frontRightModuleDriveCANID = 0;
+    public static final int backLeftModuleDriveCANID = 17;
+    public static final int backRightModuleDriveCANID = 0;
+        //Rotation Motors
+    public static final int frontLeftModuleRotateCANID = 0;
+    public static final int frontRightModuleRotateCANID = 0;
+    public static final int backLeftModuleRotateCANID = 16;
+    public static final int backRightModuleRotateCANID = 0;    
+        //CTRE CANCoders (Encoders)
+    public static final int frontLeftModuleEncoderCANID = 0;
+    public static final int frontRightModuleEncoderCANID = 0;
+    public static final int backLeftModuleEncoderCANID = 52;
+    public static final int backRightModuleEncoderCANID = 0;
+
     //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;
     public static final double shooterSpeed = 1.0;
