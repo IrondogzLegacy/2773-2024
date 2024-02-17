@@ -45,7 +45,7 @@ public class RobotContainer {
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
 
   
-  //Buttons
+  //Buttons 
     JoystickButton intakeButton = new JoystickButton(driveStick, 1);
     JoystickButton shootButton = new JoystickButton(driveStick, 3);
     JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
@@ -72,7 +72,7 @@ public class RobotContainer {
   private void configureBindings() {
     //Controller 0
     intakeButton.whileTrue(intakeCommand);
-    shootButton.onTrue(shootCommand);
+    shootButton.whileTrue(shootCommand);
     
     //Controller 1
     reverseShooterButton.whileTrue(reverseShooterCommand);
