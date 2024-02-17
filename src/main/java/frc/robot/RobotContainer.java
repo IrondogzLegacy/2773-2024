@@ -25,18 +25,11 @@ import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
 import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
-import frc.robot.Navigation.MoveDistanceAngleCommand;
-import frc.robot.Navigation.NavigationSubsystem;
-import frc.robot.pathfinding.UDPSubSystem;
 
 public class RobotContainer {
   //Subsystems
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
-  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
-  UDPSubSystem udpSubSystem = new UDPSubSystem();
   
   //Controllers
   XboxController driveStick = new XboxController(0);
@@ -44,16 +37,12 @@ public class RobotContainer {
 
   
   //Commands from files
-  DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, navigationSubsystem);
-  CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
-  SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
   IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
-  MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   
   //Buttons
     JoystickButton intakeButton = new JoystickButton(driveStick, 1);
@@ -85,17 +74,16 @@ public class RobotContainer {
 
   private void configureBindings() {
     //Controller 0
-    driveSubsystem.setDefaultCommand(driveCommand);
     //resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
     //switchButton.onTrue(switchCommand);
     intakeButton.whileTrue(intakeCommand);
     shootButton.onTrue(intakeThenShoot);
-    raiseArmButton.whileTrue(raiseArmCommand);
-    lowerArmButton.whileTrue(lowerArmCommand);
-    testButton.whileTrue(moveDistanceAngleCommand);
+    
     //Controller 1
     reverseShooterButton.whileTrue(reverseShooterCommand);
     reverseIntakeButton.whileTrue(reverseIntakeCommand);
+    raiseArmButton.whileTrue(raiseArmCommand);
+    lowerArmButton.whileTrue(lowerArmCommand);
   }
 
   // A chooser for autonomous commands
