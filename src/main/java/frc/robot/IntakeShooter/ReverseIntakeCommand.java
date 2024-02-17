@@ -2,39 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.IntakeShooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class MoveDistanceAngleCommand extends Command {
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
-
-
-  public MoveDistanceAngleCommand(AutoSubsystem ams) {
-    this.ams = ams;
+public class ReverseIntakeCommand extends Command {
+  private final IntakeSubsystem intakeSubsystem;
+  /** Creates a new IntakeCommand. */
+  public ReverseIntakeCommand(IntakeSubsystem intakeSubsystem) {
+    this.intakeSubsystem = intakeSubsystem;
+    // Use addRequirements() here to dec  lare subsystem dependencies.
   }
-
-  AutoSubsystem ams;
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    ams.movePolar(1, 0.5);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intakeSubsystem.reverseIntake();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.stop();
+    intakeSubsystem.stopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.Navigation;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,7 +22,7 @@ public class CamSubsystem extends SubsystemBase {
   // reads out what the epic camera saw
   @Override
   public void periodic() {
-    String s = UDPSubSystem.;
+    String s = null;
     if (s != null) {
       TagData tagData = parseTagData(s);
       if (tagData != null) {

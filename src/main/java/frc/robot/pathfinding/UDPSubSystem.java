@@ -16,9 +16,8 @@ public class UDPSubSystem extends SubsystemBase {
     private final byte[] byteAllocation = new byte[200];
     // RECEIVE PACKETS (TRUE WHEN SOCKET IS INIT)
     private boolean isEnabled = false;
-    private String lastPacket;
-
-
+    private static String lastPacket;
+    private TagHandler tagHandler;
 
     public UDPSubSystem() {
         try {
@@ -45,8 +44,7 @@ public class UDPSubSystem extends SubsystemBase {
             String rawText = new String(UDPPacket.getData(), 0,
                     UDPPacket.getLength() );
             //this.lastPacket=rawText;
-            TagHandler.handleRawPacket(rawText);
-            // TODO: implement rawText
+            tagHandler.handleRawPacket(rawText);
         } catch (IOException e) {
             e.printStackTrace();
         }

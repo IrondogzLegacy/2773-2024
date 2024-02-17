@@ -7,19 +7,26 @@ package frc.robot;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public final class Constants {
-    // Half of the distance between swerve wheels
+    // The distance between swerve wheels
     public static final double DISTANCE_BTW_WHEELS = 0.6;
+    //MotorType of our Neos & PWMs
     public static final MotorType motorType = MotorType.kBrushless;
+    //CANIDs for Intake, Shooter, Arm
     public static final int intakeMotorCANID = 18;
     public static final int shooterMotor1CANID = 20;
     public static final int shooterMotor2CANID = 24; 
+    public static final int armMotorCANID = 0;
+    //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;
     public static final double shooterSpeed = 1.0;
-    public static final int armMotorCANID = 0;
     public static final double rotationUpSpeed = 0.2;
     public static final double rotationDownSpeed = -0.1;
+    public static final double reverseIntakeSpeed = -0.2;
+    public static final double reverseShooterSpeed = -0.2;
+    
     public static final double WHEEL_ROTATE_SPEED = 0.5;
     
+    //Constants for ArmControlCommand
     public static final double ArmMaxDeg = 0;
     public static final double ArmBottomVoltage = 0;
     public static final double ArmTopVoltage = 0;
@@ -31,4 +38,6 @@ public final class Constants {
     public static final double ControllerDeadzone = 0;
     public static final int ArmMaxRotationSpeed = 0;
     
+    
+    //Offsets for GoToTagCommand
 }

@@ -2,12 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Navigation;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.DriveSubsystem;
 import frc.robot.pathfinding.UDPSubSystem;
 
 public class TurnToTagCommand extends Command {
@@ -42,7 +43,7 @@ public class TurnToTagCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    long id = tagIdEntry.getInteger(1);
+    /*long id = tagIdEntry.getInteger(1);
         var tagData = camSubsystem.apriltag((int)id);
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
@@ -74,8 +75,8 @@ public class TurnToTagCommand extends Command {
     RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, rotateSign);*/
 
     //rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
-    //rotationCommand.schedule();
-  }
+    //rotationCommand.schedule();*/
+  //}
 }
 
   public double distanceToTag() {
@@ -89,7 +90,6 @@ public class TurnToTagCommand extends Command {
     angleToTag = Math.atan2(x, z) / Math.PI * 180;
     System.out.println(angleToTag);
     return angleToTag;
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.

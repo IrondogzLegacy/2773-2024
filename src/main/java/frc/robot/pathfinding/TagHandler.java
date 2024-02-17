@@ -8,12 +8,10 @@ public class TagHandler {
             if (tagData != null) {
                 System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
                 // If there is data, then the data will be printed
-                TagData tagData = new TagData(Integer.parseInt(tagData.apriltag);
-                // Used for the data used in TurnToTagCommand.java
-
-
+                return tagData;
             }
         }
+        return null;
     }
 
     private static TagData parseTagData(String s) {
@@ -23,17 +21,17 @@ public class TagHandler {
             return null;
         }
 
-        String apriltag = ids[1];
+         String apriltag = ids[1];
 
         String Group1 = tokens[2];
 
         String[] Num = Group1.split(",");
 
-        double XNum = Double.parseDouble(Num[0]);
+         double XNum = Double.parseDouble(Num[0]);
 
-        double YNum = Double.parseDouble(Num[1]);
+         double YNum = Double.parseDouble(Num[1]);
 
-        double ZNum = Double.parseDouble(Num[2]);
+         double ZNum = Double.parseDouble(Num[2]);
 
         String TagMatrix = tokens[1];
 

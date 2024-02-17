@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import frc.robot.Arm.ArmSubsystem;
+import frc.robot.Navigation.NavigationSubsystem;
 
 /** Add your docs here. */
 public class AutoSubsystem {
