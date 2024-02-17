@@ -26,9 +26,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public void stopIntake() {intakeMotor.stopMotor();}
   public void startShooter() {shooterMotor1.set(Constants.shooterSpeed); shooterMotor2.set(Constants.shooterSpeed);}
   public void stopShooter() {shooterMotor1.stopMotor(); shooterMotor2.stopMotor();}
-
   public void reverseIntake() {intakeMotor.set(Constants.reverseIntakeSpeed);}
   public void reverseShooter() {shooterMotor1.set(Constants.reverseShooterSpeed); shooterMotor2.set(Constants.reverseShooterSpeed);}
+  
   
   @Override
   public void periodic() {
