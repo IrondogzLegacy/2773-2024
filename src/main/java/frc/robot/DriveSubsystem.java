@@ -9,10 +9,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  SwerveDriveModule blMotor = new SwerveDriveModule(17, 16, 52, 0.111083984375);
-  SwerveDriveModule brMotor = new SwerveDriveModule(10, 11, 54, 0.13037109375);
-  SwerveDriveModule frMotor = new SwerveDriveModule(22, 23, 55, -0.43115234375);
-  SwerveDriveModule flMotor = new SwerveDriveModule(19, 12, 53, 0.244873046875);
+  SwerveDriveModule blMotor = new SwerveDriveModule(Constants.backLeftModuleDriveCANID, Constants.backLeftModuleRotateCANID, Constants.backLeftModuleEncoderCANID, 0.111083984375);
+  SwerveDriveModule brMotor = new SwerveDriveModule(Constants.backRightModuleDriveCANID, Constants.backRightModuleRotateCANID, Constants.backRightModuleEncoderCANID, 0.13037109375);
+  SwerveDriveModule frMotor = new SwerveDriveModule(Constants.frontRightModuleDriveCANID, Constants.frontRightModuleRotateCANID, Constants.frontRightModuleEncoderCANID, -0.43115234375);
+  SwerveDriveModule flMotor = new SwerveDriveModule(Constants.frontLeftModuleDriveCANID, Constants.frontLeftModuleRotateCANID, Constants.frontLeftModuleEncoderCANID, 0.244873046875);
 
   public SwerveModulePosition[] getPositions()
   {
