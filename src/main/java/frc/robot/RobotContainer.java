@@ -27,7 +27,7 @@ public class RobotContainer {
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
-  AutoMoveSubsystem autoMoveSubsystem = new AutoMoveSubsystem(navigationSubsystem, driveSubsystem);
+  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
   
   //Controllers
   XboxController driveStick = new XboxController(0);

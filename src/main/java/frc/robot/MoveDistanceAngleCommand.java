@@ -10,11 +10,11 @@ public class MoveDistanceAngleCommand extends Command {
   DriveSubsystem driveSubsystem = new DriveSubsystem();
 
 
-  public MoveDistanceAngleCommand(AutoMoveSubsystem ams) {
+  public MoveDistanceAngleCommand(AutoSubsystem ams) {
     this.ams = ams;
   }
 
-  AutoMoveSubsystem ams;
+  AutoSubsystem ams;
 
   // Called when the command is initially scheduled.
   @Override
