@@ -19,7 +19,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 public class NavigationSubsystem extends SubsystemBase {
-  private AHRS gyro = new AHRS(SPI.Port.kMXP);
+  public AHRS gyro = new AHRS(SPI.Port.kMXP);
   public double angle;
   // Locations for the swerve drive modules relative to the robot center.
   Translation2d m_frontLeftLocation = new Translation2d(Constants.DISTANCE_BTW_WHEELS, Constants.DISTANCE_BTW_WHEELS);

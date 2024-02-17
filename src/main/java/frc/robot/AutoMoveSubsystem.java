@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+
 /** Add your docs here. */
 public class AutoMoveSubsystem {
 
@@ -28,21 +30,18 @@ public class AutoMoveSubsystem {
     }
 
     //Currently not functioning
-    public void rotateWheelsTo(double radians) {
+    public void rotateRobotTo(double radians) {
         while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005)) {
-            driveSub.directionalDrive(0, radians);
+            driveSub.rotate(0.1);
+            navSub.angle = navSub.gyro.getAngle() / 180.0 * Math.PI;
         }
     }
 
-    public void rotateRobotTo(double radians) {
-        if ((navSub.fla + Math.PI) < radians) {
-            while (navSub.fla > radians) {
-                driveSub.rotate(-Constants.WHEEL_ROTATE_SPEED);
-            }
-        } else {
-            while (navSub.fla < radians) {
-                driveSub.rotate(Constants.WHEEL_ROTATE_SPEED);
-            }
+    public void rotateWheelsTo(double radians) {
+        while (!(navSub.fla > radians - 0.005 && navSub.fla < radians + 0.005)) {
+            driveSub.directionalDrive(0, radians);
+            SwerveModulePosition[] pos = driveSub.getPositions();
+            navSub.fla = pos[0].angle.getRadians();
         }
     }
 
