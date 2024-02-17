@@ -60,8 +60,8 @@ public class RobotContainer {
     JoystickButton shootButton = new JoystickButton(driveStick, 2);
     JoystickButton switchButton = new JoystickButton(driveStick, 3);
     JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
-    JoystickButton raiseArmButton = new JoystickButton(driveStick, 5);
-    JoystickButton lowerArmButton = new JoystickButton(driveStick, 6);
+    JoystickButton raiseArmButton = new JoystickButton(armStick, 3);
+    JoystickButton lowerArmButton = new JoystickButton(armStick, 4);
     JoystickButton testButton = new JoystickButton(driveStick, 7);
     JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
     JoystickButton reverseShooterButton = new JoystickButton(armStick, 2);
