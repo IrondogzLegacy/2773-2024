@@ -3,16 +3,14 @@ package frc.robot.pathfinding;
 public class TagHandler {
 
     public static TagData handleRawPacket(String rawText) {
-        if (rawText != null) {
-            TagData tagData = parseTagData(rawText);
+        TagData tagData = parseTagData(rawText);
             if (tagData != null) {
                 System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
                 // If there is data, then the data will be printed
                 return tagData;
             }
+            return tagData;
         }
-        return null;
-    }
 
     private static TagData parseTagData(String s) {
         String[] tokens = s.split(";");

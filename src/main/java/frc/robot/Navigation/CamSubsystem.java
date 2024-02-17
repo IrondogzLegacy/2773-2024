@@ -16,13 +16,13 @@ public class CamSubsystem extends SubsystemBase {
    * First: 1 0.328262 -0.520233 1.085545
    */
 
-  private TagData[] apriltag = new TagData[30];
+  //private TagData[] apriltag = new TagData[30];
 
 
   // reads out what the epic camera saw
   @Override
   public void periodic() {
-    String s = null;
+    /*String s = null;
     if (s != null) {
       TagData tagData = parseTagData(s);
       if (tagData != null) {
@@ -33,7 +33,7 @@ public class CamSubsystem extends SubsystemBase {
 
         
       }
-    }
+    }*/
 
     // This method will be called once per scheduler run
   }

@@ -34,20 +34,20 @@ public class NavigationSubsystem extends SubsystemBase {
   double pitch;
   private Supplier<SwerveModulePosition[]> modulePositions;
   
-  double x;
-  double y;
-  double z;
-  double flx;
-  double fly;
+  public double x;
+  public double y;
+  public double z;
+  public double flx;
+  public double fly;
   double[] fl = {flx, fly};
-  double frx;
-  double fry;
+  public double frx;
+  public double fry;
   double[] fr = {frx, fry};
-  double blx;
-  double bly;
+  public double blx;
+  public double bly;
   double[] bl = {blx, bly};
-  double brx;
-  double bry;
+  public double brx;
+  public double bry;
   double[] br = {brx, bry};
   
   double sflx;
@@ -158,4 +158,6 @@ public class NavigationSubsystem extends SubsystemBase {
     };
     return coordinates;
   }
+
+
 }

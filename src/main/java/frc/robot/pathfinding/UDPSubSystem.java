@@ -44,7 +44,8 @@ public class UDPSubSystem extends SubsystemBase {
             String rawText = new String(UDPPacket.getData(), 0,
                     UDPPacket.getLength() );
             //this.lastPacket=rawText;
-            tagHandler.handleRawPacket(rawText);
+            //tagHandler.handleRawPacket(rawText);
+            System.out.println(rawText);
         } catch (IOException e) {
             e.printStackTrace();
         }
