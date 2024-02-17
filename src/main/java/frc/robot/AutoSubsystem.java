@@ -5,17 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import frc.robot.Arm.ArmSubsystem;
 
 /** Add your docs here. */
-public class AutoMoveSubsystem {
+public class AutoSubsystem {
 
-    public AutoMoveSubsystem(NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
+    public AutoSubsystem(NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem, ArmSubsystem armSubsystem) {
         this.navSub = navigationSubsystem;
         this.driveSub = driveSubsystem;
+        this.armSub = armSubsystem;
     }
 
     NavigationSubsystem navSub;
     DriveSubsystem driveSub;
+    ArmSubsystem armSub;
 
     public void rotateBotTo(double radians) {
         if ((navSub.angle + Math.PI) < radians) {
@@ -70,5 +73,20 @@ public class AutoMoveSubsystem {
         double distance = Math.sqrt(x*x + y*y);
         double radians = (Math.atan(y/x) * 180)/Math.PI;
         movePolar(radians, distance);
+    }
+
+    public void setArmTo(double radians) {
+        double currentAngle = armSub.getRotationAngle();
+        double low = radians - 0.005;
+        double high = radians + 0.005;
+        while (!(currentAngle > low && currentAngle < high)) {
+            while (currentAngle < low) {
+                armSub.rotate(0.1);
+            }
+            while (currentAngle > high) {
+                armSub.rotate(-0.1);
+            }
+            currentAngle = armSub.getRotationAngle();
+        }
     }
 }
