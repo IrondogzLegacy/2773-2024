@@ -19,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setSmartCurrentLimit (20);
     shooterMotor1.setSmartCurrentLimit(30);
     shooterMotor2.setSmartCurrentLimit(30);
-    shooterMotor2.setInverted(true);
+    shooterMotor2.setInverted(false);
   }
 
   public void startIntake() {intakeMotor.set(Constants.intakeSpeed);}

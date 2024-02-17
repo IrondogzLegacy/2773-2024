@@ -13,7 +13,7 @@ public final class Constants {
     public static final int intakeMotorCANID = 18;
     public static final int shooterMotor1CANID = 15;
     public static final int shooterMotor2CANID = 13; 
-    public static final double intakeSpeed = 0.3;
-    public static final double shooterSpeed = 0.3;
+    public static final double intakeSpeed = 0.4;
+    public static final double shooterSpeed = 1.0;
     
 }
