@@ -23,6 +23,7 @@ CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorT
   public ArmSubsystem() {
     armMotor.setSmartCurrentLimit (30);
     armRotationEncoder.setPositionConversionFactor(3.0);
+    armMotor.setInverted(true);
 
   }
 
