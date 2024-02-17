@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.pathfinding;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,6 +16,7 @@ public class UDPSubSystem extends SubsystemBase {
     private final byte[] byteAllocation = new byte[200];
     // RECEIVE PACKETS (TRUE WHEN SOCKET IS INIT)
     private boolean isEnabled = false;
+    private String lastPacket;
 
 
 
@@ -43,10 +44,16 @@ public class UDPSubSystem extends SubsystemBase {
             socket.receive(UDPPacket);
             String rawText = new String(UDPPacket.getData(), 0,
                     UDPPacket.getLength() );
+            //this.lastPacket=rawText;
+            TagHandler.handleRawPacket(rawText);
             // TODO: implement rawText
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getLastPacket() {
+        return lastPacket;
     }
 
 }
