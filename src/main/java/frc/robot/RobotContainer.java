@@ -71,6 +71,7 @@ public class RobotContainer {
     shootButton.onTrue(intakeThenShoot);
     raiseArmButton.whileTrue(raiseArmCommand);
     lowerArmButton.whileTrue(lowerArmCommand);
+    testButton.whileTrue(moveDistanceAngleCommand);
   }
 
   // A chooser for autonomous commands

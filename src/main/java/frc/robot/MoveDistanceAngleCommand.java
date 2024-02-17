@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class MoveDistanceAngleCommand extends Command {
+  DriveSubsystem driveSubsystem = new DriveSubsystem();
+
 
   public MoveDistanceAngleCommand(AutoMoveSubsystem ams) {
     this.ams = ams;
@@ -17,7 +19,7 @@ public class MoveDistanceAngleCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ams.movePolar(0, 0);
+    ams.movePolar(1, 0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -26,7 +28,9 @@ public class MoveDistanceAngleCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSubsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override
