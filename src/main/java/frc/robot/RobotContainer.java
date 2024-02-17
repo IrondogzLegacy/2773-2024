@@ -27,6 +27,7 @@ public class RobotContainer {
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
+  AutoMoveSubsystem autoMoveSubsystem = new AutoMoveSubsystem(navigationSubsystem, driveSubsystem);
   
   //Controllers
   XboxController driveStick = new XboxController(0);
@@ -37,7 +38,7 @@ public class RobotContainer {
   SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
-  MoveDistanceAngleCommand moveDACommand = new MoveDistanceAngleCommand(navigationSubsystem, driveSubsystem);
+  MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   
   //Buttons
   JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
@@ -46,6 +47,7 @@ public class RobotContainer {
   JoystickButton shootButton = new JoystickButton(driveStick, 2);
   JoystickButton raiseArmButton = new JoystickButton(driveStick, 5);
   JoystickButton lowerArmButton = new JoystickButton(driveStick, 6);
+  JoystickButton testButton = new JoystickButton(driveStick, 7);
 
   //Instant Commands
   InstantCommand raiseArmCommand = new InstantCommand(armSubsystem::rotateUp);
