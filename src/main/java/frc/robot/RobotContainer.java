@@ -32,8 +32,6 @@ public class RobotContainer {
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   
   //Buttons
-  JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
-  JoystickButton switchButton = new JoystickButton(driveStick, 3);
   JoystickButton intakeButton = new JoystickButton(driveStick, 1);
   JoystickButton shootButton = new JoystickButton(driveStick, 2);
 
