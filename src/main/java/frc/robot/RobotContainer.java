@@ -33,10 +33,12 @@ public class RobotContainer {
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
 
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
+  ShootCommand shootCommand1 = new ShootCommand(intakeSubsystem);
+
   
   //Buttons
   JoystickButton intakeButton = new JoystickButton(driveStick, 1);
-  JoystickButton shootButton = new JoystickButton(driveStick, 2);
+  JoystickButton shootButton = new JoystickButton(driveStick, 3);
 
   //Instant Commands
   
@@ -53,7 +55,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     intakeButton.whileTrue(intakeCommand);
-    shootButton.onTrue(intakeThenShoot);
+    shootButton.whileTrue(shootCommand1);
   }
 
   // A chooser for autonomous commands
