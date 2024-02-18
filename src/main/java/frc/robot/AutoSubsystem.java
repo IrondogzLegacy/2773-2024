@@ -21,19 +21,7 @@ public class AutoSubsystem {
     DriveSubsystem driveSub;
     ArmSubsystem armSub;
 
-    public void rotateBotTo(double radians) {
-        if ((navSub.angle + Math.PI) < radians) {
-            while (navSub.angle > radians) {
-                driveSub.rotate(-0.1);
-            }
-        } else {
-            while (navSub.angle < radians) {
-                driveSub.rotate(0.1);
-            }
-        }
-    }
-
-    //Currently not functioning
+    //Rotates the chassis direction to given radians
     public void rotateRobotTo(double radians) {
         while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005)) {
             driveSub.rotate(0.1);
@@ -41,6 +29,7 @@ public class AutoSubsystem {
         }
     }
 
+    //Rotates the wheels to given radians, w/o moving chassis
     public void rotateWheelsTo(double radians) {
         while (!(navSub.fla > radians - 0.005 && navSub.fla < radians + 0.005)) {
             driveSub.directionalDrive(0, radians);
@@ -49,6 +38,7 @@ public class AutoSubsystem {
         }
     }
 
+    //Moves towards a given polar coordinate
     public void movePolar(double radians, double distance) {
         rotateWheelsTo(radians);
         double y = Math.sin(radians) * distance;
@@ -60,22 +50,35 @@ public class AutoSubsystem {
         }
     }
 
+    //Moves to a given x,y coordinate relative to the field
     public void moveTo(double x, double y) {
         double cx = navSub.x;
         double cy = navSub.y;
         double dx = cx-x;
         double dy = cy-y;
         double distance = Math.sqrt(dx*dx + dy*dy);
-        double radians = (Math.atan(dy/dx) * 180)/Math.PI;
+        double radians = Math.atan(dy/dx);
+        if (dx < 0 && dy > 0 && radians < 0) {
+            radians += Math.PI;
+        } else if(dx < 0 && dy < 0 && radisn > 0) {
+            radians -= Math.PI;
+        }
         movePolar(radians, distance);
     }
 
+    //Moves to a given x,y coordinate relative to the robots current position
     public void moveRelative(double x, double y) {
         double distance = Math.sqrt(x*x + y*y);
-        double radians = (Math.atan(y/x) * 180)/Math.PI;
+        double radians = Math.atan(y/x);
+        if (dx < 0 && dy > 0 && radians < 0) {
+            radians += Math.PI;
+        } else if(dx < 0 && dy < 0 && radisn > 0) {
+            radians -= Math.PI;
+        }
         movePolar(radians, distance);
     }
 
+    //Rotates the arm to the given radians
     public void setArmTo(double radians) {
         double currentAngle = armSub.getRotationAngle();
         double low = radians - 0.005;
