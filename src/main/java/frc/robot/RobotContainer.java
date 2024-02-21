@@ -32,9 +32,9 @@ import frc.robot.pathfinding.UDPSubSystem;
 public class RobotContainer {
   //Subsystems
   DriveSubsystem driveSubsystem = new DriveSubsystem();
-  // IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
-  // ArmSubsystem armSubsystem = new ArmSubsystem();
+  ArmSubsystem armSubsystem = new ArmSubsystem();
   // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
   // UDPSubSystem udpSubSystem = new UDPSubSystem();
   
@@ -47,29 +47,29 @@ public class RobotContainer {
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, navigationSubsystem);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
-  // IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+  IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   // IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
   // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
   // ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
-  // ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
+  ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   
   // //Buttons
-  //   JoystickButton intakeButton = new JoystickButton(driveStick, 1);
-  //   JoystickButton shootButton = new JoystickButton(driveStick, 2);
+    JoystickButton intakeButton = new JoystickButton(driveStick, 1);
+    JoystickButton shootButton = new JoystickButton(driveStick, 2);
   //   JoystickButton switchButton = new JoystickButton(driveStick, 3);
   //   JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
-  //   JoystickButton raiseArmButton = new JoystickButton(armStick, 3);
-  //   JoystickButton lowerArmButton = new JoystickButton(armStick, 4);
+    JoystickButton raiseArmButton = new JoystickButton(armStick, 3);
+    JoystickButton lowerArmButton = new JoystickButton(armStick, 4);
   //   JoystickButton testButton = new JoystickButton(driveStick, 7);
   //   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   //   JoystickButton reverseShooterButton = new JoystickButton(armStick, 2);
 
 
   // //Instant Commands
-  // InstantCommand raiseArmCommand = new InstantCommand(armSubsystem::rotateUp);
-  // InstantCommand lowerArmCommand = new InstantCommand(armSubsystem::rotateDown);
+  InstantCommand raiseArmCommand = new InstantCommand(armSubsystem::rotateUp, armSubsystem);
+  InstantCommand lowerArmCommand = new InstantCommand(armSubsystem::rotateDown, armSubsystem);
 
   // //Commands
   
@@ -88,10 +88,10 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(driveCommand);
     //resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
     //switchButton.onTrue(switchCommand);
-    // intakeButton.whileTrue(intakeCommand);
-    // shootButton.onTrue(intakeThenShoot);
-    // raiseArmButton.whileTrue(raiseArmCommand);
-    // lowerArmButton.whileTrue(lowerArmCommand);
+    intakeButton.whileTrue(intakeCommand);
+    shootButton.whileTrue(shootCommand);
+    raiseArmButton.whileTrue(raiseArmCommand);
+    lowerArmButton.whileTrue(lowerArmCommand);
     // testButton.whileTrue(moveDistanceAngleCommand);
     // //Controller 1
     // reverseShooterButton.whileTrue(reverseShooterCommand);
