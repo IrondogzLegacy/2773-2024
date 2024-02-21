@@ -86,6 +86,10 @@ public class SwerveDriveModule {
     return value * 2 * Math.PI;
   }
 
+  public double rawPosition() {
+    return encoder.getAbsolutePosition().getValueAsDouble();
+  }
+
   public void reset() {
     pidRotate.setSetpoint(0);
     double s = pidRotate.calculate(-position());

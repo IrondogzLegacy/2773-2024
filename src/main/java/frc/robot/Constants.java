@@ -18,20 +18,36 @@ public final class Constants {
     public static final int armMotorCANID = 24;
     //CANIDs for Swerve Modules
         //Drive Motors
-    public static final int frontLeftModuleDriveCANID = 19;
-    public static final int frontRightModuleDriveCANID = 22;
-    public static final int backLeftModuleDriveCANID = 17;
-    public static final int backRightModuleDriveCANID = 10;
+    public static final int _frontLeftModuleDriveCANID = 19;
+    public static final int _frontRightModuleDriveCANID = 22;
+    public static final int _backLeftModuleDriveCANID = 17;
+    public static final int _backRightModuleDriveCANID = 10;
         //Rotation Motors
-    public static final int frontLeftModuleRotateCANID = 12;
-    public static final int frontRightModuleRotateCANID = 23;
-    public static final int backLeftModuleRotateCANID = 16;
-    public static final int backRightModuleRotateCANID = 11;    
+    public static final int _frontLeftModuleRotateCANID = 12;
+    public static final int _frontRightModuleRotateCANID = 23;
+    public static final int _backLeftModuleRotateCANID = 16;
+    public static final int _backRightModuleRotateCANID = 11;    
         //CTRE CANCoders (Encoders)
-    public static final int frontLeftModuleEncoderCANID = 53;
-    public static final int frontRightModuleEncoderCANID = 55;
-    public static final int backLeftModuleEncoderCANID = 52;
-    public static final int backRightModuleEncoderCANID = 54;
+    public static final int _frontLeftModuleEncoderCANID = 53;
+    public static final int _frontRightModuleEncoderCANID = 55;
+    public static final int _backLeftModuleEncoderCANID = 52;
+    public static final int _backRightModuleEncoderCANID = 54;
+
+    //Drive Motors
+    public static final int frontLeftModuleDriveCANID = 17;
+    public static final int frontRightModuleDriveCANID = 19;
+    public static final int backLeftModuleDriveCANID = 10;
+    public static final int backRightModuleDriveCANID = 22;
+        //Rotation Motors
+    public static final int frontLeftModuleRotateCANID = 16;
+    public static final int frontRightModuleRotateCANID = 12;
+    public static final int backLeftModuleRotateCANID = 11;
+    public static final int backRightModuleRotateCANID = 23;    
+        //CTRE CANCoders (Encoders)
+    public static final int frontLeftModuleEncoderCANID = 52;
+    public static final int frontRightModuleEncoderCANID = 53;
+    public static final int backLeftModuleEncoderCANID = 54;
+    public static final int backRightModuleEncoderCANID = 55;
 
     //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;

@@ -9,7 +9,7 @@ import frc.robot.AutoSubsystem;
 import frc.robot.DriveSubsystem;
 
 public class MoveDistanceAngleCommand extends Command {
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
+  DriveSubsystem driveSubsystem = null;  // new DriveSubsystem();
 
 
   public MoveDistanceAngleCommand(AutoSubsystem ams) {
