@@ -71,14 +71,13 @@ public class AutoSubsystem {
     public void moveRelative(double x, double y) {
         double distance = Math.sqrt(x * x + y * y);
         double radians = Math.atan(y / x);
-        /*
-         * if (dx < 0 && dy > 0 && radians < 0) {
-         * radians += Math.PI;
-         * } else if(dx < 0 && dy < 0 && radians > 0) {
-         * radians -= Math.PI;
-         * }
-         * movePolar(radians, distance);
-         */
+        
+        if (x < 0 && y > 0 && radians < 0) {
+            radians += Math.PI;
+        } else if(x < 0 && y < 0 && radians > 0) {
+            radians -= Math.PI;
+        }
+        movePolar(radians, distance);
     }
 
     // Rotates the arm to the given radians
