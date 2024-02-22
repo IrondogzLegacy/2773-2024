@@ -32,6 +32,9 @@ CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorT
   private final NetworkTableEntry armAngleEntry = armTable.getEntry("angle");
   private final NetworkTableEntry armVoltageEntry = armTable.getEntry("voltage");
 
+  double setAngle = getRotationAngle();
+  boolean holdAngle = false;
+
   public void rotateUp() {armMotor.set(Constants.rotationUpSpeed);}
   public void rotateDown() {armMotor.set(Constants.rotationDownSpeed);}
   public void rotateStop() {armMotor.set(0);}
@@ -53,6 +56,15 @@ CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorT
     angTableEntry.setDouble(getRotationAngle());
     armVoltageEntry.setDouble(armPotent2.getVoltage());
     armAngleEntry.setDouble(armRotationEncoder.getPosition());
+    if (holdAngle && getRotationAngle() < setAngle - 0.005) {
+      rotateUp();
+      while (getRotationAngle() < setAngle) {}
+      rotateStop();
+    } else if (holdAngle && getRotationAngle() > setAngle + 0.005) {
+      rotateDown();
+      while (getRotationAngle() > setAngle + 0.005) {}
+      rotateStop();
+    }
     // System.out.println(armEncoder.getPosition());  
   }
   public void printVoltage() {System.out.println(armPotent2.getVoltage());}
