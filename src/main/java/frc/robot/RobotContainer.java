@@ -27,7 +27,7 @@ import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
 import frc.robot.Navigation.MoveDistanceAngleCommand;
 import frc.robot.Navigation.NavigationSubsystem;
-import frc.robot.pathfinding.UDPSubSystem;
+import frc.robot.pathfinding.TagsSubsystem;
 
 public class RobotContainer {
   // Subsystems
@@ -36,7 +36,6 @@ public class RobotContainer {
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
-  // UDPSubSystem udpSubSystem = new UDPSubSystem();
 
   // Controllers
   XboxController driveStick = new XboxController(0);

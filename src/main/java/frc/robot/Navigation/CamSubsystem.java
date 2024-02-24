@@ -1,11 +1,10 @@
 package frc.robot.Navigation;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.pathfinding.UDPSubSystem;
 
 public class CamSubsystem extends SubsystemBase {
-  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB);
+
   /*
    * Parses April Tag Data
    * 
