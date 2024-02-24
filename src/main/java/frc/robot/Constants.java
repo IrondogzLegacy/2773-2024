@@ -49,11 +49,10 @@ public final class Constants {
     public static final double ControlArmSpeed = 0.01;
 
     //Constants for ArmControlCommand
-    public static final double ArmMaxDeg = 1;
+    public static final double ArmMaxDeg = 1.1;
     public static final double ArmMinDeg = 0;
     public static final double armMaxRotationOverride = 0.1;
-    public static final double armMaxAngle = 1;
-    public static final double ControllerDeadzone = 0.05;
+    public static final double ControllerDeadzone = 0.1;
     public static final double ArmMaxRotationSpeed = 0.3;    
     
     //Offsets for GoToTagCommand
