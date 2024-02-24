@@ -34,23 +34,23 @@ public class DriveCommand extends Command {
     double speed = Math.sqrt(x * x + y * y) * Constants.DriveSpeedMultiplier;
     double angle = Math.atan2(y, x);
     double gyroAngle = navigationSubsystem.angle();
-    if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
-      double rotate = joy.getRightX();
-      if (Math.abs(rotate) > Deadzone) {
-        driveSubsystem.rotate(Constants.RotateSpeedMultiplier * rotate);
-      } else {
-        driveSubsystem.stop();
-      }
-    } else {
-      driveSubsystem.directionalDrive(speed, angle - gyroAngle);
-    }
-
-    // double r = joy.getRightX();
-    // if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
-    //   driveSubsystem.stop();
+    // if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
+    //   double rotate = joy.getRightX();
+    //   if (Math.abs(rotate) > Deadzone) {
+    //     driveSubsystem.rotate(Constants.RotateSpeedMultiplier * rotate);
+    //   } else {
+    //     driveSubsystem.stop();
+    //   }
     // } else {
-    //   driveSubsystem.directionalDrive(speed, angle - gyroAngle, Constants.RotateSpeedMultiplier * rotate);
+    //   driveSubsystem.directionalDrive(speed, angle - gyroAngle);
     // }
+
+    double r = joy.getRightX();
+    if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
+      driveSubsystem.stop();
+    } else {
+      driveSubsystem.directionalDrive(speed, angle - gyroAngle, Constants.RotateSpeedMultiplier * r);
+    }
 
   }
 

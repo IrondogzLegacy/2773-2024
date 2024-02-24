@@ -99,9 +99,12 @@ public class NavigationSubsystem extends SubsystemBase {
     return this.angle;
   }
 
-
   public Pose2d pose() {
     return pose;
+  }
+
+  public void resetOrientation() {
+    gyro.reset();
   }
 
   @Override

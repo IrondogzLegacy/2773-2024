@@ -62,6 +62,7 @@ public class RobotContainer {
   JoystickButton shootButton = new JoystickButton(armStick, 6);
   // JoystickButton switchButton = new JoystickButton(driveStick, 3);
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
+  JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
   JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
   JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
   // JoystickButton testButton = new JoystickButton(driveStick, 7);
@@ -82,6 +83,7 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(driveCommand);
     armSubsystem.setDefaultCommand(armControlCommand);
     // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
+    resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
     // switchButton.onTrue(switchCommand);
     intakeButton.whileTrue(intakeCommand);
     shootButton.whileTrue(shootCommand);
