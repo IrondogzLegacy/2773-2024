@@ -29,20 +29,29 @@ public class DriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    final double Deadzone = Constants.ControllerDeadzone;
     double x = joy.getLeftX(), y = joy.getLeftY();
     double speed = Math.sqrt(x * x + y * y) * Constants.DriveSpeedMultiplier;
     double angle = Math.atan2(y, x);
     double gyroAngle = navigationSubsystem.angle();
     if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
       double rotate = joy.getRightX();
-      if (Math.abs(rotate) > 0.01) {
-        driveSubsystem.rotate(0.4 * rotate);
+      if (Math.abs(rotate) > Deadzone) {
+        driveSubsystem.rotate(Constants.RotateSpeedMultiplier * rotate);
       } else {
         driveSubsystem.stop();
       }
     } else {
       driveSubsystem.directionalDrive(speed, angle - gyroAngle);
     }
+
+    // double r = joy.getRightX();
+    // if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
+    //   driveSubsystem.stop();
+    // } else {
+    //   driveSubsystem.directionalDrive(speed, angle - gyroAngle, Constants.RotateSpeedMultiplier * rotate);
+    // }
+
   }
 
   // Called once the command ends or is interrupted.

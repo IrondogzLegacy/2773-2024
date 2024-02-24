@@ -21,31 +21,31 @@ public class UDPSubSystem extends SubsystemBase {
 
     public UDPSubSystem() {
         try {
-            this.socket=new DatagramSocket(this.PORT);
-            this.isEnabled=true;
+            this.socket = new DatagramSocket(this.PORT);
+            this.isEnabled = true;
         } catch (IOException e) {
-            // womp womp
+            e.printStackTrace();
         }
     }
 
     // PACKET PLACEHOLDER
-    DatagramPacket UDPPacket = new DatagramPacket(byteAllocation,
+    DatagramPacket udpPacket = new DatagramPacket(byteAllocation,
             byteAllocation.length);
 
     @Override
     public void periodic() {
-        if(isEnabled)
+        if (isEnabled)
             receivePacket();
     }
 
     private void receivePacket() {
         try {
-            socket.receive(UDPPacket);
-            String rawText = new String(UDPPacket.getData(), 0,
-                    UDPPacket.getLength() );
-            //this.lastPacket=rawText;
-            //tagHandler.handleRawPacket(rawText);
-            System.out.println(rawText);
+            socket.receive(udpPacket);
+            String rawText = new String(udpPacket.getData(), 0,
+                    udpPacket.getLength());
+            // this.lastPacket=rawText;
+            // tagHandler.handleRawPacket(rawText);
+            // System.out.println(rawText);
         } catch (IOException e) {
             e.printStackTrace();
         }

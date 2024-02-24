@@ -23,10 +23,10 @@ public class NavigationSubsystem extends SubsystemBase {
   public AHRS gyro = new AHRS(SPI.Port.kMXP);
   public double angle;
   // Locations for the swerve drive modules relative to the robot center.
-  Translation2d m_frontLeftLocation = new Translation2d(Constants.DISTANCE_BTW_WHEELS, Constants.DISTANCE_BTW_WHEELS);
-  Translation2d m_frontRightLocation = new Translation2d(Constants.DISTANCE_BTW_WHEELS, -Constants.DISTANCE_BTW_WHEELS);
-  Translation2d m_backLeftLocation = new Translation2d(-Constants.DISTANCE_BTW_WHEELS, Constants.DISTANCE_BTW_WHEELS);
-  Translation2d m_backRightLocation = new Translation2d(-Constants.DISTANCE_BTW_WHEELS, -Constants.DISTANCE_BTW_WHEELS);
+  Translation2d m_frontLeftLocation = new Translation2d(Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
+  Translation2d m_frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
+  Translation2d m_backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
+  Translation2d m_backRightLocation = new Translation2d(-Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
 
   // Creating my kinematics object using the module locations
   SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(

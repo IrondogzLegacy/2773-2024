@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import javax.sound.sampled.ReverbType;
-
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
@@ -32,93 +30,92 @@ import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.pathfinding.UDPSubSystem;
 
 public class RobotContainer {
-  //Subsystems
+  // Subsystems
   DriveSubsystem driveSubsystem = new DriveSubsystem();
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
   // UDPSubSystem udpSubSystem = new UDPSubSystem();
-  
-  //Controllers
+
+  // Controllers
   XboxController driveStick = new XboxController(0);
   XboxController armStick = new XboxController(1);
-  
-  //Commands from files
+
+  // Commands from files
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, navigationSubsystem);
+  ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
-  //IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
-  //IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
-  //ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
-  //ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
+  // IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
+  // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
+  ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
+  // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
-  
-  // //Buttons
-    JoystickButton intakeButton = new JoystickButton(armStick, 1);
-    JoystickButton shootButton = new JoystickButton(armStick, 2);
-  //   JoystickButton switchButton = new JoystickButton(driveStick, 3);
-  //   JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
-    JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
-    JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
-  //   JoystickButton testButton = new JoystickButton(driveStick, 7);
-     //JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
-     //JoystickButton reverseShooterButton = new JoystickButton(armStick, 2);
 
+  //Buttons
+  JoystickButton intakeButton = new JoystickButton(armStick, 2);
+  JoystickButton shootButton = new JoystickButton(armStick, 6);
+  // JoystickButton switchButton = new JoystickButton(driveStick, 3);
+  // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
+  JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
+  JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
+  // JoystickButton testButton = new JoystickButton(driveStick, 7);
+  JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
+  // JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
 
-  // //Instant Commands
-
-
-  // //Commands
-  
   // //Composite Commands
-   //ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake  
-   //ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
-   //ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
-   //ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
+  // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
+  // ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
+  // ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
+  // ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
 
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-  //Controller 0
     driveSubsystem.setDefaultCommand(driveCommand);
-    //resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
-    //switchButton.onTrue(switchCommand);
+    armSubsystem.setDefaultCommand(armControlCommand);
+    // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
+    // switchButton.onTrue(switchCommand);
     intakeButton.whileTrue(intakeCommand);
     shootButton.whileTrue(shootCommand);
     raiseArmButton.whileTrue(rotateUpCommand);
     lowerArmButton.whileTrue(rotateDownCommand);
     // testButton.whileTrue(moveDistanceAngleCommand);
-  //Controller 1
-     //reverseShooterButton.whileTrue(reverseShooterCommand);
-     //reverseIntakeButton.whileTrue(reverseIntakeCommand);
+    // reverseShooterButton.whileTrue(reverseShooterCommand);
+    reverseIntakeButton.whileTrue(reverseIntakeCommand);
   }
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-//autonomous commands
+  // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
-  public Command getBlueMiddleAutonomousCommand() { 
+
+  public Command getBlueMiddleAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
+
   public Command getRedLeftAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
+
   public Command getBlueLeftAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
+
   public Command getRedRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }
+
   public Command getBlueRightAutoCommand() {
     return Commands.print("No autonomous command configured");
   }

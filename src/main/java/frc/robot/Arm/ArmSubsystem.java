@@ -21,7 +21,7 @@ public class ArmSubsystem extends SubsystemBase {
   private final RelativeEncoder armRotationEncoder = armMotor.getEncoder();
 
   public ArmSubsystem() {
-    armMotor.setSmartCurrentLimit(30);
+    armMotor.setSmartCurrentLimit(35);
     armRotationEncoder.setPositionConversionFactor(4.0 / 125.0);
     armMotor.setInverted(true);
 
@@ -38,8 +38,17 @@ public class ArmSubsystem extends SubsystemBase {
     return rotateAnglePID.getSetpoint();
   }
 
+  private boolean overrideSafety = false;
+
+  public void noSafety() {
+    overrideSafety = true;
+  }
+
   public void setAngle(double angle) {
-    rotateAnglePID.setSetpoint(MathUtil.clamp(angle, Constants.ArmMinDeg, Constants.ArmMaxDeg));
+    if (!overrideSafety) {
+      angle = MathUtil.clamp(angle, Constants.ArmMinDeg, Constants.ArmMaxDeg);
+    }
+    rotateAnglePID.setSetpoint(angle);
   }
 
   public void rotateBy(double delta) {
@@ -67,12 +76,13 @@ public class ArmSubsystem extends SubsystemBase {
     return armRotationEncoder.getPosition();
   }
 
-  private PIDController rotateAnglePID = new PIDController(5, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(8, 0, 0);
 
   @Override
   public void periodic() {
     angTableEntry.setDouble(getRotationAngle());
     armAngleEntry.setDouble(angle());
+    overrideSafety = false;
 
     double rotate = rotateAnglePID.calculate(getRotationAngle());
     if (rotateAnglePID.atSetpoint()) {

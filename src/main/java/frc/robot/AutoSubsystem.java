@@ -85,14 +85,6 @@ public class AutoSubsystem {
         double currentAngle = armSub.getRotationAngle();
         double low = radians - 0.005;
         double high = radians + 0.005;
-        // while (!(currentAngle > low && currentAngle < high)) {
-        // while (currentAngle < low) {
-        // armSub.rotate(0.1);
-        // }
-        // while (currentAngle > high) {
-        // armSub.rotate(-0.1);
-        // }
-        // currentAngle = armSub.getRotationAngle();
-        // }
+        // NO WHILES!
     }
 }
