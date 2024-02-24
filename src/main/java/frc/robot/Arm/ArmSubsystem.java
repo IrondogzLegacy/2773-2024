@@ -7,67 +7,80 @@ package frc.robot.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);
+  CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);
   /** Creates a new ArmSubsystem. */
   private final RelativeEncoder armRotationEncoder = armMotor.getEncoder();
-  AnalogInput armPotent2 = new AnalogInput(1);
 
   public ArmSubsystem() {
-    armMotor.setSmartCurrentLimit (30);
-    armRotationEncoder.setPositionConversionFactor(3.0);
+    armMotor.setSmartCurrentLimit(30);
+    armRotationEncoder.setPositionConversionFactor(4.0 / 125.0);
     armMotor.setInverted(true);
 
+    armRotationEncoder.setPosition(0);
+    rotateAnglePID.setSetpoint(0);
+    rotateAnglePID.setTolerance(0.001);
   }
 
   private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
   private final NetworkTableEntry angTableEntry = armTable.getEntry("encoderAngle");
   private final NetworkTableEntry armAngleEntry = armTable.getEntry("angle");
-  private final NetworkTableEntry armVoltageEntry = armTable.getEntry("voltage");
 
-  double setAngle = getRotationAngle();
-  boolean holdAngle = false;
+  public double angle() {
+    return rotateAnglePID.getSetpoint();
+  }
 
-  public void rotateUp() {armMotor.set(Constants.rotationUpSpeed);}
-  public void rotateDown() {armMotor.set(Constants.rotationDownSpeed);}
-  public void rotateStop() {armMotor.set(0);}
-  public void resetArmEncoder() {armRotationEncoder.setPosition(0);}
-  public void rotate(double speed) {armMotor.set(speed);}
+  public void setAngle(double angle) {
+    rotateAnglePID.setSetpoint(MathUtil.clamp(angle, Constants.ArmMinDeg, Constants.ArmMaxDeg));
+  }
+
+  public void rotateBy(double delta) {
+    setAngle(angle() + delta);
+  }
+
+  public void rotateUp() {
+    rotateBy(0.02);
+  }
+
+  public void rotateDown() {
+    rotateBy(-0.02);
+  }
+
+  public void rotateStop() {
+    setAngle(getRotationAngle());
+  }
+
+  public void resetArmEncoder() {
+    rotateAnglePID.setSetpoint(0);
+    armRotationEncoder.setPosition(0);
+  }
+
   public double getRotationAngle() {
     return armRotationEncoder.getPosition();
   }
-  private static double map(double x, double x1, double x2, double y1, double y2) {
-    return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
-  }
-  public double getRotationAngle2() {
-    return map(armPotent2.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
-        Constants.ArmMaxDeg);
-  }
+
+  private PIDController rotateAnglePID = new PIDController(5, 0, 0);
 
   @Override
   public void periodic() {
     angTableEntry.setDouble(getRotationAngle());
-    armVoltageEntry.setDouble(armPotent2.getVoltage());
-    armAngleEntry.setDouble(armRotationEncoder.getPosition());
-    if (holdAngle && getRotationAngle() < setAngle - 0.005) {
-      rotateUp();
-      while (getRotationAngle() < setAngle) {}
-      rotateStop();
-    } else if (holdAngle && getRotationAngle() > setAngle + 0.005) {
-      rotateDown();
-      while (getRotationAngle() > setAngle + 0.005) {}
-      rotateStop();
+    armAngleEntry.setDouble(angle());
+
+    double rotate = rotateAnglePID.calculate(getRotationAngle());
+    if (rotateAnglePID.atSetpoint()) {
+      armMotor.stopMotor();
+      return;
     }
-    // System.out.println(armEncoder.getPosition());  
+    rotate = MathUtil.clamp(rotate, -Constants.ArmMaxRotationSpeed, Constants.ArmMaxRotationSpeed);
+    armMotor.set(rotate);
   }
-  public void printVoltage() {System.out.println(armPotent2.getVoltage());}
-  public void printMap() {System.out.println(getRotationAngle2());}
 
 }

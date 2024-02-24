@@ -15,7 +15,7 @@ public class ArmControlCommand extends Command {
   private final XboxController armStick;
   private final ArmSubsystem armSubsystem;
 
-  private PIDController rotateAnglePID = new PIDController(0.02, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(0.02*70, 0, 0);
 
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
     addRequirements(armSubsystem);
@@ -33,7 +33,7 @@ public class ArmControlCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    rotateAnglePID.setTolerance(5);
+    rotateAnglePID.setTolerance(0.0);
     resetSetpoints();
   }
 
@@ -47,17 +47,14 @@ public class ArmControlCommand extends Command {
       boolean overrideZero = armStick.getRawButton(7);
     double minHoldAngle = overrideZero ? Constants.armMaxRotationOverride : 0;
     double maxHoldAngle = Constants.armMaxAngle;
-    double minDistance = overrideZero ? Constants.armMaxPositionOverride : 0;
-    double maxDistance = Constants.armMaxPosition;
     holdAt += -0.8 * MathUtil.applyDeadband(armStick.getLeftY(), Constants.ControllerDeadzone);
     holdAt = MathUtil.clamp(holdAt, minHoldAngle, maxHoldAngle);
     rotateAnglePID.setSetpoint(holdAt);
     double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
     speed = MathUtil.clamp(speed, -Constants.ArmMaxRotationSpeed, Constants.ArmMaxRotationSpeed);
-    armSubsystem.rotate(speed);
+    //armSubsystem.rotate(speed);
 
     endPosition += -0.3 * MathUtil.applyDeadband(armStick.getRightY(), Constants.ControllerDeadzone);
-    endPosition = MathUtil.clamp(endPosition, minDistance, maxDistance);
   }
 
   // Called once the command ends or is interrupted.

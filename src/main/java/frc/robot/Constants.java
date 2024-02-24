@@ -18,22 +18,6 @@ public final class Constants {
     public static final int armMotorCANID = 24;
     //CANIDs for Swerve Modules
         //Drive Motors
-    public static final int _frontLeftModuleDriveCANID = 19;
-    public static final int _frontRightModuleDriveCANID = 22;
-    public static final int _backLeftModuleDriveCANID = 17;
-    public static final int _backRightModuleDriveCANID = 10;
-        //Rotation Motors
-    public static final int _frontLeftModuleRotateCANID = 12;
-    public static final int _frontRightModuleRotateCANID = 23;
-    public static final int _backLeftModuleRotateCANID = 16;
-    public static final int _backRightModuleRotateCANID = 11;    
-        //CTRE CANCoders (Encoders)
-    public static final int _frontLeftModuleEncoderCANID = 53;
-    public static final int _frontRightModuleEncoderCANID = 55;
-    public static final int _backLeftModuleEncoderCANID = 52;
-    public static final int _backRightModuleEncoderCANID = 54;
-
-    //Drive Motors
     public static final int frontLeftModuleDriveCANID = 17;
     public static final int frontRightModuleDriveCANID = 19;
     public static final int backLeftModuleDriveCANID = 10;
@@ -49,6 +33,9 @@ public final class Constants {
     public static final int backLeftModuleEncoderCANID = 54;
     public static final int backRightModuleEncoderCANID = 55;
 
+    public static final double DriveSpeedMultiplier = 0.3;
+
+
     //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;
     public static final double shooterSpeed = 1.0;
@@ -60,17 +47,12 @@ public final class Constants {
     public static final double WHEEL_ROTATE_SPEED = 0.5;
     
     //Constants for ArmControlCommand
-    public static final double ArmMaxDeg = 0;
-    public static final double ArmBottomVoltage = 0;
-    public static final double ArmTopVoltage = 0;
+    public static final double ArmMaxDeg = 1;
     public static final double ArmMinDeg = 0;
-    public static final double armMaxRotationOverride = 0;
-    public static final double armMaxAngle = 0;
-    public static final double armMaxPositionOverride = 0;
-    public static final double armMaxPosition = 0;
-    public static final double ControllerDeadzone = 0;
-    public static final int ArmMaxRotationSpeed = 0;
-    
+    public static final double armMaxRotationOverride = 0.1;
+    public static final double armMaxAngle = 1;
+    public static final double ControllerDeadzone = 0.01;
+    public static final double ArmMaxRotationSpeed = 0.2;    
     
     //Offsets for GoToTagCommand
 }

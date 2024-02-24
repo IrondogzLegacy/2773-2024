@@ -29,8 +29,6 @@ public class RotateUpCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     armSubsystem.rotateStop();
-    armSubsystem.setAngle = armSubsystem.getRotationAngle();
-    armSubsystem.holdAngle = true;
   }
 
   // Returns true when the command should end.
