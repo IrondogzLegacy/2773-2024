@@ -26,6 +26,7 @@ import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
 import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
+import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.MoveDistanceAngleCommand;
 import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.pathfinding.TagsSubsystem;
@@ -36,6 +37,7 @@ public class RobotContainer {
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
+  ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
 
   // Controllers
@@ -52,8 +54,8 @@ public class RobotContainer {
   // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
-  ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
-  ControlledShootCommand controlledShootCommand = new ControlledShootCommand(intakeSubsystem, armStick);
+  ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
+  ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
