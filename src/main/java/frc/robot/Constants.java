@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public final class Constants {
     // The distance between swerve wheels
-    public static final double DistanceBetweenWheels = 0.6;
+    public static final double DistanceBetweenWheels = 0.616;
     //MotorType of our Neos & PWMs
     public static final MotorType motorType = MotorType.kBrushless;
     //CANIDs for Intake, Shooter, Arm
@@ -33,7 +33,7 @@ public final class Constants {
     public static final int backLeftModuleEncoderCANID = 54;
     public static final int backRightModuleEncoderCANID = 55;
 
-    public static final double DriveSpeedMultiplier = 0.3;
+    public static final double DriveSpeedMultiplier = 0.4;
     public static final double RotateSpeedMultiplier = 0.3;
 
     //Speeds for Intake, Shooter, Arm

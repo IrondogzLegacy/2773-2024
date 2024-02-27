@@ -30,7 +30,7 @@ public class DriveCommand extends Command {
   @Override
   public void execute() {
     final double Deadzone = Constants.ControllerDeadzone;
-    double x = joy.getLeftX(), y = joy.getLeftY();
+    double x = joy.getLeftX(), y = -joy.getLeftY();
     double speed = Math.sqrt(x * x + y * y) * Constants.DriveSpeedMultiplier;
     double angle = Math.atan2(y, x);
     double gyroAngle = navigationSubsystem.angle();
@@ -49,7 +49,7 @@ public class DriveCommand extends Command {
     if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
       driveSubsystem.stop();
     } else {
-      driveSubsystem.directionalDrive(speed, angle - gyroAngle, Constants.RotateSpeedMultiplier * r);
+      driveSubsystem.directionalDrive(speed, -angle + gyroAngle, Constants.RotateSpeedMultiplier * r);
     }
 
   }

@@ -4,14 +4,17 @@
 
 package frc.robot.IntakeShooter;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
-public class ShootCommand extends Command {
+public class ControlledShootCommand extends Command {
   private final IntakeSubsystem shooterSubsystem;
-  /** Creates a new ShootCommand. */
+    XboxController joy;
 
-    public ShootCommand(IntakeSubsystem shooterSubsystem) {
+    public ControlledShootCommand(IntakeSubsystem shooterSubsystem, XboxController joy) {
       this.shooterSubsystem = shooterSubsystem;
+      this.joy = joy;
       addRequirements(shooterSubsystem);
   }
 
@@ -22,7 +25,7 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.startShooter();
+    shooterSubsystem.runShooter(joy.getRightTriggerAxis() * Constants.shooterSpeed);
   }
 
   // Called once the command ends or is interrupted.

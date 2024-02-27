@@ -34,12 +34,14 @@ public class SwerveDriveModule {
     rotateMotor = new CANSparkMax(rotateId, Constants.motorType);
     encoder = new CANcoder(encoderId);
     distanceEncoder = driveMotor.getEncoder();
+    distanceEncoder.setPositionConversionFactor((1/6.75) * 2 * Math.PI * 4 * 0.0254);
     rotationEncoder = rotateMotor.getEncoder();
+    rotationEncoder.setPositionConversionFactor((1.0/21) * 2 * Math.PI);
     id = encoderId;
     this.alpha = alpha;
     this.pidRotate = new PIDController(0.63, 0, 0);
   }
-
+  
   public void drive(double speed, double rotate) {
     driveMotor.set(speed);
     rotateMotor.set(rotate);

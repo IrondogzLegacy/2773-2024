@@ -20,6 +20,7 @@ import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
+import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
@@ -52,6 +53,7 @@ public class RobotContainer {
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(intakeSubsystem);
+  ControlledShootCommand controlledShootCommand = new ControlledShootCommand(intakeSubsystem, armStick);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
@@ -81,6 +83,7 @@ public class RobotContainer {
   private void configureBindings() {
     driveSubsystem.setDefaultCommand(driveCommand);
     armSubsystem.setDefaultCommand(armControlCommand);
+    intakeSubsystem.setDefaultCommand(controlledShootCommand);
     // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
     resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
     // switchButton.onTrue(switchCommand);
