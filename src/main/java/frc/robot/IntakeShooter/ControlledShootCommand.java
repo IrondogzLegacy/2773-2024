@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 
 public class ControlledShootCommand extends Command {
-  private final IntakeSubsystem shooterSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
     XboxController joy;
 
-    public ControlledShootCommand(IntakeSubsystem shooterSubsystem, XboxController joy) {
+    public ControlledShootCommand(ShooterSubsystem shooterSubsystem, XboxController joy) {
       this.shooterSubsystem = shooterSubsystem;
       this.joy = joy;
       addRequirements(shooterSubsystem);

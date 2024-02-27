@@ -29,7 +29,7 @@ public class CarDriveCommand extends Command {
     driveSubsystem.carDrive(joy.getRightX(), joy.getLeftY() * 0.5);
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the com+mand ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     driveSubsystem.stop();

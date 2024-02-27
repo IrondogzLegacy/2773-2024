@@ -7,10 +7,10 @@ package frc.robot.IntakeShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ShootCommand extends Command {
-  private final IntakeSubsystem shooterSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
   /** Creates a new ShootCommand. */
 
-    public ShootCommand(IntakeSubsystem shooterSubsystem) {
+    public ShootCommand(ShooterSubsystem shooterSubsystem) {
       this.shooterSubsystem = shooterSubsystem;
       addRequirements(shooterSubsystem);
   }

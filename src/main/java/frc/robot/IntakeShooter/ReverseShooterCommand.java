@@ -7,10 +7,10 @@ package frc.robot.IntakeShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ReverseShooterCommand extends Command {
-  private final IntakeSubsystem shooterSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
   /** Creates a new ShootCommand. */
 
-    public ReverseShooterCommand(IntakeSubsystem shooterSubsystem) {
+    public ReverseShooterCommand(ShooterSubsystem shooterSubsystem) {
       this.shooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
