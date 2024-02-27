@@ -5,32 +5,26 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
+import frc.robot.Autonomous.AutoSubsystem;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
-import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
-import frc.robot.Navigation.MoveDistanceAngleCommand;
 import frc.robot.Navigation.NavigationSubsystem;
-import frc.robot.pathfinding.TagsSubsystem;
-import frc.robot.Autonomous.AutoSubsystem;
+import frc.robot.Autonomous.MoveDistanceAngleCommand;
+import frc.robot.Autonomous.MoveRelativeCommand;
+import frc.robot.Autonomous.MoveToCommand;
 
 public class RobotContainer {
   // Controllers
@@ -57,7 +51,9 @@ public class RobotContainer {
   // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
-  // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
+  MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
+  MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
+  MoveToCommand moveToCommand = new MoveToCommand(0, 0, autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
 

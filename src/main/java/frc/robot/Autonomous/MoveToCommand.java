@@ -7,14 +7,24 @@ package frc.robot.Autonomous;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class MoveToCommand extends Command {
+
+  AutoSubsystem ams;
+  double x;
+  double y;
+
   /** Creates a new MoveToCommand. */
-  public MoveToCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public MoveToCommand(double x, double y, AutoSubsystem autoSubsystem) {
+    addRequirements(autoSubsystem);
+    this.ams = autoSubsystem;
+    this.x = x;
+    this.y = y;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ams.moveTo(x, y);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

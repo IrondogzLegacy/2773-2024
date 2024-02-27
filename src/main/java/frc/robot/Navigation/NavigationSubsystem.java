@@ -8,16 +8,16 @@ import java.util.function.Supplier;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 public class NavigationSubsystem extends SubsystemBase {
   public AHRS gyro = new AHRS(SPI.Port.kMXP);
@@ -47,24 +47,19 @@ public class NavigationSubsystem extends SubsystemBase {
   public double brx = 0;
   public double bry = 0;
 
-  double[] fl = {flx, fly};
-  double[] fr = {frx, fry};
-  double[] bl = {blx, bly};
-  double[] br = {brx, bry};
-
   public double fla;
   public double fra;
   public double bla;
   public double bra;
 
-  double fld;
-  double frd;
-  double bld;
-  double brd;
-
+  double[] fl = {flx, fly};
+  double[] fr = {frx, fry};
+  double[] bl = {blx, bly};
+  double[] br = {brx, bry};
 
   private SwerveDriveOdometry odometry;
   private Pose2d pose;
+
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
@@ -74,22 +69,21 @@ public class NavigationSubsystem extends SubsystemBase {
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
    
-    // Shuffleboard.getTab("Swerve Coordinates");
-    // Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Robot", () -> {
-    //   return new double[] {x, y};
-    // });
-    // Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Left", () -> {
-    //   return new double[] {flx, fly};
-    // });
-    // Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Right", () -> {
-    //   return new double[] {frx, fry};
-    // });
-    // Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Left", () -> {
-    //   return new double[] {blx, bly};
-    // });
-    // Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Right", () -> {
-    //   return new double[] {brx, bry};
-    // });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
+      return new double[] {x, y};
+    });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Front Left", () -> {
+      return new double[] {flx, fly};
+    });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Front Right", () -> {
+      return new double[] {frx, fry};
+    });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Back Left", () -> {
+      return new double[] {blx, bly};
+    });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Back Right", () -> {
+      return new double[] {brx, bry};
+    });
 
      odometry = new SwerveDriveOdometry(
       kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
@@ -112,51 +106,39 @@ public class NavigationSubsystem extends SubsystemBase {
     angle = gyro.getAngle() / 180.0 * Math.PI;
     pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
-    x = gyro.getDisplacementX();
-    y = gyro.getDisplacementY();
-    z = gyro.getDisplacementZ();
-
-    // SwerveModulePosition[] positions = modulePositions.get();
-
-    // SwerveModulePosition fl = positions[0];
-    // fld = fl.distanceMeters;
-    // fla = fl.angle.getRadians();
-    // SwerveModulePosition fr = positions[1];
-    // frd = fr.distanceMeters;
-    // fra = fr.angle.getRadians();
-    // SwerveModulePosition bl = positions[2];
-    // bld = bl.distanceMeters;
-    // bla = bl.angle.getRadians();
-    // SwerveModulePosition br = positions[3];
-    // brd = br.distanceMeters;
-    // bra = br.angle.getRadians();
-
-    
-
-    // // System.out.println(fld);
-
-    // flx = fld * Math.cos(fla);
-    // fly = fld * Math.sin(fla);
-    // frx = frd * Math.cos(fra);
-    // fry = frd * Math.sin(fra);
-    // blx = bld * Math.cos(bla);
-    // bly = bld * Math.sin(bla);
-    // brx = brd * Math.cos(bra);
-    // bry = brd * Math.sin(bra);
-
-    // sflx += flx;
-    // sfly += fly;
-    // sfrx += frx;
-    // sfry += fry;
-    // sblx += blx;
-    // sbly += bly;
-    // sbrx += frx;
-    // sbry += fry;
 
     x = pose.getX();
     y = pose.getY();
     angle = pose.getRotation().getRadians();
-    flx = x + (Math.cos(angle) * Constants.DistanceBetweenWheels);
+    flx = x + (Math.cos(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    fly = y + (Math.sin(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    frx = x + (Math.cos(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    fry = y + (Math.sin(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    blx = x + (Math.cos(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    bly = y + (Math.sin(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    brx = x + (Math.cos(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    bry = y + (Math.sin(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+
+    SwerveModulePosition[] positions = modulePositions.get();
+    fla = positions[0].angle.getRadians();
+    fra = positions[1].angle.getRadians();
+    bla = positions[2].angle.getRadians();
+    bra = positions[3].angle.getRadians();
+
+  }
+
+  public void reset() {
+    x   = 0;
+    y   = 0;
+    z   = 0;
+    flx = 0;
+    fly = 0;
+    frx = 0;
+    fry = 0;
+    blx = 0;
+    bly = 0;
+    brx = 0;
+    bry = 0;
   }
 
   public Double[][] getCoordinates() {

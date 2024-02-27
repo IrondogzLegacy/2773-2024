@@ -26,8 +26,8 @@ public class AutoSubsystem extends SubsystemBase {
     NavigationSubsystem navSub;
     DriveSubsystem driveSub;
     ArmSubsystem armSub;
-    // XboxController joy;
-    // JoystickButton stopButton = new JoystickButton(joy, 2);
+    XboxController joy;
+    JoystickButton stopButton = new JoystickButton(joy, 2);
 
     // Rotates the chassis direction to given radians
     public void rotateRobotTo(double radians) {
@@ -53,7 +53,7 @@ public class AutoSubsystem extends SubsystemBase {
         double x = Math.cos(radians) * distance;
         double cx = navSub.x - Math.cos(radians) * distance;
         double cy = navSub.y - Math.sin(radians) * distance;
-        while (cy < y || cx < x /*&& /*!stopButton.getAsBoolean()*/) {
+        while (cy < y || cx < x && !stopButton.getAsBoolean()) {
             driveSub.directionalDrive(1, radians);
         }
     }

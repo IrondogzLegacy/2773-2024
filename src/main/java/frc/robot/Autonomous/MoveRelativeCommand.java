@@ -9,18 +9,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class MoveRelativeCommand extends Command {
 
   AutoSubsystem autoSubsystem;
-
+  double x;
+  double y;
 
   /** Creates a new MoveRelativeCommand. */
-  public MoveRelativeCommand(AutoSubsystem autoSubsystem) {
+  public MoveRelativeCommand(double x, double y, AutoSubsystem autoSubsystem) {
     this.autoSubsystem = autoSubsystem;
+    this.x = x;
+    this.y = y;
     addRequirements(autoSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    autoSubsystem.moveRelative(0, 0);
+    autoSubsystem.moveRelative(x, y);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
