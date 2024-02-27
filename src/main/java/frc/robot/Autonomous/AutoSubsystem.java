@@ -2,14 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Autonomous;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DriveSubsystem;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 
 /** Add your docs here. */
-public class AutoSubsystem {
+public class AutoSubsystem extends SubsystemBase {
 
     public AutoSubsystem(NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem,
             ArmSubsystem armSubsystem) {
@@ -44,8 +46,8 @@ public class AutoSubsystem {
         rotateWheelsTo(radians);
         double y = Math.sin(radians) * distance;
         double x = Math.cos(radians) * distance;
-        double cx = navSub.flx - Math.cos(radians) * distance;
-        double cy = navSub.fly - Math.sin(radians) * distance;
+        double cx = navSub.x - Math.cos(radians) * distance;
+        double cy = navSub.y - Math.sin(radians) * distance;
         while (cy < y || cx < x) {
             driveSub.directionalDrive(1, radians);
         }

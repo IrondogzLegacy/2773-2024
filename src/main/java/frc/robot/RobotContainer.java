@@ -43,7 +43,7 @@ public class RobotContainer {
   XboxController armStick = new XboxController(1);
 
   // Commands from files
-  DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, navigationSubsystem);
+  DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
   ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
   CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
