@@ -11,12 +11,14 @@ import frc.robot.Navigation.*;
 public class DriveCommand extends Command {
   DriveSubsystem driveSubsystem;
   XboxController joy;
+  XboxController armStick;
   NavigationSubsystem navigationSubsystem;
 
   /** Creates a new DriveCommand. */
-  public DriveCommand(DriveSubsystem driveSubsystem, XboxController joy, NavigationSubsystem navigationSubsystem) {
+  public DriveCommand(DriveSubsystem driveSubsystem, XboxController joy, XboxController armStick, NavigationSubsystem navigationSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.joy = joy;
+    this.armStick = armStick;
     this.navigationSubsystem = navigationSubsystem;
     addRequirements(driveSubsystem);
   }
@@ -45,7 +47,7 @@ public class DriveCommand extends Command {
     //   driveSubsystem.directionalDrive(speed, angle - gyroAngle);
     // }
 
-    double r = joy.getRightX();
+    double r = joy.getRightX() + armStick.getLeftX();
     if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
       driveSubsystem.stop();
     } else {
