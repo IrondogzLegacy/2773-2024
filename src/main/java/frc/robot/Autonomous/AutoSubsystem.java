@@ -5,7 +5,9 @@
 package frc.robot.Autonomous;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.DriveSubsystem;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
@@ -14,15 +16,18 @@ import frc.robot.Navigation.NavigationSubsystem;
 public class AutoSubsystem extends SubsystemBase {
 
     public AutoSubsystem(NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem,
-            ArmSubsystem armSubsystem) {
+            ArmSubsystem armSubsystem, XboxController joy) {
         this.navSub = navigationSubsystem;
         this.driveSub = driveSubsystem;
         this.armSub = armSubsystem;
+        // this.joy = joy;
     }
 
     NavigationSubsystem navSub;
     DriveSubsystem driveSub;
     ArmSubsystem armSub;
+    // XboxController joy;
+    // JoystickButton stopButton = new JoystickButton(joy, 2);
 
     // Rotates the chassis direction to given radians
     public void rotateRobotTo(double radians) {
@@ -48,7 +53,7 @@ public class AutoSubsystem extends SubsystemBase {
         double x = Math.cos(radians) * distance;
         double cx = navSub.x - Math.cos(radians) * distance;
         double cy = navSub.y - Math.sin(radians) * distance;
-        while (cy < y || cx < x) {
+        while (cy < y || cx < x /*&& /*!stopButton.getAsBoolean()*/) {
             driveSub.directionalDrive(1, radians);
         }
     }

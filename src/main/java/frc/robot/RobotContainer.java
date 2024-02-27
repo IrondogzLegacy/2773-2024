@@ -30,19 +30,20 @@ import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.MoveDistanceAngleCommand;
 import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.pathfinding.TagsSubsystem;
+import frc.robot.Autonomous.AutoSubsystem;
 
 public class RobotContainer {
+  // Controllers
+  XboxController driveStick = new XboxController(0);
+  XboxController armStick = new XboxController(1);
+
   // Subsystems
   DriveSubsystem driveSubsystem = new DriveSubsystem();
   IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem);
-
-  // Controllers
-  XboxController driveStick = new XboxController(0);
-  XboxController armStick = new XboxController(1);
+  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem, driveStick);
 
   // Commands from files
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
