@@ -51,6 +51,10 @@ public class ArmSubsystem extends SubsystemBase {
     rotateAnglePID.setSetpoint(angle);
   }
 
+  public void rotateWithSpeed(double speed) {
+    armMotor.set(speed);
+  }
+
   public void rotateBy(double delta) {
     setAngle(angle() + delta);
   }

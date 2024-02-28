@@ -57,4 +57,8 @@ public class IntakeSubsystem extends SubsystemBase {
     shooterMotor1.set(speed);
     shooterMotor2.set(speed);
   }
+
+  public void shootClose() {
+    
+  }
 }
