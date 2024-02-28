@@ -21,8 +21,10 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setSmartCurrentLimit(20);  
   }
 
-    private final NetworkTable sensorTable = NetworkTableInstance.getDefault().getTable("Sensors");
-    private final NetworkTableEntry infraredTableEntry = sensorTable.getEntry("InfraredSensor");
+    //private final NetworkTable sensorTable = NetworkTableInstance.getDefault().getTable("Sensors");
+    private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
+
+    private final NetworkTableEntry infraredTableEntry = armTable.getEntry("InfraredSensor");
   
   public void startIntake() {
     intakeMotor.set(Constants.intakeSpeed);
