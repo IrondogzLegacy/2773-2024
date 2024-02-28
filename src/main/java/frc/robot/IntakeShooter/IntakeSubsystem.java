@@ -4,6 +4,9 @@
 
 package frc.robot.IntakeShooter;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,6 +21,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setSmartCurrentLimit(20);  
   }
 
+    private final NetworkTable sensorTable = NetworkTableInstance.getDefault().getTable("Sensors");
+    private final NetworkTableEntry infraredTableEntry = sensorTable.getEntry("InfraredSensor");
+  
   public void startIntake() {
     intakeMotor.set(Constants.intakeSpeed);
   }
@@ -37,5 +43,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    infraredTableEntry.setBoolean(hasRing());
   }
 }
