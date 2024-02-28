@@ -4,6 +4,10 @@
 
 package frc.robot.IntakeShooter;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Arm.RotateArmToAngleCommand;
@@ -15,12 +19,17 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax shooterMotor1 = new CANSparkMax(Constants.shooterMotor1CANID, Constants.motorType);
   CANSparkMax shooterMotor2 = new CANSparkMax(Constants.shooterMotor2CANID, Constants.motorType);
 
+  DigitalInput intakeIRSensor = new DigitalInput(9);
+
   public IntakeSubsystem() {
     intakeMotor.setSmartCurrentLimit(20);
     shooterMotor1.setSmartCurrentLimit(30);
     shooterMotor2.setSmartCurrentLimit(30);
     shooterMotor2.setInverted(false);
   }
+
+  private NetworkTable sensorTable = NetworkTableInstance.getDefault().getTable("Sensors");
+  private NetworkTableEntry infraredTableEntry = sensorTable.getEntry("IRSensor");
 
   public void startIntake() {
     intakeMotor.set(Constants.intakeSpeed);
@@ -49,9 +58,11 @@ public class IntakeSubsystem extends SubsystemBase {
     shooterMotor2.set(Constants.reverseShooterSpeed);
   }
 
+  public boolean hasRing() {return intakeIRSensor.get();}
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    infraredTableEntry.setBoolean(hasRing());
   }
 
   public void runShooter(double speed) {
