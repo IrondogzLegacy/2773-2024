@@ -4,6 +4,7 @@
 
 package frc.robot.IntakeShooter;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -11,7 +12,8 @@ import com.revrobotics.CANSparkMax;
 
 public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax intakeMotor = new CANSparkMax(Constants.intakeMotorCANID, Constants.motorType);
-  
+  DigitalInput intakeIRSensor = new DigitalInput(0);
+
   public IntakeSubsystem() {
     intakeMotor.setSmartCurrentLimit(20);  
   }
@@ -24,10 +26,13 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
-  
-
   public void reverseIntake() {
     intakeMotor.set(Constants.reverseIntakeSpeed);
+  }
+
+  public boolean hasRing()
+  {
+    return intakeIRSensor.get();
   }
 
   @Override
