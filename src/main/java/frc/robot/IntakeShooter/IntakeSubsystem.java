@@ -15,7 +15,7 @@ import com.revrobotics.CANSparkMax;
 
 public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax intakeMotor = new CANSparkMax(Constants.intakeMotorCANID, Constants.motorType);
-  DigitalInput intakeIRSensor = new DigitalInput(0);
+  DigitalInput intakeIRSensor = new DigitalInput(Constants.IRSensorPort);
 
   public IntakeSubsystem() {
     intakeMotor.setSmartCurrentLimit(20);  
