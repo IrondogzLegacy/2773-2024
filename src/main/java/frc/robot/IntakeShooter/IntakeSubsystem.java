@@ -6,6 +6,7 @@ package frc.robot.IntakeShooter;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Arm.RotateArmToAngleCommand;
 
 import com.revrobotics.CANSparkMax;
 
@@ -56,9 +57,5 @@ public class IntakeSubsystem extends SubsystemBase {
   public void runShooter(double speed) {
     shooterMotor1.set(speed);
     shooterMotor2.set(speed);
-  }
-
-  public void shootClose() {
-    
   }
 }

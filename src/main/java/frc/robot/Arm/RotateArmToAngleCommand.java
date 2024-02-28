@@ -19,11 +19,11 @@ public class RotateArmToAngleCommand extends Command {
   private Supplier<Double> endAngle;
   private boolean dontStop;
 
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition) {
+  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle) {
     this(armSubsystem, () -> endAngle, false);
   }
 
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition,
+  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle,
       boolean dontStop) {
     this(armSubsystem, () -> endAngle, dontStop);
   }
