@@ -46,7 +46,7 @@ public class RobotContainer {
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem, driveStick);
-  ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
 
   // Commands from files
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
@@ -80,7 +80,7 @@ public class RobotContainer {
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   // JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
   JoystickButton climbButton = new JoystickButton(armStick, 5);
-  JoystickButton letGoButton = new JoystickButton(armStick, 7);
+  JoystickButton letGoButton = new JoystickButton(armStick, 8);
 
   // //Composite Commands
   // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
