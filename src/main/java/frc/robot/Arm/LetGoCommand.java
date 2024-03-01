@@ -7,10 +7,10 @@ package frc.robot.Arm;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ClimbCommand extends Command {
+public class LetGoCommand extends Command {
   ClimbSubsystem climbSubsystem;
 
-  public ClimbCommand(ClimbSubsystem climbSubsystem) {
+  public LetGoCommand(ClimbSubsystem climbSubsystem) {
     this.climbSubsystem = climbSubsystem;
   }
 
@@ -21,7 +21,7 @@ public class ClimbCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climbSubsystem.climb();
+    climbSubsystem.letGo();
   }
 
   
