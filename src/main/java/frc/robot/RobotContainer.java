@@ -62,7 +62,7 @@ public class RobotContainer {
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-  // MoveToCommand moveToCommand = new MoveToCommand(0, 0, autoMoveSubsystem);
+   MoveToCommand moveTo1Command = new MoveToCommand(1, 1, autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
   ClimbCommand climbCommand = new ClimbCommand(climbSubsystem);
@@ -115,7 +115,7 @@ public class RobotContainer {
 
   // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return moveTo1Command;
   }
 
   public Command getBlueMiddleAutonomousCommand() {
