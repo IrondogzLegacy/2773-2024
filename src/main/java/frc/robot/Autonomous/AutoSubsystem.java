@@ -29,7 +29,7 @@ public class AutoSubsystem extends SubsystemBase {
 
     // Rotates the chassis direction to given radians
     public void rotateRobotTo(double radians) {
-        while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005)) {
+        while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005) && !joy.getRawButton(2)) {
             driveSub.rotate(0.1);
             navSub.angle = navSub.gyro.getAngle() / 180.0 * Math.PI;
         }
@@ -37,7 +37,7 @@ public class AutoSubsystem extends SubsystemBase {
 
     // Rotates the wheels to given radians, w/o moving chassis
     public void rotateWheelsTo(double radians) {
-        while (!(navSub.fla > radians - 0.005 && navSub.fla < radians + 0.005)) {
+        while (!(navSub.fla > radians - 0.005 && navSub.fla < radians + 0.005) && !joy.getRawButton(2)) {
             driveSub.directionalDrive(0, radians);
             SwerveModulePosition[] pos = driveSub.getPositions();
             navSub.fla = pos[0].angle.getRadians();
