@@ -19,6 +19,7 @@ import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.ClimbCommand;
 import frc.robot.Arm.ClimbSubsystem;
+import frc.robot.Arm.LetGoCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Autonomous.AutoSubsystem;
