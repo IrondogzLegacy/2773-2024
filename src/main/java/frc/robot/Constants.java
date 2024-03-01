@@ -57,7 +57,7 @@ public final class Constants {
     
     
     
-    public static final int IRSensorPort = 9;    
+    public static final int IRSensorPort = 9;
     
     //Offsets for GoToTagCommand
 }
