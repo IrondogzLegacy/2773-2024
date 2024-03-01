@@ -13,8 +13,6 @@ public class ClimbCommand extends Command {
   CANSparkMax climbingMotor = new CANSparkMax(Constants.climbMotorCANID, Constants.motorType);
   /** Creates a new climb. */
   public ClimbCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
-
   }
 
   // Called when the command is initially scheduled.

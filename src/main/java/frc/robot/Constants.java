@@ -60,6 +60,7 @@ public final class Constants {
     
     
     public static final int IRSensorPort = 9;
+    public static final double climbSpeed = 0;
     
     //Offsets for GoToTagCommand
 }

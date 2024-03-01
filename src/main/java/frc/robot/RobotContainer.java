@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
+import frc.robot.Arm.ClimbCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Autonomous.AutoSubsystem;
@@ -61,6 +62,7 @@ public class RobotContainer {
   // MoveToCommand moveToCommand = new MoveToCommand(0, 0, autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
+  ClimbCommand climbCommand = new ClimbCommand();
 
   //Buttons
   JoystickButton intakeButton = new JoystickButton(armStick, 2);
@@ -73,6 +75,7 @@ public class RobotContainer {
   // JoystickButton testButton = new JoystickButton(driveStick, 7);
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   // JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
+  JoystickButton climbButton = new JoystickButton(armStick, 5);
 
   // //Composite Commands
   // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
@@ -98,6 +101,7 @@ public class RobotContainer {
     // testButton.whileTrue(moveDistanceAngleCommand);
     // reverseShooterButton.whileTrue(reverseShooterCommand);
     reverseIntakeButton.whileTrue(reverseIntakeCommand);
+    climbButton.whileTrue(climbCommand);
   }
 
   // A chooser for autonomous commands
