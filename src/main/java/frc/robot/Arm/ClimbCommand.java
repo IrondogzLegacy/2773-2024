@@ -2,14 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Arm;
 
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
 public class ClimbCommand extends Command {
-  CANSparkMax climbingMotor = new CANSparkMax(20, Constants.motorType);
+  CANSparkMax climbingMotor = new CANSparkMax(Constants.climbMotorCANID, Constants.motorType);
   /** Creates a new climb. */
   public ClimbCommand() {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -17,7 +17,7 @@ public final class Constants {
     public static final int shooterMotor2CANID = 15; 
     public static final int armMotorCANID = 24;
     //CANIDS for Climbing motor
-    public static final int climbMotorCANID = 0;
+    public static final int climbMotorCANID = 20;
     //CANIDs for Swerve Modules
         //Drive Motors
     public static final int frontLeftModuleDriveCANID = 17;
