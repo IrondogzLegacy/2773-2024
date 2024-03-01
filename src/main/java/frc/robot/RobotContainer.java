@@ -42,7 +42,7 @@ public class RobotContainer {
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem, driveStick);
+  // AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem, driveStick);
 
   // Commands from files
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
@@ -56,9 +56,9 @@ public class RobotContainer {
   // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
-  MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
-  MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-  MoveToCommand moveToCommand = new MoveToCommand(0, 0, autoMoveSubsystem);
+  // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
+  // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
+  // MoveToCommand moveToCommand = new MoveToCommand(0, 0, autoMoveSubsystem);
   RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
 
@@ -87,7 +87,7 @@ public class RobotContainer {
   private void configureBindings() {
     driveSubsystem.setDefaultCommand(driveCommand);
     armSubsystem.setDefaultCommand(armControlCommand);
-    intakeSubsystem.setDefaultCommand(controlledShootCommand);
+    shooterSubsystem.setDefaultCommand(controlledShootCommand);
     // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
     resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
     // switchButton.onTrue(switchCommand);

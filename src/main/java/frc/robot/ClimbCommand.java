@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ClimbCommand extends Command {
+  CANSparkMax climbingMotor = new CANSparkMax(20, Constants.motorType);
   /** Creates a new climb. */
   public ClimbCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
+
   }
 
   // Called when the command is initially scheduled.

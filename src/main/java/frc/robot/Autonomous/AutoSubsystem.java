@@ -14,19 +14,21 @@ import frc.robot.Navigation.NavigationSubsystem;
 
 /** Add your docs here. */
 public class AutoSubsystem extends SubsystemBase {
+    private final NavigationSubsystem navSub;
+    private final DriveSubsystem driveSub;
+    private final ArmSubsystem armSub; 
+    private final XboxController joy = new XboxController(0);
 
-    public AutoSubsystem(NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem,
-            ArmSubsystem armSubsystem, XboxController joy) {
-        this.navSub = navigationSubsystem;
-        this.driveSub = driveSubsystem;
-        this.armSub = armSubsystem;
+
+    public AutoSubsystem(NavigationSubsystem navSub, DriveSubsystem driveSub,
+            ArmSubsystem armSub, XboxController joy) {
+        this.navSub = navSub;
+        this.driveSub = driveSub;
+        this.armSub = armSub;
         // this.joy = joy;
     }
 
-    NavigationSubsystem navSub;
-    DriveSubsystem driveSub;
-    ArmSubsystem armSub;
-    XboxController joy;
+    
     JoystickButton stopButton = new JoystickButton(joy, 2);
 
     // Rotates the chassis direction to given radians

@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Navigation.*;
 
 public class DriveCommand extends Command {
-  DriveSubsystem driveSubsystem = new DriveSubsystem();
-  XboxController joy;
-  XboxController armStick;
-  NavigationSubsystem navigationSubsystem;
+  private final DriveSubsystem driveSubsystem;
+  private final XboxController joy;
+  private final XboxController armStick;
+  private final NavigationSubsystem navigationSubsystem;
 
   /** Creates a new DriveCommand. */
   public DriveCommand(DriveSubsystem driveSubsystem, XboxController joy, XboxController armStick, NavigationSubsystem navigationSubsystem) {
