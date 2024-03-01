@@ -6,9 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class climb extends Command {
+public class ClimbCommand extends Command {
   /** Creates a new climb. */
-  public climb() {
+  public ClimbCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
