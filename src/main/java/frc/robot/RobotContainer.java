@@ -78,6 +78,7 @@ public class RobotContainer {
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem);
     //Autonomous Commands
   RotateArmToAngleCommand rotateToSpeaker = new RotateArmToAngleCommand(armSubsystem, 0.3);
+  RotateArmToAngleCommand rotateToAmp = new RotateArmToAngleCommand(armSubsystem, 1.1);
   ShootIntoSpeakerCommand shootIntoSpeakerCommand = new ShootIntoSpeakerCommand(intakeSubsystem, shooterSubsystem);
   ShootIntoAmpCommand shootIntoAmpCommand = new ShootIntoAmpCommand(intakeSubsystem, shooterSubsystem);
   
@@ -92,6 +93,7 @@ public class RobotContainer {
   JoystickButton testRotateSpeakerButton = new JoystickButton(driveStick, 2);
   JoystickButton testIntakeThenShootButton = new JoystickButton(driveStick, 3);
   JoystickButton testShootIntoAmpButton = new JoystickButton(driveStick, 4);
+  JoystickButton testRotateAmpButton = new JoystickButton(driveStick, 5);
   
   //armStick
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
