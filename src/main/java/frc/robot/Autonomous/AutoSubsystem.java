@@ -52,7 +52,7 @@ public class AutoSubsystem extends SubsystemBase {
         double cx = navSub.x - Math.cos(radians) * distance;
         double cy = navSub.y - Math.sin(radians) * distance;
         while (cy < y || cx < x && !joy.getRawButton(2)) {
-            driveSub.directionalDrive(1, radians);
+            driveSub.directionalDrive(0.1, radians);
         }
     }
 
