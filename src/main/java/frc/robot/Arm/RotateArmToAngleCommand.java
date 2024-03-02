@@ -7,14 +7,20 @@ package frc.robot.Arm;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class RotateArmToAngleCommand extends Command {
-  /** Creates a new RotateArmToAngleCommand. */
-  public RotateArmToAngleCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private final ArmSubsystem armSubsystem;
+  private double angle;
+
+  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double angle) {
+    this.armSubsystem = armSubsystem;
+    this.angle = angle;
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    armSubsystem.setAngle(angle);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -27,6 +33,6 @@ public class RotateArmToAngleCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

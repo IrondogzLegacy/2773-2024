@@ -10,23 +10,23 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 
-public class RotateArmToAngleCommand extends Command {
+public class RotateArmToAngleCommandPID extends Command {
   private final ArmSubsystem armSubsystem;
   private PIDController rotateAnglePID = new PIDController(0.1, 0, 0);
   private Supplier<Double> endAngle;
   private boolean dontStop;
 
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle) {
+  public RotateArmToAngleCommandPID(ArmSubsystem armSubsystem, double endAngle) {
     this(armSubsystem, () -> endAngle, false);
   }
 
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle,
+  public RotateArmToAngleCommandPID(ArmSubsystem armSubsystem, double endAngle,
       boolean dontStop) {
     this(armSubsystem, () -> endAngle, dontStop);
   }
 
   
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, Supplier<Double> endAngle, boolean dontStop) {
+  public RotateArmToAngleCommandPID(ArmSubsystem armSubsystem, Supplier<Double> endAngle, boolean dontStop) {
     this.armSubsystem = armSubsystem;
     this.endAngle = endAngle;
     this.dontStop = dontStop;
@@ -34,8 +34,8 @@ public class RotateArmToAngleCommand extends Command {
   }
 
 
-  public static RotateArmToAngleCommand buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
-    return new RotateArmToAngleCommand(armSubsystem, () -> endAngle, false);
+  public static RotateArmToAngleCommandPID buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
+    return new RotateArmToAngleCommandPID(armSubsystem, () -> endAngle, false);
   }
 
   // Called when the command is initially scheduled.

@@ -23,6 +23,7 @@ import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.ClimbCommand;
 import frc.robot.Arm.ClimbSubsystem;
 import frc.robot.Arm.LetGoCommand;
+import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Autonomous.AutoSubsystem;
@@ -53,10 +54,21 @@ public class RobotContainer {
   ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
 
   // Commands from files
+    //Drive Commands
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
-  ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
   //CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
+  // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
+  // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
+  MoveToCommand moveTo1Command = new MoveToCommand(1, 1, autoMoveSubsystem);
+
+    //Arm Commands
+  ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
+  RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
+  RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
+  ClimbCommand climbCommand = new ClimbCommand(climbSubsystem);
+  LetGoCommand letGoCommand = new LetGoCommand(climbSubsystem);
+    //Intake / Shooter Commands
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   // IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
   // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
@@ -64,33 +76,31 @@ public class RobotContainer {
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(shooterSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
-  // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
-  // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-   MoveToCommand moveTo1Command = new MoveToCommand(1, 1, autoMoveSubsystem);
-  RotateDownCommand rotateDownCommand = new RotateDownCommand(armSubsystem);
-  RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
-  ClimbCommand climbCommand = new ClimbCommand(climbSubsystem);
-  LetGoCommand letGoCommand = new LetGoCommand(climbSubsystem);
+    //Autonomous Commands
+  RotateArmToAngleCommand rotateToSpeaker = new RotateArmToAngleCommand(armSubsystem, 0.3);
+  
+  
 
   //Buttons
     //driveStick
   // JoystickButton switchButton = new JoystickButton(driveStick, 3);
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
   JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
-  JoystickButton testDriveForward = new JoystickButton(driveStick, 1);
+  JoystickButton testDriveForwardButton = new JoystickButton(driveStick, 1);
+  JoystickButton testRotateSpeakerButton = new JoystickButton(armStick, 2);
   
   //armStick
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
     JoystickButton shootButton = new JoystickButton(armStick, 6);
 
-    JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
-    JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
-    JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
-    JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
-      POVButton dpadDownButton = new POVButton(armStick, 0);
-      POVButton dpadRightButton = new POVButton(armStick, 90);
-      POVButton dpadLeftButton = new POVButton(armStick, -90);
-      POVButton dpadUpButton = new POVButton(armStick, 180);
+  JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
+  JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
+  JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
+  JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
+    POVButton dpadDownButton = new POVButton(armStick, 0);
+    POVButton dpadRightButton = new POVButton(armStick, 90);
+    POVButton dpadLeftButton = new POVButton(armStick, -90);
+    POVButton dpadUpButton = new POVButton(armStick, 180);
 
   //Instant Commands
 
@@ -114,7 +124,7 @@ public class RobotContainer {
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
-    
+      testRotateSpeakerButton.onTrue(rotateToSpeaker);
       //dPad Buttons on DriveStick
 
 
