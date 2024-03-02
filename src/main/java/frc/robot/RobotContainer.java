@@ -70,7 +70,6 @@ public class RobotContainer {
   RotateUpCommand rotateUpCommand = new RotateUpCommand(armSubsystem);
   ClimbCommand climbCommand = new ClimbCommand(climbSubsystem);
   LetGoCommand letGoCommand = new LetGoCommand(climbSubsystem);
-  
 
   //Buttons
     //driveStick
@@ -88,6 +87,8 @@ public class RobotContainer {
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
     POVButton dpadDownButton = new POVButton(armStick, 0);
+    POVButton dpadRightButton = new POVButton(armStick, 90);
+    POVButton dpadLeftButton = new POVButton(armStick, -90);
     POVButton dpadUpButton = new POVButton(armStick, 180);
 
   //Instant Commands
@@ -114,6 +115,9 @@ public class RobotContainer {
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
     
+      //dPad Buttons on DriveStick
+
+
     //ArmStick
       intakeButton.whileTrue(intakeCommand);
       shootButton.whileTrue(shootCommand);
@@ -121,21 +125,30 @@ public class RobotContainer {
       lowerArmButton.whileTrue(rotateDownCommand);
       // reverseShooterButton.whileTrue(reverseShooterCommand);
       reverseIntakeButton.whileTrue(reverseIntakeCommand);
+      //dPad Buttons on ArmStick
        dpadDownButton.whileTrue(climbCommand);
        dpadUpButton.whileTrue(letGoCommand);
+       dpadRightButton.onTrue(getClimbEncoder);
 
+    //Overrides
+      //Arm button 7 --> arm override
+      //Arm buttons 7 & 8 --> arm reset
+      //Arm button 8 --> Climb override
   }
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  //commands for autonomous
+  MoveDistanceAngleCommand moveForward3 = new MoveDistanceAngleCommand(0, 3, autoMoveSubsystem);
+
   // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
-    return moveTo1Command;
+    return moveForward3;
   }
 
   public Command getBlueMiddleAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return moveTo1Command;
   }
 
   public Command getRedLeftAutoCommand() {
