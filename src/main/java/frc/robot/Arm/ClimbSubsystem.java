@@ -34,7 +34,7 @@ public class ClimbSubsystem extends SubsystemBase {
   public void letGo() {climbingMotor.set(Constants.letGoSpeed);}
   public void climbStop() {climbingMotor.set(0);}
   public void resetClimbEncoder() {climbEncoder.setPosition(0);}
-  public double getClimbEncoder() {return climbEncoder.getPosition();}
+  public void getClimbEncoder() {System.out.println(climbEncoder.getPosition());}
 
   
 

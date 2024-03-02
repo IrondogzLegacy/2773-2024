@@ -83,14 +83,14 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
     JoystickButton shootButton = new JoystickButton(armStick, 6);
 
-  JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
-  JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
-  JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
-  JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
-    POVButton dpadDownButton = new POVButton(armStick, 0);
-    POVButton dpadRightButton = new POVButton(armStick, 90);
-    POVButton dpadLeftButton = new POVButton(armStick, -90);
-    POVButton dpadUpButton = new POVButton(armStick, 180);
+    JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
+    JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
+    JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
+    JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
+      POVButton dpadDownButton = new POVButton(armStick, 0);
+      POVButton dpadRightButton = new POVButton(armStick, 90);
+      POVButton dpadLeftButton = new POVButton(armStick, -90);
+      POVButton dpadUpButton = new POVButton(armStick, 180);
 
   //Instant Commands
   InstantCommand getClimbEncoder = new InstantCommand(climbSubsystem::getClimbEncoder);
@@ -121,11 +121,11 @@ public class RobotContainer {
 
     //ArmStick
       intakeButton.whileTrue(intakeCommand); //Button 2
-      shootButton.whileTrue(shootCommand);
-      raiseArmButton.whileTrue(rotateUpCommand);
-      lowerArmButton.whileTrue(rotateDownCommand);
-     reverseShooterButton.whileTrue(reverseShooterCommand);
-      reverseIntakeButton.whileTrue(reverseIntakeCommand);
+      shootButton.whileTrue(shootCommand); //Button 6
+      raiseArmButton.whileTrue(rotateUpCommand); //Button 4
+      lowerArmButton.whileTrue(rotateDownCommand); //Button 3
+      reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
+      reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
        dpadDownButton.whileTrue(climbCommand);
        dpadUpButton.whileTrue(letGoCommand);
