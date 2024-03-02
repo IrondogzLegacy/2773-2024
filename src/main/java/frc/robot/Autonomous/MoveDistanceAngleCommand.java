@@ -5,14 +5,17 @@
 package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.DriveSubsystem;
 
 public class MoveDistanceAngleCommand extends Command {
-
   double radians;
   double distance;
+  private final DriveSubsystem driveSubsystem;
 
-  public MoveDistanceAngleCommand(double radians, double distance, AutoSubsystem ams) {
+
+  public MoveDistanceAngleCommand(double radians, double distance, AutoSubsystem ams, DriveSubsystem driveSubsystem) {
     this.ams = ams;
+    this.driveSubsystem = driveSubsystem;
   }
 
   AutoSubsystem ams;
@@ -34,6 +37,7 @@ public class MoveDistanceAngleCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    driveSubsystem.stop();
     return true;
   }
 }
