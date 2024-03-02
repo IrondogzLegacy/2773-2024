@@ -138,7 +138,7 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   //commands for autonomous
-  MoveDistanceAngleCommand moveForward3 = new MoveDistanceAngleCommand(0, 3, autoMoveSubsystem);
+  MoveDistanceAngleCommand moveForward3 = new MoveDistanceAngleCommand(0, 3, autoMoveSubsystem, driveSubsystem);
 
   // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
