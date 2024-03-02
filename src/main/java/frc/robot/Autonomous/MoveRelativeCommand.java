@@ -15,10 +15,11 @@ public class MoveRelativeCommand extends Command {
   double y;
 
   /** Creates a new MoveRelativeCommand. */
-  public MoveRelativeCommand(double x, double y, AutoSubsystem autoSubsystem) {
+  public MoveRelativeCommand(double x, double y, AutoSubsystem autoSubsystem, DriveSubsystem driveSubsystem) {
     this.autoSubsystem = autoSubsystem;
     this.x = x;
     this.y = y;
+    this.driveSubsystem = driveSubsystem;
     addRequirements(autoSubsystem);
   }
 
@@ -39,6 +40,7 @@ public class MoveRelativeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    driveSubsystem.stop();
     return true;
   }
 }

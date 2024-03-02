@@ -93,7 +93,6 @@ public class RobotContainer {
     POVButton dpadUpButton = new POVButton(armStick, 180);
 
   //Instant Commands
-  InstantCommand getClimbEncoder = new InstantCommand(climbSubsystem::getClimbEncoder);
 
   // //Composite Commands
   // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
@@ -129,7 +128,6 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
        dpadDownButton.whileTrue(climbCommand);
        dpadUpButton.whileTrue(letGoCommand);
-       dpadRightButton.onTrue(getClimbEncoder);
 
     //Overrides
       //Arm button 7 --> arm override
