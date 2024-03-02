@@ -30,6 +30,7 @@ import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
+import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
@@ -60,7 +61,7 @@ public class RobotContainer {
   // IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
   // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
-  // ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(intakeSubsystem);
+  ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(shooterSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
@@ -119,11 +120,11 @@ public class RobotContainer {
 
 
     //ArmStick
-      intakeButton.whileTrue(intakeCommand);
+      intakeButton.whileTrue(intakeCommand); //Button 2
       shootButton.whileTrue(shootCommand);
       raiseArmButton.whileTrue(rotateUpCommand);
       lowerArmButton.whileTrue(rotateDownCommand);
-      // reverseShooterButton.whileTrue(reverseShooterCommand);
+     reverseShooterButton.whileTrue(reverseShooterCommand);
       reverseIntakeButton.whileTrue(reverseIntakeCommand);
       //dPad Buttons on ArmStick
        dpadDownButton.whileTrue(climbCommand);
