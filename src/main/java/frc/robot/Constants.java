@@ -62,8 +62,8 @@ public final class Constants {
     //Climbing Speeds & Constants
         //CANID for Climbing motor
     public static final int climbMotorCANID = 20;
-    public static final double climbSpeed = 0.3;
-    public static final double letGoSpeed = -0.2;
+    public static final double climbSpeed = 0.1;
+    public static final double letGoSpeed = -0.1;
     
     //Offsets for GoToTagCommand
 }

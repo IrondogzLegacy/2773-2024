@@ -75,6 +75,7 @@ public class RobotContainer {
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(shooterSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
+  ShootCommand shootCommandWithIntake = new ShootCommand(shooterSubsystem);
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem);
     //Autonomous Commands
   RotateArmToAngleCommand rotateToSpeaker = new RotateArmToAngleCommand(armSubsystem, 0.3);
@@ -111,7 +112,7 @@ public class RobotContainer {
   // //Composite Commands
   ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
   ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
-  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
+  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommandWithIntake); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
 
   public RobotContainer() {
@@ -127,9 +128,9 @@ public class RobotContainer {
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
-      testRotateSpeakerButton.onTrue(rotateToSpeaker);
-      testIntakeThenShootButton.onTrue(intakeThenShoot);
-      testShootIntoAmpButton.onTrue(shootIntoAmpCommand);
+      testRotateSpeakerButton.onTrue(rotateToSpeaker); //button 2
+      testIntakeThenShootButton.onTrue(intakeThenShoot); //button 3
+      testShootIntoAmpButton.onTrue(shootIntoAmpCommand); //button 4
       //dPad Buttons on DriveStick
 
 
