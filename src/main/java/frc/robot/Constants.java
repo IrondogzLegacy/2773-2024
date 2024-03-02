@@ -39,6 +39,7 @@ public final class Constants {
     //Speeds for Intake, Shooter, Arm
     public static final double intakeSpeed = 0.4;
     public static final double shooterSpeed = 1.0;
+    public static final double shooterLowSpeed = 0.3;
     public static final double rotationUpSpeed = 0.2;
     public static final double rotationDownSpeed = -0.1;
     public static final double reverseIntakeSpeed = -0.2;
@@ -63,7 +64,6 @@ public final class Constants {
     public static final int climbMotorCANID = 20;
     public static final double climbSpeed = 0.3;
     public static final double letGoSpeed = -0.2;
-    public static final double shooterLowSpeed = 0;
     
     //Offsets for GoToTagCommand
 }

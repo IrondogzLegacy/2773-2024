@@ -4,9 +4,7 @@
 
 package frc.robot.IntakeShooter;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 
 public class ControlledShootCommand extends Command {
   private final ShooterSubsystem shooterSubsystem;
@@ -23,7 +21,7 @@ public class ControlledShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.runShooter(Constants.shooterLowSpeed);
+    shooterSubsystem.startShooterLow();
   }
 
   // Called once the command ends or is interrupted.

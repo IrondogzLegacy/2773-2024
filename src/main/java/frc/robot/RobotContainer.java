@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.time.Instant;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +31,8 @@ import frc.robot.IntakeShooter.IntakeSubsystem;
 import frc.robot.IntakeShooter.ReverseIntakeCommand;
 import frc.robot.IntakeShooter.ReverseShooterCommand;
 import frc.robot.IntakeShooter.ShootCommand;
+import frc.robot.IntakeShooter.ShootIntoAmpCommand;
+import frc.robot.IntakeShooter.ShootIntoSpeakerCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.Autonomous.MoveDistanceAngleCommand;
@@ -78,6 +78,8 @@ public class RobotContainer {
   ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem);
     //Autonomous Commands
   RotateArmToAngleCommand rotateToSpeaker = new RotateArmToAngleCommand(armSubsystem, 0.3);
+  ShootIntoSpeakerCommand shootIntoSpeakerCommand = new ShootIntoSpeakerCommand(intakeSubsystem, shooterSubsystem);
+  ShootIntoAmpCommand shootIntoAmpCommand = new ShootIntoAmpCommand(intakeSubsystem, shooterSubsystem);
   
   
 
@@ -89,6 +91,7 @@ public class RobotContainer {
   JoystickButton testDriveForwardButton = new JoystickButton(driveStick, 1);
   JoystickButton testRotateSpeakerButton = new JoystickButton(driveStick, 2);
   JoystickButton testIntakeThenShootButton = new JoystickButton(driveStick, 3);
+  JoystickButton testShootIntoAmpButton = new JoystickButton(driveStick, 4);
   
   //armStick
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
@@ -119,7 +122,6 @@ public class RobotContainer {
     //Default Commands
       driveSubsystem.setDefaultCommand(driveCommand);
       armSubsystem.setDefaultCommand(armControlCommand);
-      shooterSubsystem.setDefaultCommand(controlledShootCommand);
     
     //DriveStick
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
@@ -127,6 +129,7 @@ public class RobotContainer {
       // switchButton.onTrue(switchCommand);
       testRotateSpeakerButton.onTrue(rotateToSpeaker);
       testIntakeThenShootButton.onTrue(intakeThenShoot);
+      testShootIntoAmpButton.onTrue(shootIntoAmpCommand);
       //dPad Buttons on DriveStick
 
 

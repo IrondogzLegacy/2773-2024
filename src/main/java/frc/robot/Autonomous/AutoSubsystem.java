@@ -81,11 +81,4 @@ public class AutoSubsystem extends SubsystemBase {
         movePolar(radians, distance);
     }
 
-    /*// Rotates the arm to the given radians
-    public void setArmTo(double radians) {
-        double currentAngle = armSub.getRotationAngle();
-        double low = radians - 0.005;
-        double high = radians + 0.005;
-        // NO WHILES!
-    }*/
 }
