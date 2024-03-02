@@ -9,14 +9,15 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants;
+
 
 public class ClimbSubsystem extends SubsystemBase {
   CANSparkMax climbingMotor = new CANSparkMax(Constants.climbMotorCANID, Constants.motorType);
   private final RelativeEncoder climbEncoder = climbingMotor.getEncoder();
   public boolean climbOverride = false;
   private final XboxController armStick;
-
 
   public ClimbSubsystem(XboxController armStick) {
     this.armStick = armStick;
@@ -33,6 +34,8 @@ public class ClimbSubsystem extends SubsystemBase {
   public void letGo() {climbingMotor.set(Constants.letGoSpeed);}
   public void climbStop() {climbingMotor.set(0);}
   public void resetClimbEncoder() {climbEncoder.setPosition(0);}
+  public double getClimbEncoder() {return climbEncoder.getPosition();}
 
+  
 
 }

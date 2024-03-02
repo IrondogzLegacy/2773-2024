@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.time.Instant;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.ClimbCommand;
@@ -69,18 +72,25 @@ public class RobotContainer {
   LetGoCommand letGoCommand = new LetGoCommand(climbSubsystem);
 
   //Buttons
-  JoystickButton intakeButton = new JoystickButton(armStick, 2);
-  JoystickButton shootButton = new JoystickButton(armStick, 6);
+    //driveStick
   // JoystickButton switchButton = new JoystickButton(driveStick, 3);
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
   JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
+  JoystickButton testDriveForward = new JoystickButton(driveStick, 1);
+  
+  //armStick
+    JoystickButton intakeButton = new JoystickButton(armStick, 2);
+    JoystickButton shootButton = new JoystickButton(armStick, 6);
+
   JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
   JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
-  // JoystickButton testButton = new JoystickButton(driveStick, 7);
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
-  // JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
-  JoystickButton climbButton = new JoystickButton(armStick, 5);
-  JoystickButton letGoButton = new JoystickButton(armStick, 8);
+  JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
+    POVButton dpadDownButton = new POVButton(armStick, 0);
+    POVButton dpadUpButton = new POVButton(armStick, 180);
+
+  //Instant Commands
+  InstantCommand getClimbEncoder = new InstantCommand(climbSubsystem::getClimbEncoder);
 
   // //Composite Commands
   // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
@@ -93,21 +103,26 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveSubsystem.setDefaultCommand(driveCommand);
-    armSubsystem.setDefaultCommand(armControlCommand);
-    shooterSubsystem.setDefaultCommand(controlledShootCommand);
-    // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
-    resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
-    // switchButton.onTrue(switchCommand);
-    intakeButton.whileTrue(intakeCommand);
-    shootButton.whileTrue(shootCommand);
-    raiseArmButton.whileTrue(rotateUpCommand);
-    lowerArmButton.whileTrue(rotateDownCommand);
-    // testButton.whileTrue(moveDistanceAngleCommand);
-    // reverseShooterButton.whileTrue(reverseShooterCommand);
-    reverseIntakeButton.whileTrue(reverseIntakeCommand);
-    climbButton.whileTrue(climbCommand);
-    letGoButton.whileTrue(letGoCommand);
+    //Default Commands
+      driveSubsystem.setDefaultCommand(driveCommand);
+      armSubsystem.setDefaultCommand(armControlCommand);
+      shooterSubsystem.setDefaultCommand(controlledShootCommand);
+    
+    //DriveStick
+      // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
+      resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
+      // switchButton.onTrue(switchCommand);
+    
+    //ArmStick
+      intakeButton.whileTrue(intakeCommand);
+      shootButton.whileTrue(shootCommand);
+      raiseArmButton.whileTrue(rotateUpCommand);
+      lowerArmButton.whileTrue(rotateDownCommand);
+      // reverseShooterButton.whileTrue(reverseShooterCommand);
+      reverseIntakeButton.whileTrue(reverseIntakeCommand);
+       dpadDownButton.whileTrue(climbCommand);
+       dpadUpButton.whileTrue(letGoCommand);
+
   }
 
   // A chooser for autonomous commands
