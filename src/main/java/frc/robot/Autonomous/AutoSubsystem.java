@@ -11,7 +11,6 @@ import frc.robot.DriveSubsystem;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 
-/** Add your docs here. */
 public class AutoSubsystem extends SubsystemBase {
     private final NavigationSubsystem navSub;
     private final DriveSubsystem driveSub;
