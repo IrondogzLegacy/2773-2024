@@ -14,9 +14,8 @@ import frc.robot.Constants;
 
 
 public class ClimbSubsystem extends SubsystemBase {
-  CANSparkMax climbingMotor = new CANSparkMax(Constants.climbMotorCANID, Constants.motorType);
+  private final CANSparkMax climbingMotor = new CANSparkMax(Constants.climbMotorCANID, Constants.motorType);
   private final RelativeEncoder climbEncoder = climbingMotor.getEncoder();
-  public boolean climbOverride = false;
   private final XboxController armStick;
 
   public ClimbSubsystem(XboxController armStick) {
@@ -26,8 +25,6 @@ public class ClimbSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(armStick.getRawButton(7)) {climbOverride = true;}
-    if(climbEncoder.getPosition() < 0 || !climbOverride) {climbStop();}
   }
 
   public void climb() {climbingMotor.set(Constants.climbSpeed);}

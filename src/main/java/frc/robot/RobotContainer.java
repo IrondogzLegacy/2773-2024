@@ -134,7 +134,6 @@ public class RobotContainer {
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
-      //Arm button 8 --> Climb override
   }
 
   // A chooser for autonomous commands
