@@ -19,7 +19,7 @@ public class RotateArmToAngleCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.setAngle(angle);
+    armSubsystem.setAngle(angle); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.

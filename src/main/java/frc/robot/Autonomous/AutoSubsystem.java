@@ -4,16 +4,19 @@
 
 package frc.robot.Autonomous;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DriveSubsystem;
-import frc.robot.Arm.ArmSubsystem;
+import frc.robot.SwerveDriveModule;
 import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.Constants;
 
 public class AutoSubsystem extends SubsystemBase {
-    private final NavigationSubsystem navSub;
-    private final DriveSubsystem driveSub;
+    public final NavigationSubsystem navSub;
+    public final DriveSubsystem driveSub;
     private final XboxController joy;
 
 
@@ -25,10 +28,70 @@ public class AutoSubsystem extends SubsystemBase {
 
     // Rotates the chassis direction to given radians
     public void rotateRobotTo(double radians) {
-        while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005) && !joy.getRawButton(2)) {
-            driveSub.rotate(0.1);
-            navSub.angle = navSub.gyro.getAngle() / 180.0 * Math.PI;
+        PIDController rotatePID = new PIDController(0.63, 0, 0);
+
+        // rotatePID.setSetpoint(0);
+        // double pos = -navSub.angle - radians;
+        // while (pos < -Math.PI)
+        //   pos += 2 * Math.PI;
+        // while (pos >= Math.PI)
+        //   pos -= 2 * Math.PI;
+        // // -PI =< pos < PI
+
+        // double direction = 1.0;
+        // if (pos < -Math.PI / 2) {
+        //   direction = -1.0;
+        //   pos += Math.PI;
+        // }
+        // if (pos > Math.PI / 2) {
+        //   direction = -1.0;
+        //   pos -= Math.PI;
+        // }
+
+        rotatePID.setSetpoint(radians);
+
+        double speedOfRotation = rotatePID.calculate(navSub.angle);   //navSub.angle is the angle of the robot
+        speedOfRotation = MathUtil.clamp(speedOfRotation, -0.7, 0.7);
+        rotateWheel(driveSub.flMotor, Math.PI/4);
+        rotateWheel(driveSub.flMotor, 3 *Math.PI/4);
+        rotateWheel(driveSub.flMotor, -3 * Math.PI/4);
+        rotateWheel(driveSub.flMotor, -Math.PI/4);
+        driveSub.flMotor.driveMotor.set(speedOfRotation);
+        driveSub.frMotor.driveMotor.set(speedOfRotation);
+        driveSub.blMotor.driveMotor.set(speedOfRotation);
+        driveSub.brMotor.driveMotor.set(speedOfRotation);
+
+        rotatePID.close();
+
+        // driveMotor.set(0.1 * direction);
+
+        // while (!(navSub.angle > radians - 0.005 && navSub.angle < radians + 0.005) && !joy.getRawButton(2)) {
+        //     driveSub.rotate(0.1);
+        //     navSub.angle = navSub.gyro.getAngle() / 180.0 * Math.PI;
+        // }
+    }
+
+    public void rotateWheel(SwerveDriveModule motor, double radians) {
+        PIDController pidRotate = new PIDController(0.63, 0, 0);
+
+        pidRotate.setSetpoint(0);
+        double pos = -navSub.angle - radians;
+        while (pos < -Math.PI)
+          pos += 2 * Math.PI;
+        while (pos >= Math.PI)
+          pos -= 2 * Math.PI;
+        // -PI =< pos < PI
+
+        if (pos < -Math.PI / 2) {
+          pos += Math.PI;
         }
+        if (pos > Math.PI / 2) {
+          pos -= Math.PI;
+        }
+        double speedOfRotation = pidRotate.calculate(pos);
+        speedOfRotation = MathUtil.clamp(speedOfRotation, -0.7, 0.7);
+
+        motor.rotateMotor.set(speedOfRotation);
     }
 
     // Rotates the wheels to given radians, w/o moving chassis

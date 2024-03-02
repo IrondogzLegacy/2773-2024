@@ -18,13 +18,13 @@ import com.revrobotics.RelativeEncoder;
 public class SwerveDriveModule {
   private static final double ROTATION_LIMIT_SPEED = 0.7;
 
-  CANSparkMax driveMotor;
-  CANSparkMax rotateMotor;
-  CANcoder encoder;
-  RelativeEncoder distanceEncoder;
-  RelativeEncoder rotationEncoder;
-  int id;
-  double alpha;
+  public CANSparkMax driveMotor;
+  public CANSparkMax rotateMotor;
+  public CANcoder encoder;
+  public RelativeEncoder distanceEncoder;
+  public RelativeEncoder rotationEncoder;
+  public int id;
+  public double alpha;
   private PIDController pidRotate;
 
   public SwerveDriveModule(int driveId, int rotateId, int encoderId, double alpha) {
