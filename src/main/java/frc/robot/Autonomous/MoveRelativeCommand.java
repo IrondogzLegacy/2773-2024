@@ -5,10 +5,12 @@
 package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.DriveSubsystem;
 
 public class MoveRelativeCommand extends Command {
 
   AutoSubsystem autoSubsystem;
+  DriveSubsystem driveSubsystem;
   double x;
   double y;
 

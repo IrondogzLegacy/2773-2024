@@ -16,8 +16,6 @@ public final class Constants {
     public static final int shooterMotor1CANID = 13;
     public static final int shooterMotor2CANID = 15; 
     public static final int armMotorCANID = 24;
-    //CANIDS for Climbing motor
-    public static final int climbMotorCANID = 20;
     //CANIDs for Swerve Modules
         //Drive Motors
     public static final int frontLeftModuleDriveCANID = 17;
@@ -57,9 +55,12 @@ public final class Constants {
     public static final double ControllerDeadzone = 0.1;
     public static final double ArmMaxRotationSpeed = 0.3;
     
-    
-    
+    //Digital Ports
     public static final int IRSensorPort = 9;
+
+    //Climbing Speeds & Constants
+        //CANID for Climbing motor
+    public static final int climbMotorCANID = 20;
     public static final double climbSpeed = 0.3;
     public static final double letGoSpeed = -0.2;
     

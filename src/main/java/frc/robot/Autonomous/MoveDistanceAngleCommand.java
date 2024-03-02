@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class MoveDistanceAngleCommand extends Command {
 
-  public MoveDistanceAngleCommand(AutoSubsystem ams) {
+  double radians;
+  double distance;
+
+  public MoveDistanceAngleCommand(double radians, double distance, AutoSubsystem ams) {
     this.ams = ams;
   }
 
@@ -17,7 +20,7 @@ public class MoveDistanceAngleCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ams.movePolar(0, 0);
+    ams.movePolar(radians, distance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
