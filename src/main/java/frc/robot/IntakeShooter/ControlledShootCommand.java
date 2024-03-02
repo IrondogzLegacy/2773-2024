@@ -10,11 +10,9 @@ import frc.robot.Constants;
 
 public class ControlledShootCommand extends Command {
   private final ShooterSubsystem shooterSubsystem;
-    XboxController joy;
 
-    public ControlledShootCommand(ShooterSubsystem shooterSubsystem, XboxController joy) {
+    public ControlledShootCommand(ShooterSubsystem shooterSubsystem) {
       this.shooterSubsystem = shooterSubsystem;
-      this.joy = joy;
       addRequirements(shooterSubsystem);
   }
 
@@ -25,7 +23,7 @@ public class ControlledShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.runShooter(joy.getRightTriggerAxis() * Constants.shooterSpeed);
+    shooterSubsystem.runShooter(Constants.shooterLowSpeed);
   }
 
   // Called once the command ends or is interrupted.

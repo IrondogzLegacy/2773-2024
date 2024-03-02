@@ -50,7 +50,7 @@ public class RobotContainer {
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, armSubsystem, driveStick);
+  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, driveStick);
   ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
 
   // Commands from files
@@ -70,12 +70,12 @@ public class RobotContainer {
   LetGoCommand letGoCommand = new LetGoCommand(climbSubsystem);
     //Intake / Shooter Commands
   IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
-  // IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
-  // IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
+  IntakeCommand intakeCommand1sec = new IntakeCommand(intakeSubsystem);
+  IntakeCommand intakeCommand3sec = new IntakeCommand(intakeSubsystem);
   ReverseIntakeCommand reverseIntakeCommand = new ReverseIntakeCommand(intakeSubsystem);
   ReverseShooterCommand reverseShooterCommand = new ReverseShooterCommand(shooterSubsystem);
   ShootCommand shootCommand = new ShootCommand(shooterSubsystem);
-  ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem, armStick);
+  ControlledShootCommand controlledShootCommand = new ControlledShootCommand(shooterSubsystem);
     //Autonomous Commands
   RotateArmToAngleCommand rotateToSpeaker = new RotateArmToAngleCommand(armSubsystem, 0.3);
   
@@ -87,7 +87,8 @@ public class RobotContainer {
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
   JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
   JoystickButton testDriveForwardButton = new JoystickButton(driveStick, 1);
-  JoystickButton testRotateSpeakerButton = new JoystickButton(armStick, 2);
+  JoystickButton testRotateSpeakerButton = new JoystickButton(driveStick, 2);
+  JoystickButton testIntakeThenShootButton = new JoystickButton(driveStick, 3);
   
   //armStick
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
@@ -105,10 +106,10 @@ public class RobotContainer {
   //Instant Commands
 
   // //Composite Commands
-  // ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
-  // ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
-  // ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
-  // ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
+  ParallelRaceGroup intake3sec = new ParallelRaceGroup(new WaitCommand(3),intakeCommand3sec); //for three seconds we intake
+  ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
+  ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommand); //run the shooter for 3 seconds
+  ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
 
   public RobotContainer() {
     configureBindings();
@@ -125,6 +126,7 @@ public class RobotContainer {
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
       testRotateSpeakerButton.onTrue(rotateToSpeaker);
+      testIntakeThenShootButton.onTrue(intakeThenShoot);
       //dPad Buttons on DriveStick
 
 

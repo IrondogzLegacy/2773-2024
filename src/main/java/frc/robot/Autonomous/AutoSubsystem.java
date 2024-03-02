@@ -14,15 +14,12 @@ import frc.robot.Navigation.NavigationSubsystem;
 public class AutoSubsystem extends SubsystemBase {
     private final NavigationSubsystem navSub;
     private final DriveSubsystem driveSub;
-    private final ArmSubsystem armSub; 
     private final XboxController joy;
 
 
-    public AutoSubsystem(NavigationSubsystem navSub, DriveSubsystem driveSub,
-            ArmSubsystem armSub, XboxController joy) {
+    public AutoSubsystem(NavigationSubsystem navSub, DriveSubsystem driveSub, XboxController joy) {
         this.navSub = navSub;
         this.driveSub = driveSub;
-        this.armSub = armSub;
         this.joy = joy;
     }
 
@@ -84,11 +81,11 @@ public class AutoSubsystem extends SubsystemBase {
         movePolar(radians, distance);
     }
 
-    // Rotates the arm to the given radians
+    /*// Rotates the arm to the given radians
     public void setArmTo(double radians) {
         double currentAngle = armSub.getRotationAngle();
         double low = radians - 0.005;
         double high = radians + 0.005;
         // NO WHILES!
-    }
+    }*/
 }

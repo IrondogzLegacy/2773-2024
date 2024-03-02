@@ -63,6 +63,7 @@ public final class Constants {
     public static final int climbMotorCANID = 20;
     public static final double climbSpeed = 0.3;
     public static final double letGoSpeed = -0.2;
+    public static final double shooterLowSpeed = 0;
     
     //Offsets for GoToTagCommand
 }

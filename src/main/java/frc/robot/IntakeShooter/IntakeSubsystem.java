@@ -23,7 +23,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     //private final NetworkTable sensorTable = NetworkTableInstance.getDefault().getTable("Sensors");
     private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
-
     private final NetworkTableEntry infraredTableEntry = armTable.getEntry("InfraredSensor");
   
   public void startIntake() {
