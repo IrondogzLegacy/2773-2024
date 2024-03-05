@@ -8,7 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class MoveRelativeCommand extends Command {
+public class MovePolarCommand extends Command {
 
   double radians;
   double distance;
@@ -19,28 +19,28 @@ public class MoveRelativeCommand extends Command {
   double goalY;
   double x;
   double y;
-  double xDif;
-  double yDif;
   final double tolerance = 0.05;     //Tolerance of fianl position coordinate in meters
   double speed;
   PIDController pid = new PIDController(0.63, 0, 0);
   
 
   /** Creates a new MovePolarCommand. */
-  public MoveRelativeCommand(double x, double y, AutoSubsystem autoSubsystem) {
+  public MovePolarCommand(double radians, double distance, AutoSubsystem autoSubsystem) {
     addRequirements(autoSubsystem);
-    this.goalX = x;
-    this.goalY = y;
+    this.radians = radians;
+    this.distance = distance;
     this.autoSub = autoSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    yDif = autoSub.navSub.y;
-    xDif = autoSub.navSub.x;
-    distanceY = goalY;
-    distanceX = goalX;
+    distanceY = Math.sin(radians) * distance;
+    distanceX = Math.cos(radians) * distance;
+    y = autoSub.navSub.y;
+    x = autoSub.navSub.x;
+    goalY = y + distanceY;
+    goalX = x + distanceX;
     pid.setSetpoint(0);
     pid.setTolerance(tolerance);
   }
@@ -48,8 +48,8 @@ public class MoveRelativeCommand extends Command {
   // Called every time the schetduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = autoSub.navSub.x - xDif;
-    y = autoSub.navSub.y - yDif;
+    x = autoSub.navSub.x;
+    y = autoSub.navSub.y;
     distanceX = -(x - goalX);
     distanceY = -(y - goalY);
 

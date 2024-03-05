@@ -4,3 +4,9 @@ https://pro.docs.ctr-electronics.com/en/latest/docs/hardware-reference/cancoder/
 https://github.com/BroncBotz3481/YAGSL-Example/blob/cf4ef85d80759f07b902da09fc0ab10f0b818874/src/main/deploy/swerve/neo/controllerproperties.json
 https://www.chiefdelphi.com/t/navx-library-2023/421746/3
 https://cad.onshape.com/documents/ec13980afa9cb8e105782b4d/w/22d61e9b45fbae8774c0e6c2/e/68b49396a9ff12cfe68c7ff1\
+
+TODO:
+Confirm swerve odom functions (low priority)
+April Tags (nothing done; medium priority)   --> Aim Bot (High Priority)
+Confirm Auto Works  (High Priority)  -->  Plan Paths for Auto (High Priority)
+Look Over Claw Code (Medium Priority)

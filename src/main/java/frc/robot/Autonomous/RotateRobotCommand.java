@@ -12,7 +12,7 @@ import frc.robot.Navigation.NavigationSubsystem;
 
 public class RotateRobotCommand extends Command {
 
-  private final AutoSubsystem autoSubsystem;
+  AutoSubsystem autoSub;
   NavigationSubsystem navSub;
   DriveSubsystem driveSub;
   double radians;
@@ -21,34 +21,27 @@ public class RotateRobotCommand extends Command {
 
   MoveToCommand command = new MoveToCommand(1, 1, null);
 
-  public RotateRobotCommand(AutoSubsystem autoSubsystem, DriveSubsystem driveSub, NavigationSubsystem navSub, double radians) {
+  public RotateRobotCommand(double radians, AutoSubsystem autoSubsystem) {
     addRequirements(navSub, driveSub);
-    this.autoSubsystem = autoSubsystem;
-    this.navSub = navSub;
-    this.driveSub = driveSub;
+    this.autoSub = autoSubsystem;
     this.radians = radians;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    navSub = autoSub.navSub;
+    driveSub = autoSub.driveSub;
     rotatePID.setSetpoint(radians);
-    rotatePID.setTolerance(0.001);
+    rotatePID.setTolerance(0.01);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        double speedOfRotation = rotatePID.calculate(navSub.angle);   //navSub.angle is the angle of the robot
-        speedOfRotation = MathUtil.clamp(speedOfRotation, -0.7, 0.7);
-        // rotateWheel(driveSub.flMotor, Math.PI/4);
-        // rotateWheel(driveSub.flMotor, 3 *Math.PI/4);
-        // rotateWheel(driveSub.flMotor, -3 * Math.PI/4);
-        // rotateWheel(driveSub.flMotor, -Math.PI/4);
-        driveSub.flMotor.driveMotor.set(speedOfRotation);
-        driveSub.frMotor.driveMotor.set(speedOfRotation);
-        driveSub.blMotor.driveMotor.set(speedOfRotation);
-        driveSub.brMotor.driveMotor.set(speedOfRotation);
+    double speedOfRotation = rotatePID.calculate(navSub.angle);
+    speedOfRotation = MathUtil.clamp(speedOfRotation, -0.7, 0.7);
+    driveSub.rotate(speedOfRotation);
   }
 
   // Called once the command ends or is interrupted.

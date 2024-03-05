@@ -43,6 +43,8 @@ public class MoveToCommand extends Command {
     driveSub = autoSub.driveSub;
     ix = x;
     iy = y;
+    gy = Math.sin(radians) * distance;
+    gx = Math.cos(radians) * distance;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,30 +52,30 @@ public class MoveToCommand extends Command {
   public void execute() {
     x = navSub.x;
     y = navSub.y;
-    dx = -(x - gx);
-    dy = -(y - gy);
+    dx = Math.abs(Math.abs(x) - Math.abs(gx));
+    dy = Math.abs(Math.abs(y) - Math.abs(gy));
     distance = Math.sqrt(dx * dx + dy * dy);
     radians = Math.atan(dy / dx);
     if (dx < 0 && dy > 0 && radians < 0) {
-        radians += Math.PI;
+      radians += Math.PI;
     } else if (dx < 0 && dy < 0 && radians > 0) {
-        radians -= Math.PI;
+      radians -= Math.PI;
     }
 
-    // gy = Math.sin(radians) * distance;
-    // gx = Math.cos(radians) * distance;
+    //This code is meant to be more exact, but is not finished
     // cx = navSub.x - Math.cos(radians) * distance;
     // cy = navSub.y - Math.sin(radians) * distance;
     // while (cy < gy || cx < gx && !joy.getRawButton(2)) {
     //     driveSub.directionalDrive(0.1, radians);
     // }
 
-    // if (!(x > gx - tolerance && x < gx + tolerance) || !(x > gx - tolerance && x < gx + tolerance)) {
-    //   driveSub.directionalDrive(0.1, radians);
-    // }
+    if (!(x > gx - tolerance && x < gx + tolerance) || !(x > gx - tolerance && x < gx + tolerance)) {
+      driveSub.directionalDrive(0.1, radians);
+    }
 
-    dfx = Math.abs(x) - Math.abs(ix);
-    dfy = Math.abs(y) - Math.abs(iy);
+    //This code is meant to move the robot in the general direction
+    dfx = Math.abs(Math.abs(x) - Math.abs(ix));
+    dfy = Math.abs(Math.abs(y) - Math.abs(iy));
     if (!(dfx > dx) && !(dfy > dy)) {
       driveSub.directionalDrive(0.1, radians);
     }

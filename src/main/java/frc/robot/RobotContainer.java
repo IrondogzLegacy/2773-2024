@@ -25,6 +25,7 @@ import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Autonomous.AutoSubsystem;
+import frc.robot.Autonomous.MovePolarCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
@@ -35,7 +36,6 @@ import frc.robot.IntakeShooter.ShootIntoAmpCommand;
 import frc.robot.IntakeShooter.ShootIntoSpeakerCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
-import frc.robot.Autonomous.MoveDistanceAngleCommand;
 import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.MoveToCommand;
 
@@ -50,7 +50,7 @@ public class RobotContainer {
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  AutoSubsystem autoMoveSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, driveStick);
+  AutoSubsystem autoSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, driveStick);
   ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
 
   // Commands from files
@@ -60,7 +60,8 @@ public class RobotContainer {
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-  MoveToCommand moveTo1Command = new MoveToCommand(1, 1, autoMoveSubsystem);
+  MoveRelativeCommand move1Right1UpCommand = new MoveRelativeCommand(1, 1, autoSubsystem);
+  MovePolarCommand move1m45deg = new MovePolarCommand(0.25 * Math.PI, 1, autoSubsystem);
 
     //Arm Commands
   ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
@@ -156,15 +157,15 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   //commands for autonomous
-  MoveDistanceAngleCommand moveForward3 = new MoveDistanceAngleCommand(0, 3, autoMoveSubsystem, driveSubsystem);
+  
 
   // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
-    return moveForward3;
+    return move1m45deg;
   }
 
   public Command getBlueMiddleAutonomousCommand() {
-    return moveTo1Command;
+    return move1Right1UpCommand;
   }
 
   public Command getRedLeftAutoCommand() {
