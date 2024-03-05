@@ -4,9 +4,9 @@
 
 package frc.robot.Navigation;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.pathfinding.TagsSubsystem;
@@ -15,21 +15,24 @@ public class TurnToTagCommand extends Command {
   private final DriveSubsystem driveSubsystem;
   private final TagsSubsystem udpSubSystem;
   private NavigationSubsystem navigationSubsystem;
+  private CamSubsystem cameraSubsystem;
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("April Tag");
   private NetworkTableEntry tagIdEntry = table.getEntry("Id");
 
   /* Creates a new TurnToTag. */
   public TurnToTagCommand(DriveSubsystem driveSubsystem, TagsSubsystem udpSubSystem,
-      NavigationSubsystem navigationSubsystem) {
+      NavigationSubsystem navigationSubsystem, CamSubsystem cameraSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.udpSubSystem = udpSubSystem;
     this.navigationSubsystem = navigationSubsystem;
+    this.cameraSubsystem = cameraSubsystem;
   }
   double turnAngle;
   double angleToTag;
   double dis;
   double z;
   double x;
+  double y;
   double sinAlpha;
   double minusCosAlpha;
   double tagRotation;
@@ -37,14 +40,14 @@ public class TurnToTagCommand extends Command {
   double theta;
   double distanceB;
   double distanceA;
-  double conversionToDeg = 180./Math.PI;
-  double conversionToRad = Math.PI/180.;
+  final double conversionToDeg = 180./Math.PI;
+  final double conversionToRad = Math.PI/180.;
   double rotateSign;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /*long id = tagIdEntry.getInteger(1);
-        var tagData = camSubsystem.apriltag((int)id);
+    long id = tagIdEntry.getInteger(1);
+        var tagData = cameraSubsystem.getAprilTag(1);
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     if (tagData != null) { 
@@ -58,17 +61,17 @@ public class TurnToTagCommand extends Command {
 
     if (fullTurnAngle > 0) {rotateSign = -90;}
     if (fullTurnAngle < 0) {rotateSign = 90;}
-    System.out.println("Beta " + fullTurnAngle);
+    // System.out.println("Beta " + fullTurnAngle);
     //turn the above angle
     theta = (fullTurnAngle - angleToTag)*conversionToRad;
-    System.out.println("Theta " + theta);
+    // System.out.println("Theta " + theta);
     distanceB = Math.cos(theta)*distanceToTag();
-    System.out.println("B " + distanceB);
+    // System.out.println("B " + distanceB);
     //drive the above distance after turning
     distanceA = Math.sin(theta)*distanceToTag();
-    System.out.println("A "+distanceA);
+    // System.out.println("A "+distanceA);
     //drive the above distance minus some # after the previous drive finishes
-    System.out.println("Tag One Found");
+    // System.out.println("Tag One Found");
     /*RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, fullTurnAngle);
     MoveDistanceCommand moveDistanceB = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceB);
     MoveDistanceCommand moveDistanceA = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceA-1);
@@ -76,7 +79,7 @@ public class TurnToTagCommand extends Command {
 
     //rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
     //rotationCommand.schedule();*/
-  //}
+  }
 }
 
   public double distanceToTag() {
@@ -95,6 +98,24 @@ public class TurnToTagCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    long id = tagIdEntry.getInteger(1);
+    var tagData = cameraSubsystem.getAprilTag(1);
+
+    if (tagData != null) { 
+      x = tagData.x;
+      y = tagData.y;
+      z = tagData.z;
+      tagRotation = tagData.alpha;
+      System.out.println("Alpha " + tagRotation);
+      if (tagRotation > 0) {fullTurnAngle = 90-tagRotation*conversionToDeg;}
+      if (tagRotation < 0) {fullTurnAngle = -90-tagRotation*conversionToDeg;}
+
+      if (fullTurnAngle > 0) {rotateSign = -90;}
+      if (fullTurnAngle < 0) {rotateSign = 90;}
+      theta = (fullTurnAngle - angleToTag)*conversionToRad;
+      distanceB = Math.cos(theta)*distanceToTag();
+      distanceA = Math.sin(theta)*distanceToTag();
+    }
   }
 
   // Called once the command ends or is interrupted.

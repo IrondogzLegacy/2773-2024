@@ -10,6 +10,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -58,7 +59,7 @@ public class NavigationSubsystem extends SubsystemBase {
   double[] br = {brx, bry};
 
   private SwerveDriveOdometry odometry;
-  private Pose2d pose;
+  public Pose2d pose;
 
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
@@ -106,7 +107,8 @@ public class NavigationSubsystem extends SubsystemBase {
     angle = gyro.getAngle() / 180.0 * Math.PI;
     pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
-
+    Transform2d trans = new Transform2d(6.0, 3.20, null);
+    pose.plus(trans);
     x = pose.getX();
     y = pose.getY();
     angle = pose.getRotation().getRadians();

@@ -45,7 +45,7 @@ public class TagsSubsystem extends SubsystemBase {
                 String rawText = new String(buffer.array(), buffer.arrayOffset(),
                         buffer.remaining());
 
-                // this.lastPacket=rawText;
+                this.lastPacket=rawText;
                 // tagHandler.handleRawPacket(rawText);
                 System.out.println(rawText);
                 buffer.clear();

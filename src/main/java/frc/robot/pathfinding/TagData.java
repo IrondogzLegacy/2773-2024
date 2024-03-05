@@ -1,12 +1,12 @@
 package frc.robot.pathfinding;
 
 public class TagData {
-    String apriltag;
-    double x; // How far right or left (I think)
-    double y; // How high or low the april tag is
-    double z; // How far away (I think)
-    double alpha;
-}
+    public String apriltag;
+    public double x; // How far right or left (I think)
+    public double y; // How high or low the april tag is
+    public double z; // How far away (I think)
+    public double alpha;
+
 
 /*
  * S = All data
@@ -17,7 +17,7 @@ public class TagData {
  * xyz is tokens[2], it is the three floats at the end of String s
  * When an april tag is found, a string will print with the id and xyz.
  */
-/*private static TagData parseTagData(String s) {
+private static TagData parseTagData(String s) {
     String[] tokens = s.split(";");
     String[] ids = tokens[0].split(": ");
     if (!ids[0].equals("TAG_FOUND") || tokens.length < 4) {
@@ -47,7 +47,8 @@ public class TagData {
     data.x = XNum;
     data.y = YNum;
     data.z = ZNum;
-    data.alpha = Math.atan2(sinAlpha,minusCosAlpha);
+    data.alpha = Math.atan2(sinAlpha, minusCosAlpha);
     data.apriltag = apriltag;
     return data;
-}*/
+}
+}

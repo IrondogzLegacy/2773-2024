@@ -12,7 +12,7 @@ public class TagHandler {
             return tagData;
         }
 
-    private static TagData parseTagData(String s) {
+    public static TagData parseTagData(String s) {
         String[] tokens = s.split(";");
         String[] ids = tokens[0].split(": ");
         if (!ids[0].equals("TAG_FOUND") || tokens.length < 4) {
