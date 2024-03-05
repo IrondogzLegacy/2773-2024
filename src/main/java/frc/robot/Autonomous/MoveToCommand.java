@@ -12,9 +12,8 @@ import frc.robot.Navigation.NavigationSubsystem;
 
 public class MoveToCommand extends Command {
 
-  AutoSubsystem autoSub;
-  NavigationSubsystem navSub;
-  DriveSubsystem driveSub;
+  NavigationSubsystem navigationSubsystem;
+  DriveSubsystem driveSubsystem;
   double x;
   double y;
   double goalX;
@@ -31,9 +30,10 @@ public class MoveToCommand extends Command {
   double speed;
 
   /** Creates a new MoveToCommand. */
-  public MoveToCommand(double x, double y, AutoSubsystem autoSubsystem) {
-    addRequirements(autoSubsystem);
-    this.autoSub = autoSubsystem;
+  public MoveToCommand(double x, double y, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
+    addRequirements(driveSubsystem, navigationSubsystem);
+    this.driveSubsystem = driveSubsystem;
+    this.navigationSubsystem = navigationSubsystem;
     this.goalX = x;
     this.goalY = y;
   }
@@ -48,20 +48,23 @@ public class MoveToCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = autoSub.navSub.x;
-    y = autoSub.navSub.y;
+    x = navigationSubsystem.x;
+    y = navigationSubsystem.y;
     differenceX = -(x - goalX);
     differenceY = -(y - goalY);
-    radians = differenceY/differenceX;
+    radians = Math.atan2(differenceY, differenceX);
     distance = (differenceX * differenceX + differenceY * differenceY);
 
-    speed = MathUtil.clamp(-pid.calculate(distance), -0.7, 0.7);
-    autoSub.driveSub.directionalDrive(speed, radians);
+    speed = MathUtil.clamp(-pid.calculate(distance), -0.3, 0.3);
+    driveSubsystem.directionalDrive(speed, radians);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSubsystem.stop();
+    System.out.println("Stopped Move To");
+  }
 
   // Returns true when the command should end.
   @Override

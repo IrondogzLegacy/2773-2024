@@ -12,26 +12,22 @@ import frc.robot.Navigation.NavigationSubsystem;
 
 public class RotateRobotCommand extends Command {
 
-  AutoSubsystem autoSub;
   NavigationSubsystem navSub;
   DriveSubsystem driveSub;
   double radians;
 
   PIDController rotatePID = new PIDController(0.63, 0, 0);
 
-  MoveToCommand command = new MoveToCommand(1, 1, null);
-
-  public RotateRobotCommand(double radians, AutoSubsystem autoSubsystem) {
+  public RotateRobotCommand(double radians, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
     addRequirements(navSub, driveSub);
-    this.autoSub = autoSubsystem;
+    this.navSub = navigationSubsystem;
+    this.driveSub = driveSubsystem;
     this.radians = radians;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    navSub = autoSub.navSub;
-    driveSub = autoSub.driveSub;
     rotatePID.setSetpoint(radians);
     rotatePID.setTolerance(0.01);
   }
@@ -46,7 +42,10 @@ public class RotateRobotCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSub.stop();
+    System.out.println("Rotate Robot Stopped");
+  }
 
   // Returns true when the command should end.
   @Override

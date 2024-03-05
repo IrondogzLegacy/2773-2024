@@ -24,7 +24,6 @@ import frc.robot.Arm.LetGoCommand;
 import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
-import frc.robot.Autonomous.AutoSubsystem;
 import frc.robot.Autonomous.MovePolarCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
@@ -50,7 +49,6 @@ public class RobotContainer {
   NavigationSubsystem navigationSubsystem = new NavigationSubsystem(driveSubsystem::getPositions);
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  AutoSubsystem autoSubsystem = new AutoSubsystem(navigationSubsystem, driveSubsystem, driveStick);
   ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
 
   // Commands from files
@@ -60,7 +58,7 @@ public class RobotContainer {
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-  MoveRelativeCommand move1Right1UpCommand = new MoveRelativeCommand(1, 1, autoSubsystem);
+  MoveRelativeCommand move1Right1UpCommand = new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem);
   Command move1m45deg = new ParallelRaceGroup(
     new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
     new WaitCommand(2)
