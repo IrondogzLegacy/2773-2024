@@ -61,7 +61,10 @@ public class RobotContainer {
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
   MoveRelativeCommand move1Right1UpCommand = new MoveRelativeCommand(1, 1, autoSubsystem);
-  MovePolarCommand move1m45deg = new MovePolarCommand(0.25 * Math.PI, 1, autoSubsystem);
+  Command move1m45deg = new ParallelRaceGroup(
+    new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
+    new WaitCommand(2)
+  ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
 
     //Arm Commands
   ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
@@ -133,7 +136,7 @@ public class RobotContainer {
       // switchButton.onTrue(switchCommand);
       testRotateSpeakerButton.onTrue(rotateToSpeaker); //button 2
       testIntakeThenShootButton.onTrue(intakeThenShoot); //button 3
-      testShootIntoAmpButton.onTrue(shootIntoAmpCommand); //button 4
+      testShootIntoAmpButton.whileTrue(shootIntoAmpCommand); //button 4
       //dPad Buttons on DriveStick
 
 
