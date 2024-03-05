@@ -13,8 +13,8 @@ public class MoveRelativeCommand extends Command {
   double radians;
   double distance;
   AutoSubsystem autoSub;
-  double distanceY;
-  double distanceX;
+  double differenceY;
+  double differenceX;
   double goalX;
   double goalY;
   double x;
@@ -39,8 +39,8 @@ public class MoveRelativeCommand extends Command {
   public void initialize() {
     yDif = autoSub.navSub.y;
     xDif = autoSub.navSub.x;
-    distanceY = goalY;
-    distanceX = goalX;
+    differenceY = goalY;
+    differenceX = goalX;
     pid.setSetpoint(0);
     pid.setTolerance(tolerance);
   }
@@ -50,12 +50,12 @@ public class MoveRelativeCommand extends Command {
   public void execute() {
     x = autoSub.navSub.x - xDif;
     y = autoSub.navSub.y - yDif;
-    distanceX = -(x - goalX);
-    distanceY = -(y - goalY);
+    differenceX = -(x - goalX);
+    differenceY = -(y - goalY);
 
-    radians = distanceY/distanceX;
+    radians = differenceY/differenceX;
 
-    distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     speed = MathUtil.clamp(-pid.calculate(distance), -0.7, 0.7);
 
     autoSub.driveSub.directionalDrive(speed, radians);
@@ -68,6 +68,6 @@ public class MoveRelativeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (pid.atSetpoint() || ((goalX + tolerance < x && x < goalX + tolerance) && (goalY + tolerance < y && y < goalY + tolerance)));
+    return pid.atSetpoint();
   }
 }

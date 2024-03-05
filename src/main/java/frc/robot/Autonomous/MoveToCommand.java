@@ -4,6 +4,8 @@
 
 package frc.robot.Autonomous;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
@@ -15,70 +17,46 @@ public class MoveToCommand extends Command {
   DriveSubsystem driveSub;
   double x;
   double y;
-  double gy;
-  double gx;
-  double dx;
-  double dy;
-  double distance = Math.sqrt(dx * dx + dy * dy);
-  double radians = Math.atan(dy / dx);
-  double ix;
-  double iy;
-  double dfx;
-  double dfy;
+  double goalX;
+  double goalY;
+  double differenceX;
+  double differenceY;
+  double distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
+  double radians = Math.atan(differenceY / differenceX);
+  double initialX;
+  double initialY;
 
-  double tolerance = 0.1;
+  PIDController pid = new PIDController(0.63, 0, 0);
+  double tolerance = 0.01;
+  double speed;
 
   /** Creates a new MoveToCommand. */
   public MoveToCommand(double x, double y, AutoSubsystem autoSubsystem) {
     addRequirements(autoSubsystem);
     this.autoSub = autoSubsystem;
-    this.gx = x;
-    this.gy = y;
+    this.goalX = x;
+    this.goalY = y;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    navSub = autoSub.navSub;
-    driveSub = autoSub.driveSub;
-    ix = x;
-    iy = y;
-    gy = Math.sin(radians) * distance;
-    gx = Math.cos(radians) * distance;
+    pid.setSetpoint(0);
+    pid.setTolerance(tolerance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = navSub.x;
-    y = navSub.y;
-    dx = Math.abs(Math.abs(x) - Math.abs(gx));
-    dy = Math.abs(Math.abs(y) - Math.abs(gy));
-    distance = Math.sqrt(dx * dx + dy * dy);
-    radians = Math.atan(dy / dx);
-    if (dx < 0 && dy > 0 && radians < 0) {
-      radians += Math.PI;
-    } else if (dx < 0 && dy < 0 && radians > 0) {
-      radians -= Math.PI;
-    }
+    x = autoSub.navSub.x;
+    y = autoSub.navSub.y;
+    differenceX = -(x - goalX);
+    differenceY = -(y - goalY);
+    radians = differenceY/differenceX;
+    distance = (differenceX * differenceX + differenceY * differenceY);
 
-    //This code is meant to be more exact, but is not finished
-    // cx = navSub.x - Math.cos(radians) * distance;
-    // cy = navSub.y - Math.sin(radians) * distance;
-    // while (cy < gy || cx < gx && !joy.getRawButton(2)) {
-    //     driveSub.directionalDrive(0.1, radians);
-    // }
-
-    if (!(x > gx - tolerance && x < gx + tolerance) || !(x > gx - tolerance && x < gx + tolerance)) {
-      driveSub.directionalDrive(0.1, radians);
-    }
-
-    //This code is meant to move the robot in the general direction
-    dfx = Math.abs(Math.abs(x) - Math.abs(ix));
-    dfy = Math.abs(Math.abs(y) - Math.abs(iy));
-    if (!(dfx > dx) && !(dfy > dy)) {
-      driveSub.directionalDrive(0.1, radians);
-    }
+    speed = MathUtil.clamp(-pid.calculate(distance), -0.7, 0.7);
+    autoSub.driveSub.directionalDrive(speed, radians);
   }
 
   // Called once the command ends or is interrupted.
@@ -88,6 +66,6 @@ public class MoveToCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!(dfx > dx) && !(dfy > dy));
+    return pid.atSetpoint();
   }
 }

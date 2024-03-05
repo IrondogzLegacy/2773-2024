@@ -13,8 +13,8 @@ public class MovePolarCommand extends Command {
   double radians;
   double distance;
   AutoSubsystem autoSub;
-  double distanceY;
-  double distanceX;
+  double differenceY;
+  double differenceX;
   double goalX;
   double goalY;
   double x;
@@ -35,12 +35,12 @@ public class MovePolarCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    distanceY = Math.sin(radians) * distance;
-    distanceX = Math.cos(radians) * distance;
+    differenceY = Math.sin(radians) * distance;
+    differenceX = Math.cos(radians) * distance;
     y = autoSub.navSub.y;
     x = autoSub.navSub.x;
-    goalY = y + distanceY;
-    goalX = x + distanceX;
+    goalY = y + differenceY;
+    goalX = x + differenceX;
     pid.setSetpoint(0);
     pid.setTolerance(tolerance);
   }
@@ -50,12 +50,12 @@ public class MovePolarCommand extends Command {
   public void execute() {
     x = autoSub.navSub.x;
     y = autoSub.navSub.y;
-    distanceX = -(x - goalX);
-    distanceY = -(y - goalY);
+    differenceX = -(x - goalX);
+    differenceY = -(y - goalY);
 
-    radians = distanceY/distanceX;
+    radians = differenceY/differenceX;
 
-    distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     speed = MathUtil.clamp(-pid.calculate(distance), -0.7, 0.7);
 
     autoSub.driveSub.directionalDrive(speed, radians);
@@ -68,6 +68,6 @@ public class MovePolarCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (pid.atSetpoint() || ((goalX + tolerance < x && x < goalX + tolerance) && (goalY + tolerance < y && y < goalY + tolerance)));
+    return pid.atSetpoint();
   }
 }
