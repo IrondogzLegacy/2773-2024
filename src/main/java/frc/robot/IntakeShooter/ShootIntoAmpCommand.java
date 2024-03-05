@@ -17,34 +17,30 @@ public class ShootIntoAmpCommand extends Command {
     addRequirements(intakeSubsystem, shooterSubsystem);
   }
 
-  public void reverseIntake1sec()
-  {
-    intakeSubsystem.reverseIntake();
-    new WaitCommand(1);
-    intakeSubsystem.stopIntake();
-  }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooterSubsystem.startShooterLow();
-    reverseIntake1sec();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    shooterSubsystem.startShooterLow();
     intakeSubsystem.startIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooterSubsystem.stopShooter();
+    intakeSubsystem.stopIntake();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(intakeSubsystem.hasRing()) {return false;}
-    return true;
+    // if(intakeSubsystem.hasRing()) {return false;}
+    // return true;
+    return false;
   }
 }

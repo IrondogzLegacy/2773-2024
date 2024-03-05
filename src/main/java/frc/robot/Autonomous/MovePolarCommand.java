@@ -7,12 +7,15 @@ package frc.robot.Autonomous;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.DriveSubsystem;
+import frc.robot.Navigation.NavigationSubsystem;
 
 public class MovePolarCommand extends Command {
 
   double radians;
   double distance;
-  AutoSubsystem autoSub;
+  DriveSubsystem driveSubsystem;
+  NavigationSubsystem navigationSubsystem;
   double differenceY;
   double differenceX;
   double goalX;
@@ -25,11 +28,13 @@ public class MovePolarCommand extends Command {
   
 
   /** Creates a new MovePolarCommand. */
-  public MovePolarCommand(double radians, double distance, AutoSubsystem autoSubsystem) {
-    addRequirements(autoSubsystem);
+  public MovePolarCommand(double radians, double distance, 
+    DriveSubsystem driveSubsystem, NavigationSubsystem navigationSubsystem) {
+    addRequirements(driveSubsystem);
     this.radians = radians;
     this.distance = distance;
-    this.autoSub = autoSubsystem;
+    this.driveSubsystem = driveSubsystem;
+    this.navigationSubsystem = navigationSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -37,8 +42,8 @@ public class MovePolarCommand extends Command {
   public void initialize() {
     differenceY = Math.sin(radians) * distance;
     differenceX = Math.cos(radians) * distance;
-    y = autoSub.navSub.y;
-    x = autoSub.navSub.x;
+    y = navigationSubsystem.y;
+    x = navigationSubsystem.x;
     goalY = y + differenceY;
     goalX = x + differenceX;
     pid.setSetpoint(0);
@@ -48,22 +53,25 @@ public class MovePolarCommand extends Command {
   // Called every time the schetduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = autoSub.navSub.x;
-    y = autoSub.navSub.y;
+    x = navigationSubsystem.x;
+    y = navigationSubsystem.y;
     differenceX = -(x - goalX);
     differenceY = -(y - goalY);
 
-    radians = differenceY/differenceX;
+    radians = Math.atan2(differenceY, differenceX);
 
     distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
-    speed = MathUtil.clamp(-pid.calculate(distance), -0.7, 0.7);
-
-    autoSub.driveSub.directionalDrive(speed, radians);
+    speed = MathUtil.clamp(-pid.calculate(distance), -0.3, 0.3);
+    System.out.println(radians + " , " + speed);
+    driveSubsystem.directionalDrive(speed, radians);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSubsystem.stop();
+    System.out.println("Stopped");
+  }
 
   // Returns true when the command should end.
   @Override
