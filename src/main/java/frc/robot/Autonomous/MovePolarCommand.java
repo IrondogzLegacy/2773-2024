@@ -62,7 +62,6 @@ public class MovePolarCommand extends Command {
 
     distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     speed = MathUtil.clamp(-pid.calculate(distance), -0.3, 0.3);
-    System.out.println(radians + " , " + speed);
     driveSubsystem.directionalDrive(speed, radians);
   }
 
@@ -70,7 +69,7 @@ public class MovePolarCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     driveSubsystem.stop();
-    System.out.println("Stopped");
+    System.out.println("Stopped Move Polar");
   }
 
   // Returns true when the command should end.
