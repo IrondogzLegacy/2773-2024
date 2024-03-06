@@ -195,7 +195,19 @@ public class RobotContainer {
   }
 
   public Command getBlueLeftAutoCommand() {
-    return Commands.print("No autonomous command configured");
+    return new ParallelRaceGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0),
+      new WaitCommand(2)
+    ).andThen( new ParallelRaceGroup(
+      new ShootCommand(shooterSubsystem),
+      new WaitCommand(2)
+    )).andThen(new ParallelRaceGroup(
+      new IntakeCommand(intakeSubsystem),
+      new WaitCommand(2)
+    )).andThen(new ParallelRaceGroup(
+      new ReverseIntakeCommand(intakeSubsystem),
+      new WaitCommand(2)
+    )).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   }
 
   public Command getRedRightAutoCommand() {
