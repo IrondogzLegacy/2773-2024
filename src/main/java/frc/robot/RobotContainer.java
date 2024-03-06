@@ -25,6 +25,7 @@ import frc.robot.Arm.LetGoCommand;
 import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
+import frc.robot.Autonomous.MoveDirectionCommand;
 import frc.robot.Autonomous.MovePolarCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
@@ -211,7 +212,7 @@ public class RobotContainer {
   }
 
   public Command getRedRightAutoCommand() {
-    return Commands.print("No autonomous command configured");
+    return new MoveDirectionCommand(-0.75 * Math.PI, driveSubsystem);
   }
 
   public Command getBlueRightAutoCommand() {
