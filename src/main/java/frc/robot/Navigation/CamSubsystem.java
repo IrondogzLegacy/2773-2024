@@ -56,8 +56,8 @@ public class CamSubsystem extends SubsystemBase {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
         this.apriltag[Integer.parseInt(tagData.apriltag)] = tagData;
         //Shaky math on coordinate prediction
-        double x = aprilTagsCoordinates[Integer.parseInt(tagData.apriltag)][0] + tagData.x;
-        double z = aprilTagsCoordinates[Integer.parseInt(tagData.apriltag)][2] + tagData.z;
+        double x = 0.0254 * aprilTagsCoordinates[Integer.parseInt(tagData.apriltag)][0] + tagData.x;
+        double z = 0.0254 * aprilTagsCoordinates[Integer.parseInt(tagData.apriltag)][2] + tagData.z;
         Transform2d trans = new Transform2d(-(navSub.x - x), -(navSub.y - z), null);
         navSub.pose.plus(trans);
       }
