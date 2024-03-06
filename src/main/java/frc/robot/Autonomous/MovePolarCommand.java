@@ -62,6 +62,7 @@ public class MovePolarCommand extends Command {
 
     distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     speed = MathUtil.clamp(-pid.calculate(distance), -0.3, 0.3);
+    System.out.println(distance + " , " + differenceX + " , " + differenceY);
     driveSubsystem.directionalDrive(speed, radians);
   }
 

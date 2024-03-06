@@ -24,10 +24,10 @@ public class NavigationSubsystem extends SubsystemBase {
   public AHRS gyro = new AHRS(SPI.Port.kMXP);
   public double angle;
   // Locations for the swerve drive modules relative to the robot center.
-  Translation2d frontLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
-  Translation2d frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
-  Translation2d backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
-  Translation2d backRightLocation = new Translation2d(Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
+  Translation2d frontLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
+  Translation2d frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
+  Translation2d backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
+  Translation2d backRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
 
   // Creating my kinematics object using the module locations
   SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
@@ -107,8 +107,8 @@ public class NavigationSubsystem extends SubsystemBase {
     angle = gyro.getAngle() / 180.0 * Math.PI;
     pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
-    Transform2d trans = new Transform2d(6.0, 3.20, null);
-    pose.plus(trans);
+    // Transform2d trans = new Transform2d(6.0, 3.20, null);
+    // pose.plus(trans);
     x = pose.getX();
     y = pose.getY();
     angle = pose.getRotation().getRadians();

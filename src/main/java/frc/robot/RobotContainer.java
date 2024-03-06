@@ -175,7 +175,7 @@ public class RobotContainer {
     return new ParallelRaceGroup(
       new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
       new WaitCommand(2)
-    ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
+    ).andThen(new StopCommand(driveSubsystem));
   }
 
   public Command getBlueMiddleAutonomousCommand() {
@@ -195,24 +195,47 @@ public class RobotContainer {
     ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   }
 
-  public Command getBlueLeftAutoCommand() {
+  public Command middlePositionShootCommand() {
     return new ParallelRaceGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0),
+      new RotateArmToAngleCommand(armSubsystem, 0.285),
       new WaitCommand(2)
     ).andThen( new ParallelRaceGroup(
       new ShootCommand(shooterSubsystem),
-      new WaitCommand(2)
+      new WaitCommand(1)
     )).andThen(new ParallelRaceGroup(
       new IntakeCommand(intakeSubsystem),
-      new WaitCommand(2)
+      new ShootCommand(shooterSubsystem),
+      new WaitCommand(1)
     )).andThen(new ParallelRaceGroup(
       new ReverseIntakeCommand(intakeSubsystem),
       new WaitCommand(2)
-    )).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
+    )).andThen(new StopCommand(driveSubsystem));
   }
 
+  public Command sidePositionShootCommand() {
+    return new ParallelRaceGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0.3),
+      new WaitCommand(2)
+    ).andThen( new ParallelRaceGroup(
+      new ShootCommand(shooterSubsystem),
+      new WaitCommand(1)
+    )).andThen(new ParallelRaceGroup(
+      new IntakeCommand(intakeSubsystem),
+      new ShootCommand(shooterSubsystem),
+      new WaitCommand(1)
+    )).andThen(new ParallelRaceGroup(
+      new ReverseIntakeCommand(intakeSubsystem),
+      new WaitCommand(2)
+    )).andThen(new StopCommand(driveSubsystem));
+  }
+  
+  
+
   public Command getRedRightAutoCommand() {
-    return new MoveDirectionCommand(-0.75 * Math.PI, driveSubsystem);
+    return new ParallelRaceGroup(
+      new MoveDirectionCommand(-0.25 * Math.PI, driveSubsystem, navigationSubsystem),
+      new WaitCommand(0.5)
+    ).andThen(new StopCommand(driveSubsystem));
   }
 
   public Command getBlueRightAutoCommand() {

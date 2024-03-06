@@ -93,4 +93,8 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.set(rotate);
   }
 
+  public boolean atSetpoint() {
+    return rotateAnglePID.atSetpoint();
+  }
+
 }

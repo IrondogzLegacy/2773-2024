@@ -2,29 +2,30 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Arm;
+package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class RotateArmToAngleCommand extends Command {
-  private final ArmSubsystem armSubsystem;
-  private double angle;
+public class StopCommand extends Command {
+  private DriveSubsystem driveSubsystem;
 
-  public RotateArmToAngleCommand(ArmSubsystem armSubsystem, double position) {
-    this.armSubsystem = armSubsystem;
-    this.angle = position;
-    addRequirements(armSubsystem);
+  /** Creates a new StopCommand. */
+  public StopCommand(DriveSubsystem driveSubsystem) {
+    addRequirements(driveSubsystem);
+    this.driveSubsystem = driveSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.setAngle(angle); 
+    System.out.print("StopCommand");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    driveSubsystem.stop();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +34,6 @@ public class RotateArmToAngleCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return armSubsystem.atSetpoint();
+    return false;
   }
 }

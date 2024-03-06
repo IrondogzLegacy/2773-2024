@@ -49,7 +49,7 @@ public class CamSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     String s/* = null*/;
-    s = TagsSubsystem.getLastPacket();
+    /*s = TagsSubsystem.getLastPacket();
     if (s != null) {
       TagData tagData = TagHandler.parseTagData(s);
       if (tagData != null) {
@@ -61,7 +61,7 @@ public class CamSubsystem extends SubsystemBase {
         Transform2d trans = new Transform2d(-(navSub.x - x), -(navSub.y - z), null);
         navSub.pose.plus(trans);
       }
-    }
+    }*/
     
   }
 

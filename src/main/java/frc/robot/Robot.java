@@ -52,45 +52,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    System.out.println("Auto selected: " + m_autoSelected);
-    SmartDashboard.putData(m_chooser);
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-/*
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    } */
-  }
+    
 
-  @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case krLeftAuto:
-        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
-        break;
-      case krRightAuto:
-        m_autonomousCommand = m_robotContainer.getRedRightAutoCommand();
-        break;
-      case kbLeftAuto:
-        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
-        break;
-      case kbRightAuto:
-        m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
-        break;
-      case krMiddleAuto:
-        m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
-        break;
-      case kbMiddleAuto:
-        m_autonomousCommand = m_robotContainer.getBlueMiddleAutonomousCommand();
-        break;
-      default:
-        m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
-        break;
-    }
+    
+        // m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
+        // m_autonomousCommand = m_robotContainer.getRedRightAutoCommand();
+        // m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
+        // m_autonomousCommand = m_robotContainer.getRedLeftAutoCommand();
+        // m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
+        // m_autonomousCommand = m_robotContainer.getBlueMiddleAutonomousCommand();
+        // m_autonomousCommand = m_robotContainer.getRedMiddleAutonomousCommand();
+        m_autonomousCommand = m_robotContainer.sidePositionShootCommand();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+  }
+
+  @Override
+  public void autonomousPeriodic() {
   }
 
   @Override
