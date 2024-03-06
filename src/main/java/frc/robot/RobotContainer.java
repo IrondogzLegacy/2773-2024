@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -58,11 +59,19 @@ public class RobotContainer {
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
   // MoveRelativeCommand moveRelativeCommand = new MoveRelativeCommand(0, 0, autoMoveSubsystem);
-  MoveRelativeCommand move1Right1UpCommand = new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem);
+  Command move1Right1UpCommand = new ParallelRaceGroup(
+    new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem),
+    new WaitCommand(2));
   Command move1m45deg = new ParallelRaceGroup(
     new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
     new WaitCommand(2)
   ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
+  Command moveAngleCommand = new ParallelRaceGroup(
+    new MoveRelativeCommand(1, 0, navigationSubsystem, driveSubsystem),
+    new WaitCommand(2)
+    ).andThen(new ParallelRaceGroup(
+    new MoveRelativeCommand(0, 1, navigationSubsystem, driveSubsystem),
+    new WaitCommand(2)));
 
     //Arm Commands
   ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, armStick);
@@ -162,15 +171,27 @@ public class RobotContainer {
 
   // autonomous commands
   public Command getRedMiddleAutonomousCommand() {
-    return move1m45deg;
+    return new ParallelRaceGroup(
+      new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
+      new WaitCommand(2)
+    ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   }
 
   public Command getBlueMiddleAutonomousCommand() {
-    return move1Right1UpCommand;
+    return new ParallelRaceGroup(
+      new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem),
+      new WaitCommand(2)
+    ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   }
 
   public Command getRedLeftAutoCommand() {
-    return Commands.print("No autonomous command configured");
+    return new ParallelRaceGroup(
+      new MoveRelativeCommand(1, 0, navigationSubsystem, driveSubsystem),
+      new WaitCommand(2)
+    ).andThen(new ParallelRaceGroup(
+      new MoveRelativeCommand(0, 1, navigationSubsystem, driveSubsystem),
+      new WaitCommand(2))
+    ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   }
 
   public Command getBlueLeftAutoCommand() {

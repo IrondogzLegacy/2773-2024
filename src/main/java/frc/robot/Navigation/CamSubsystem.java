@@ -19,7 +19,7 @@ public class CamSubsystem extends SubsystemBase {
    * First: 1 0.328262 -0.520233 1.085545
    */
 
-   double[][] aprilTagsCoordinates = {{593.68,   9.68, 53.38},
+   double[][] aprilTagsCoordinates = {{593.68,  9.68, 53.38},
                                      {637.21,  34.79, 53.38},
                                      {652.73, 196.17, 57.13},
                                      {652.73, 218.42, 57.13},
@@ -44,7 +44,6 @@ public class CamSubsystem extends SubsystemBase {
   }
 
   private TagData[] apriltag = new TagData[30];
-
 
   // reads out what the epic camera saw
   @Override
