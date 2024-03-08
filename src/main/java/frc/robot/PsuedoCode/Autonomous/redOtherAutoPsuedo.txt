@@ -1,0 +1,18 @@
+shoot
+Move 0.5 away from wall 
+Rotate to note
+Drive to note while intake, pickup
+Drive to original spot
+Shoot
+Move 0.5 away from wall
+Rotate to note l
+More to Note l location
+Turn clockwise 90
+Move to Note 2(pickup)
+Reverse to Note
+Turn counter-clockwise 90
+Go back to OG spot
+shoot
+Repeat steps 7-10
+Move to Note 3 (intake)
+Repeat steps 12-15

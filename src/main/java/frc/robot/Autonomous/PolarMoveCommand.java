@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 
-public class MovePolarCommand extends Command {
+public class PolarMoveCommand extends Command {
 
   double radians;
   double distance;
@@ -28,7 +28,7 @@ public class MovePolarCommand extends Command {
   
 
   /** Creates a new MovePolarCommand. */
-  public MovePolarCommand(double radians, double distance, 
+  public PolarMoveCommand(double radians, double distance, 
     DriveSubsystem driveSubsystem, NavigationSubsystem navigationSubsystem) {
     addRequirements(driveSubsystem);
     this.radians = radians;

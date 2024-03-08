@@ -26,7 +26,8 @@ import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Autonomous.MoveDirectionCommand;
-import frc.robot.Autonomous.MovePolarCommand;
+import frc.robot.Autonomous.PolarMoveCommand;
+import frc.robot.Autonomous.RotateRobotCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
@@ -64,7 +65,7 @@ public class RobotContainer {
     new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem),
     new WaitCommand(2));
   Command move1m45deg = new ParallelRaceGroup(
-    new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
+    new PolarMoveCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
     new WaitCommand(2)
   ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
   Command moveAngleCommand = new ParallelRaceGroup(
@@ -129,6 +130,30 @@ public class RobotContainer {
   ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
   ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommandWithIntake); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
+  Command middleShootSpeakerCommand = new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0.26),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1.5)
+  ).andThen(new ParallelRaceGroup(
+    new IntakeCommand(intakeSubsystem),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1)
+  )).andThen(new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0),
+    new WaitCommand(1.5)
+  ));
+  Command scoreSpeakerSides = new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1.5)
+  ).andThen(new ParallelRaceGroup(
+    new IntakeCommand(intakeSubsystem),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1)
+  )).andThen(new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0),
+    new WaitCommand(1.5)
+  ));
 
   public RobotContainer() {
     configureBindings();
@@ -183,7 +208,7 @@ public class RobotContainer {
       dpadDownButton.whileTrue(climbCommand);
       dpadUpButton.whileTrue(letGoCommand);
       dpadRightButton.onTrue(new ParallelRaceGroup(
-       new MovePolarCommand(1.0/2.0 * Math.PI, (9.0 + 5.0/8) * 0.0254, driveSubsystem, navigationSubsystem),
+       new PolarMoveCommand(1.0/2.0 * Math.PI, (9.0 + 5.0/8) * 0.0254, driveSubsystem, navigationSubsystem),
        new RotateArmToAngleCommand(armSubsystem, 0.708),
        new WaitCommand(1.5)
       ).andThen(new ParallelRaceGroup(
@@ -203,18 +228,26 @@ public class RobotContainer {
   
 
   // autonomous commands
-  public Command getRedMiddleAutonomousCommand() {
+  public Command testCommand() {
     return new ParallelRaceGroup(
-      new MovePolarCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
+      new PolarMoveCommand(-0.75 * Math.PI, 1, driveSubsystem, navigationSubsystem),
       new WaitCommand(2)
     ).andThen(new StopCommand(driveSubsystem));
   }
 
-  public Command getBlueMiddleAutonomousCommand() {
-    return new ParallelRaceGroup(
-      new MoveRelativeCommand(1, 1, navigationSubsystem, driveSubsystem),
-      new WaitCommand(2)
-    ).andThen(new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem));
+  public Command redMiddleAutonomousCommand() {
+    return middleShootSpeakerCommand.andThen(
+      time(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
+    ).andThen(
+      new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem)
+      new IntakeCommand(intakeSubsystem)
+    ).andThen(
+      middleShootSpeakerCommand
+    ).andThen(
+      time(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
+    ).andThen(
+      time(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
+    );
   }
 
   public Command getRedLeftAutoCommand() {
@@ -228,36 +261,11 @@ public class RobotContainer {
   }
 
   public Command middlePositionShootCommand() {
-    return new ParallelRaceGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.26),
-      new WaitCommand(1.5)
-    ).andThen( new ParallelRaceGroup(
-      new ShootCommand(shooterSubsystem),
-      new WaitCommand(1)
-    )).andThen(new ParallelRaceGroup(
-      new IntakeCommand(intakeSubsystem),
-      new ShootCommand(shooterSubsystem),
-      new WaitCommand(1)
-    )).andThen(new ParallelRaceGroup(
-      new ReverseIntakeCommand(intakeSubsystem),
-      new WaitCommand(2)
-    )).andThen(new StopCommand(driveSubsystem));
+    return middleShootSpeakerCommand.andThen(new StopCommand(driveSubsystem));
   }
 
   public Command sidePositionShootCommand() {
-    return new ParallelRaceGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.3),
-      new WaitCommand(1.5)
-    ).andThen(new ParallelRaceGroup(
-      new ShootCommand(shooterSubsystem),
-      new WaitCommand(1)
-    )).andThen(new ParallelRaceGroup(
-      new IntakeCommand(intakeSubsystem),
-      new ShootCommand(shooterSubsystem),
-      new WaitCommand(1)
-    )).andThen(new ParallelRaceGroup(
-      new MovePolarCommand(1.0/2 * Math.PI, 1.5, driveSubsystem, navigationSubsystem),
-      new WaitCommand(3)).andThen(new StopCommand(driveSubsystem)));
+    return scoreSpeakerSides.andThen(new StopCommand(driveSubsystem));
   }
   
   
@@ -271,5 +279,9 @@ public class RobotContainer {
 
   public Command getBlueRightAutoCommand() {
     return Commands.print("No autonomous command configured");
+  }
+
+  public Command time(Command command, double time) {
+    return new ParallelRaceGroup(command, new WaitCommand(time));
   }
 }

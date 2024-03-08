@@ -28,6 +28,12 @@ public class RotateRobotCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    radians += navSub.angle;
+    if (radians > Math.PI) {
+      radians -= Math.PI*2;
+    } else if (radians < -Math.PI) {
+      radians += Math.PI * 2;
+    }
     rotatePID.setSetpoint(radians);
     rotatePID.setTolerance(0.01);
   }
@@ -36,7 +42,7 @@ public class RotateRobotCommand extends Command {
   @Override
   public void execute() {
     double speedOfRotation = rotatePID.calculate(navSub.angle);
-    speedOfRotation = MathUtil.clamp(speedOfRotation, -0.7, 0.7);
+    speedOfRotation = MathUtil.clamp(speedOfRotation, -0.3, 0.3);
     driveSub.rotate(speedOfRotation);
   }
 
