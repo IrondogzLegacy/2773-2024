@@ -12,3 +12,11 @@ Ideals:
 11) Drive to speaker
 12) Shoot into speaker +5
 Total: 17 points in autonomous!
+
+Actual:
+start
+shoot into speaker
+drive backwards 1.1m
+    while intake running
+drive forwards 1.1m
+shoot into speaker
