@@ -25,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
     armRotationEncoder.setPositionConversionFactor(4.0 / 125.0);
     armMotor.setInverted(true);
 
-    armRotationEncoder.setPosition(0);
+    armRotationEncoder.setPosition(1.1);
     rotateAnglePID.setSetpoint(0);
     rotateAnglePID.setTolerance(0.001);
   }

@@ -94,6 +94,7 @@ public class RobotContainer {
   RotateArmToAngleCommand rotateToAmp = new RotateArmToAngleCommand(armSubsystem, 1.1);
   ShootIntoSpeakerCommand shootIntoSpeakerCommand = new ShootIntoSpeakerCommand(intakeSubsystem, shooterSubsystem);
   ShootIntoAmpCommand shootIntoAmpCommand = new ShootIntoAmpCommand(intakeSubsystem, shooterSubsystem);
+  ParallelCommandGroup shootIntoAmpCommandComposite = new ParallelCommandGroup();
   
   
 
@@ -152,12 +153,43 @@ public class RobotContainer {
       intakeButton.whileTrue(intakeCommand); //Button 2
       shootButton.whileTrue(shootCommand); //Button 6
       raiseArmButton.whileTrue(rotateUpCommand); //Button 4
-      lowerArmButton.whileTrue(rotateDownCommand); //Button 3
+      lowerArmButton.onTrue(new ParallelRaceGroup(
+        new RotateArmToAngleCommand(armSubsystem, 0.26),
+        new ShootCommand(shooterSubsystem),
+        new WaitCommand(1.5)
+      ).andThen(new ParallelRaceGroup(
+        new IntakeCommand(intakeSubsystem),
+        new ShootCommand(shooterSubsystem),
+        new WaitCommand(1)
+      )).andThen(new ParallelRaceGroup(
+        new RotateArmToAngleCommand(armSubsystem, 0),
+        new WaitCommand(1.5)
+      ))); //Button 3
+      raiseArmButton.onTrue(new ParallelRaceGroup(
+        new RotateArmToAngleCommand(armSubsystem, 0.3),
+        new ShootCommand(shooterSubsystem),
+        new WaitCommand(1.5)
+      ).andThen(new ParallelRaceGroup(
+        new IntakeCommand(intakeSubsystem),
+        new ShootCommand(shooterSubsystem),
+        new WaitCommand(1)
+      )).andThen(new ParallelRaceGroup(
+        new RotateArmToAngleCommand(armSubsystem, 0),
+        new WaitCommand(1.5)
+      ))); //Button 3
       reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
-       dpadDownButton.whileTrue(climbCommand);
-       dpadUpButton.whileTrue(letGoCommand);
+      dpadDownButton.whileTrue(climbCommand);
+      dpadUpButton.whileTrue(letGoCommand);
+      dpadRightButton.onTrue(new ParallelRaceGroup(
+       new MovePolarCommand(1.0/2.0 * Math.PI, (9.0 + 5.0/8) * 0.0254, driveSubsystem, navigationSubsystem),
+       new RotateArmToAngleCommand(armSubsystem, 0.708),
+       new WaitCommand(1.5)
+      ).andThen(new ParallelRaceGroup(
+       new ShootIntoAmpCommand(intakeSubsystem, shooterSubsystem),
+       new WaitCommand(2)
+      )));
 
     //Overrides
       //Arm button 7 --> arm override
@@ -197,8 +229,8 @@ public class RobotContainer {
 
   public Command middlePositionShootCommand() {
     return new ParallelRaceGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.285),
-      new WaitCommand(2)
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      new WaitCommand(1.5)
     ).andThen( new ParallelRaceGroup(
       new ShootCommand(shooterSubsystem),
       new WaitCommand(1)
@@ -215,8 +247,8 @@ public class RobotContainer {
   public Command sidePositionShootCommand() {
     return new ParallelRaceGroup(
       new RotateArmToAngleCommand(armSubsystem, 0.3),
-      new WaitCommand(2)
-    ).andThen( new ParallelRaceGroup(
+      new WaitCommand(1.5)
+    ).andThen(new ParallelRaceGroup(
       new ShootCommand(shooterSubsystem),
       new WaitCommand(1)
     )).andThen(new ParallelRaceGroup(
@@ -224,9 +256,8 @@ public class RobotContainer {
       new ShootCommand(shooterSubsystem),
       new WaitCommand(1)
     )).andThen(new ParallelRaceGroup(
-      new ReverseIntakeCommand(intakeSubsystem),
-      new WaitCommand(2)
-    )).andThen(new StopCommand(driveSubsystem));
+      new MovePolarCommand(1.0/2 * Math.PI, 1.5, driveSubsystem, navigationSubsystem),
+      new WaitCommand(3)).andThen(new StopCommand(driveSubsystem)));
   }
   
   

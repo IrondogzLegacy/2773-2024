@@ -10,7 +10,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -71,7 +70,7 @@ public class NavigationSubsystem extends SubsystemBase {
     });
    
     Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
-      return new double[] {x, y};
+      return new double[] {x, y, gyro.getDisplacementX(), gyro.getDisplacementY()};
     });
     Shuffleboard.getTab("Navigation").addDoubleArray("Front Left", () -> {
       return new double[] {flx, fly};
@@ -105,12 +104,20 @@ public class NavigationSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     angle = gyro.getAngle() / 180.0 * Math.PI;
+    if (angle > 2 * Math.PI) {
+      angle -= 2 * Math.PI;
+    } else if (angle < 0) {
+      angle += 2 * Math.PI;
+    }
     pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
     // Transform2d trans = new Transform2d(6.0, 3.20, null);
     // pose.plus(trans);
     x = pose.getX();
     y = pose.getY();
+    // System.out.println(x + " , " + gyro.getDisplacementX());
+    // System.out.println(y + " , " + gyro.getDisplacementY());
+    // System.out.println(angle + " , " + pose.getRotation().getRadians());
     angle = pose.getRotation().getRadians();
     flx = x + (Math.cos(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
     fly = y + (Math.sin(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
