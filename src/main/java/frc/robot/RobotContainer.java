@@ -113,8 +113,8 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
     JoystickButton shootButton = new JoystickButton(armStick, 6);
 
-  JoystickButton raiseArmButton = new JoystickButton(armStick, 4);
-  JoystickButton lowerArmButton = new JoystickButton(armStick, 3);
+  JoystickButton sideSpeakerShootButton = new JoystickButton(armStick, 4);
+  JoystickButton middleSpeakerShootButton = new JoystickButton(armStick, 3);
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
     POVButton dpadDownButton = new POVButton(armStick, 0);
@@ -152,8 +152,8 @@ public class RobotContainer {
     //ArmStick
       intakeButton.whileTrue(intakeCommand); //Button 2
       shootButton.whileTrue(shootCommand); //Button 6
-      raiseArmButton.whileTrue(rotateUpCommand); //Button 4
-      lowerArmButton.onTrue(new ParallelRaceGroup(
+      sideSpeakerShootButton.whileTrue(rotateUpCommand); //Button 4
+      middleSpeakerShootButton.onTrue(new ParallelRaceGroup(
         new RotateArmToAngleCommand(armSubsystem, 0.26),
         new ShootCommand(shooterSubsystem),
         new WaitCommand(1.5)
@@ -165,7 +165,7 @@ public class RobotContainer {
         new RotateArmToAngleCommand(armSubsystem, 0),
         new WaitCommand(1.5)
       ))); //Button 3
-      raiseArmButton.onTrue(new ParallelRaceGroup(
+      sideSpeakerShootButton.onTrue(new ParallelRaceGroup(
         new RotateArmToAngleCommand(armSubsystem, 0.3),
         new ShootCommand(shooterSubsystem),
         new WaitCommand(1.5)
