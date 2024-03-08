@@ -236,43 +236,56 @@ public class RobotContainer {
   }
 
   public Command middleAutonomousCommand() {
-    return middleShootSpeakerCommand.andThen(
+    return middleShootSpeakerCommand.andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2),
       intakeCommand
-    ).andThen(
+    )).andThen(new ParallelCommandGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      new ShootCommand(shooterSubsystem),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2)
-    ).andThen(
-      middleShootSpeakerCommand
-    ).andThen(
+    )).andThen(new ParallelCommandGroup(
+      new IntakeCommand(intakeSubsystem),
+      new ShootCommand(shooterSubsystem)
+    )).andThen(new ParallelCommandGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
-    ).andThen(
+    )).andThen(
       timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(
+    ).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2),
       intakeCommand
-    ).andThen(
+    )).andThen(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2)
     ).andThen(
       timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(
+    ).andThen(new ParallelCommandGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      new ShootCommand(shooterSubsystem),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
-    ).andThen(
-      middleShootSpeakerCommand
-    ).andThen(
+    )).andThen(new ParallelCommandGroup(
+      new IntakeCommand(intakeSubsystem),
+      new ShootCommand(shooterSubsystem)
+    )).andThen(new ParallelCommandGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
-    ).andThen(
+    )).andThen(
       timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(
+    ).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2),
       intakeCommand
-    ).andThen(
+    )).andThen(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2)
     ).andThen(
       timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(
+    ).andThen(new ParallelCommandGroup(
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      new ShootCommand(shooterSubsystem),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
-    ).andThen(
-      middleShootSpeakerCommand
+    )).andThen(new ParallelCommandGroup(
+      new IntakeCommand(intakeSubsystem),
+      new ShootCommand(shooterSubsystem)
+    )).andThen(
+      new RotateArmToAngleCommand(armSubsystem, 0)
     );
   }
 
