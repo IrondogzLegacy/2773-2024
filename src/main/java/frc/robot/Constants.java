@@ -67,7 +67,7 @@ public final class Constants {
     
     //Distances (meters)
     public static final double betweenNotes = 57 * 0.0254;
-    public static final double betweenMiddleStartAndNote = 0;
+    public static final double betweenMiddleStartAndNote = 63.68 * 0.0254;
     public static final double betweenSideAwayAndNote = 0;
     public static final double extraIntakeNeeded = 0;
 }
