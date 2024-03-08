@@ -65,5 +65,9 @@ public final class Constants {
     public static final double climbSpeed = 0.3;
     public static final double letGoSpeed = -0.1;
     
-    //Offsets for GoToTagCommand
+    //Distances (meters)
+    public static final double betweenNotes = 57 * 0.0254;
+    public static final double betweenMiddleStartAndNote = 0;
+    public static final double betweenSideAwayAndNote = 0;
+    public static final double extraIntakeNeeded = 0;
 }
