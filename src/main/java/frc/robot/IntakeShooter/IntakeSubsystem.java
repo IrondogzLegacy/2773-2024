@@ -44,6 +44,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    infraredTableEntry.setBoolean(hasRing());
+//    infraredTableEntry.setBoolean(hasRing());
   }
 }

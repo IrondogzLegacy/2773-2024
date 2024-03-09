@@ -25,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
     armRotationEncoder.setPositionConversionFactor(4.0 / 125.0);
     armMotor.setInverted(true);
 
-    armRotationEncoder.setPosition(1.1);
+    armRotationEncoder.setPosition(1.15);
     rotateAnglePID.setSetpoint(0);
     rotateAnglePID.setTolerance(0.001);
   }
@@ -76,7 +76,7 @@ public class ArmSubsystem extends SubsystemBase {
     return armRotationEncoder.getPosition();
   }
 
-  private PIDController rotateAnglePID = new PIDController(8, 0, 0);
+  public PIDController rotateAnglePID = new PIDController(8, 0, 0);
 
   @Override
   public void periodic() {

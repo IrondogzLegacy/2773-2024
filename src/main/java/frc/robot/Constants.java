@@ -33,7 +33,7 @@ public final class Constants {
     public static final int backLeftModuleEncoderCANID = 54;
     public static final int backRightModuleEncoderCANID = 55;
 
-    public static final double DriveSpeedMultiplier = 0.9;
+    public static final double DriveSpeedMultiplier = 0.7;
     public static final double RotateSpeedMultiplier = 0.3;
 
     //Speeds for Intake, Shooter, Arm
