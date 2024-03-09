@@ -125,8 +125,8 @@ public class RobotContainer {
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
     POVButton dpadDownButton = new POVButton(armStick, 0);
-    POVButton dpadRightButton = new POVButton(armStick, 90);
-    POVButton dpadLeftButton = new POVButton(armStick, -90);
+    // POVButton dpadRightButton = new POVButton(armStick, 90);
+    // POVButton dpadLeftButton = new POVButton(armStick, -90);
     POVButton dpadUpButton = new POVButton(armStick, 180);
   
   //Instant Commands
@@ -137,7 +137,7 @@ public class RobotContainer {
   ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommandWithIntake); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
   Command[] middleShootCommands = {new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -148,7 +148,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )), new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -159,7 +159,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -170,7 +170,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -181,7 +181,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -192,7 +192,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -205,7 +205,7 @@ public class RobotContainer {
   ))};
 
   Command[] sideShootCommand = {new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.24),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -216,7 +216,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )), new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -227,7 +227,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -238,7 +238,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -249,7 +249,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -260,7 +260,7 @@ public class RobotContainer {
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
   )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
@@ -294,10 +294,11 @@ public class RobotContainer {
     //ArmStick
       intakeButton.whileTrue(intakeCommand); //Button 2
       shootButton.whileTrue(shootCommand); //Button 6
-      sideSpeakerShootButton.whileTrue(rotateUpCommand); //Button 4
       middleSpeakerShootButton.onTrue(new ParallelRaceGroup(
         new RotateArmToAngleCommand(armSubsystem, 0.308),
         new WaitCommand(1.5)
+      ).andThen(
+        timed(new ShootCommand(shooterSubsystem), 1)
       ).andThen(new ParallelRaceGroup(
         new IntakeCommand(intakeSubsystem),
         new ShootCommand(shooterSubsystem),
@@ -306,25 +307,14 @@ public class RobotContainer {
         new RotateArmToAngleCommand(armSubsystem, 0),
         new WaitCommand(1.5)
       ))); //Button 3
-      sideSpeakerShootButton.onTrue(new ParallelRaceGroup(
-        new RotateArmToAngleCommand(armSubsystem, 0.308),
-        new ShootCommand(shooterSubsystem),
-        new WaitCommand(1.5)
-      ).andThen(new ParallelRaceGroup(
-        new IntakeCommand(intakeSubsystem),
-        new ShootCommand(shooterSubsystem),
-        new WaitCommand(1)
-      )).andThen(new ParallelRaceGroup(
-        new RotateArmToAngleCommand(armSubsystem, 0),
-        new WaitCommand(1.5)
-      ))); //Button 3
+      sideSpeakerShootButton.onTrue(sideShootCommand[1]); //Button 3
       reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand);
       dpadUpButton.whileTrue(letGoCommand);
-      dpadRightButton.onTrue(PUpCommand);
-      dpadLeftButton.onTrue(PDownCommand);
+      // dpadRightButton.onTrue(PUpCommand);
+      // dpadLeftButton.onTrue(PDownCommand);
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
@@ -347,14 +337,14 @@ public class RobotContainer {
   public Command middleAutonomousCommand() {
     return middleShootCommands[0].andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2),
-      new PickUpCommand(intakeSubsystem)
+      timed(new PickUpCommand(intakeSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.308),
-      new ShootCommand(shooterSubsystem),
+      new RotateArmToAngleCommand(armSubsystem, 0.3),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
-      new IntakeCommand(intakeSubsystem),
-      new ShootCommand(shooterSubsystem)
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
     )).andThen(new ParallelCommandGroup(
       new RotateArmToAngleCommand(armSubsystem, 0),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
@@ -362,18 +352,18 @@ public class RobotContainer {
       timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2),
-      new PickUpCommand(intakeSubsystem)
+      timed(new PickUpCommand(intakeSubsystem), 2)
     )).andThen(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenNotes + Constants.extraIntakeNeeded, driveSubsystem, navigationSubsystem), 2)
     ).andThen(
       timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.308),
-      new ShootCommand(shooterSubsystem),
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
-      new IntakeCommand(intakeSubsystem),
-      new ShootCommand(shooterSubsystem)
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
     )).andThen(new ParallelCommandGroup(
       new RotateArmToAngleCommand(armSubsystem, 0),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
@@ -387,12 +377,12 @@ public class RobotContainer {
     ).andThen(
       timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
-      new RotateArmToAngleCommand(armSubsystem, 0.308),
-      new ShootCommand(shooterSubsystem),
+      new RotateArmToAngleCommand(armSubsystem, 0.26),
+      timed(new ShootCommand(shooterSubsystem), 1),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndNote, driveSubsystem, navigationSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
-      new IntakeCommand(intakeSubsystem),
-      new ShootCommand(shooterSubsystem)
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
     )).andThen(
       new RotateArmToAngleCommand(armSubsystem, 0)
     );

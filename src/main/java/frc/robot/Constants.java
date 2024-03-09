@@ -37,12 +37,12 @@ public final class Constants {
     public static final double RotateSpeedMultiplier = 0.3;
 
     //Speeds for Intake, Shooter, Arm
-    public static final double intakeSpeed = 0.4;
+    public static final double intakeSpeed = 0.8;
     public static final double shooterSpeed = 1.0;
     public static final double shooterLowSpeed = 0.3;
     public static final double rotationUpSpeed = 0.2;
     public static final double rotationDownSpeed = -0.1;
-    public static final double reverseIntakeSpeed = -0.2;
+    public static final double reverseIntakeSpeed = -0.4;
     public static final double reverseShooterSpeed = -0.2;
     
     public static final double WheelRotateSpeed = 0.5;
@@ -62,8 +62,8 @@ public final class Constants {
     //Climbing Speeds & Constants
         //CANID for Climbing motor
     public static final int climbMotorCANID = 20;
-    public static final double climbSpeed = 0.3;
-    public static final double letGoSpeed = -0.1;
+    public static final double climbSpeed = 0.9;
+    public static final double letGoSpeed = -0.3;
     
     //Distances (meters)
     public static final double betweenNotes = 57 * 0.0254;

@@ -19,7 +19,7 @@ public class RotateRobotCommand extends Command {
   PIDController rotatePID = new PIDController(0.63, 0, 0);
 
   public RotateRobotCommand(double radians, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
-    addRequirements(navSub, driveSub);
+    addRequirements(navigationSubsystem, driveSubsystem);
     this.navSub = navigationSubsystem;
     this.driveSub = driveSubsystem;
     this.radians = radians;

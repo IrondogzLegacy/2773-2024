@@ -20,6 +20,7 @@ public class RotateArmToAngleCommand extends Command {
   @Override
   public void initialize() {
     armSubsystem.setAngle(angle); 
+    System.out.println("Set arm to angle : " + angle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,7 +29,9 @@ public class RotateArmToAngleCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("Finished angle : " + armSubsystem.getRotationAngle());
+  }
 
   // Returns true when the command should end.
   @Override

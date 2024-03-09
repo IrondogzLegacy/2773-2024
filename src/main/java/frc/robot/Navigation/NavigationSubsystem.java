@@ -63,8 +63,9 @@ public class NavigationSubsystem extends SubsystemBase {
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
-    Shuffleboard.getTab("Navigation").add(gyro);
-
+    Shuffleboard.getTab("Navigation").addDoubleArray("rotations", () -> {
+      return new double[] {gyro.getAngle() * (Math.PI / 180), fla};
+    });
     Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
