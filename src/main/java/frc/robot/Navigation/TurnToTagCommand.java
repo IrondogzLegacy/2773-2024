@@ -9,19 +9,19 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.pathfinding.TagsSubsystem;
+import frc.robot.pathfinding.TagSubsystem;
 
 public class TurnToTagCommand extends Command {
   private final DriveSubsystem driveSubsystem;
-  private final TagsSubsystem udpSubSystem;
+  private final TagSubsystem udpSubSystem;
   private NavigationSubsystem navigationSubsystem;
   private CamSubsystem cameraSubsystem;
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("April Tag");
   private NetworkTableEntry tagIdEntry = table.getEntry("Id");
 
   /* Creates a new TurnToTag. */
-  public TurnToTagCommand(DriveSubsystem driveSubsystem, TagsSubsystem udpSubSystem,
-      NavigationSubsystem navigationSubsystem, CamSubsystem cameraSubsystem) {
+  public TurnToTagCommand(DriveSubsystem driveSubsystem, TagSubsystem udpSubSystem,
+      NavigationSubsystem navigationSubsystem, CamSubsystem cameraSubsystem, double xOffset, double yOffset, double zOffset) {
     this.driveSubsystem = driveSubsystem;
     this.udpSubSystem = udpSubSystem;
     this.navigationSubsystem = navigationSubsystem;
