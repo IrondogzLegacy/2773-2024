@@ -4,14 +4,33 @@
 
 package frc.robot.Navigation;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class OdometrySubsystem extends SubsystemBase {
-  /** Creates a new OdometrySubsystem. */
-  public OdometrySubsystem() {}
+  NavigationSubsystem navigationSubsystem;
+  
+  
+  public OdometrySubsystem(NavigationSubsystem navigationSubsystem) {
+    this.navigationSubsystem = navigationSubsystem;
+
+
+  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    
+  
+  }
+
+  public void calculateRobotPosition()
+  {
+
+  }
+
+  public void calculuateModulePosition(SwerveModule module)
+  {
+       
   }
 }

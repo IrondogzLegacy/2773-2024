@@ -134,7 +134,6 @@ public class NavigationSubsystem extends SubsystemBase {
     fra = positions[1].angle.getRadians();
     bla = positions[2].angle.getRadians();
     bra = positions[3].angle.getRadians();
-
   }
 
   public void reset() {
