@@ -8,91 +8,97 @@ import java.util.function.Supplier;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 public class NavigationSubsystem extends SubsystemBase {
   public AHRS gyro = new AHRS(SPI.Port.kMXP);
   public double angle;
   // Locations for the swerve drive modules relative to the robot center.
-  Translation2d frontLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
-  Translation2d frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
-  Translation2d backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
-  Translation2d backRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
+  Translation2d m_frontLeftLocation = new Translation2d(Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
+  Translation2d m_frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
+  Translation2d m_backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels, Constants.DistanceBetweenWheels);
+  Translation2d m_backRightLocation = new Translation2d(-Constants.DistanceBetweenWheels, -Constants.DistanceBetweenWheels);
 
   // Creating my kinematics object using the module locations
-  SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-      frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
+  SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+      m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   double pitch;
   private Supplier<SwerveModulePosition[]> modulePositions;
   
   public double x;
   public double y;
   public double z;
+  public double flx;
+  public double fly;
+  double[] fl = {flx, fly};
+  public double frx;
+  public double fry;
+  double[] fr = {frx, fry};
+  public double blx;
+  public double bly;
+  double[] bl = {blx, bly};
+  public double brx;
+  public double bry;
+  double[] br = {brx, bry};
   
-  public double flx = 0;
-  public double fly = 0;
-  public double frx = 0;
-  public double fry = 0;
-  public double blx = 0;
-  public double bly = 0;
-  public double brx = 0;
-  public double bry = 0;
+  double sflx;
+  double sfly;
+  double sfrx;
+  double sfry;
+  double sblx;
+  double sbly;
+  double sbrx;
+  double sbry;
 
   public double fla;
   public double fra;
   public double bla;
   public double bra;
 
-  double[] fl = {flx, fly};
-  double[] fr = {frx, fry};
-  double[] bl = {blx, bly};
-  double[] br = {brx, bry};
 
   private SwerveDriveOdometry odometry;
-  public Pose2d pose;
-
+  private Pose2d pose;
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
-    Shuffleboard.getTab("Navigation").addDoubleArray("rotations", () -> {
-      return new double[] {gyro.getAngle() * (Math.PI / 180), fla};
-    });
-    Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
+    Shuffleboard.getTab("Navigation").add(gyro);
+
+   /*  Shuffleboard.getTab("Navigation").addDoubleArray("position", () -> {
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     });
-   
-    Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
-      return new double[] {x, y, gyro.getDisplacementX(), gyro.getDisplacementY()};
+   */
+    Shuffleboard.getTab("Swerve Coordinates");
+
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Left", () -> {
+      return new double[] {sflx, sfly};
     });
-    Shuffleboard.getTab("Navigation").addDoubleArray("Front Left", () -> {
-      return new double[] {flx, fly};
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Front Right", () -> {
+      return new double[] {sfrx, sfry};
     });
-    Shuffleboard.getTab("Navigation").addDoubleArray("Front Right", () -> {
-      return new double[] {frx, fry};
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Left", () -> {
+      return new double[] {sblx, sbly};
     });
-    Shuffleboard.getTab("Navigation").addDoubleArray("Back Left", () -> {
-      return new double[] {blx, bly};
-    });
-    Shuffleboard.getTab("Navigation").addDoubleArray("Back Right", () -> {
-      return new double[] {brx, bry};
+    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Right", () -> {
+      return new double[] {sbrx, sbry};
     });
 
      odometry = new SwerveDriveOdometry(
-      kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
+      m_kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
   }
 
   public double angle() {
     return this.angle;
   }
+
 
   public Pose2d pose() {
     return pose;
@@ -105,60 +111,57 @@ public class NavigationSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     angle = gyro.getAngle() / 180.0 * Math.PI;
-    if (angle > 2 * Math.PI) {
-      angle -= 2 * Math.PI;
-    } else if (angle < 0) {
-      angle += 2 * Math.PI;
-    }
     pitch = gyro.getPitch();
-    pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
-    // Transform2d trans = new Transform2d(6.0, 3.20, null);
-    // pose.plus(trans);
-    x = pose.getX();
-    y = pose.getY();
-    // System.out.println(x + " , " + gyro.getDisplacementX());
-    // System.out.println(y + " , " + gyro.getDisplacementY());
-    // System.out.println(angle + " , " + pose.getRotation().getRadians());
-    angle = pose.getRotation().getRadians();
-    flx = x + (Math.cos(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    fly = y + (Math.sin(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    frx = x + (Math.cos(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    fry = y + (Math.sin(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    blx = x + (Math.cos(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    bly = y + (Math.sin(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    brx = x + (Math.cos(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    bry = y + (Math.sin(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    // pose = odometry.update(gyro.getRotation2d(), modulePositions);
+    x = gyro.getDisplacementX();
+    y = gyro.getDisplacementY();
+    z = gyro.getDisplacementZ();
 
     SwerveModulePosition[] positions = modulePositions.get();
-    fla = positions[0].angle.getRadians();
-    fra = positions[1].angle.getRadians();
-    bla = positions[2].angle.getRadians();
-    bra = positions[3].angle.getRadians();
 
-  }
+    SwerveModulePosition fl = positions[0];
+    double fld = fl.distanceMeters;
+    fla = fl.angle.getRadians();
+    SwerveModulePosition fr = positions[1];
+    double frd = fr.distanceMeters;
+    fra = fr.angle.getRadians();
+    SwerveModulePosition bl = positions[2];
+    double bld = bl.distanceMeters;
+    bla = bl.angle.getRadians();
+    SwerveModulePosition br = positions[3];
+    double brd = br.distanceMeters;
+    bra = br.angle.getRadians();
 
-  public void reset() {
-    x   = 0;
-    y   = 0;
-    z   = 0;
-    flx = 0;
-    fly = 0;
-    frx = 0;
-    fry = 0;
-    blx = 0;
-    bly = 0;
-    brx = 0;
-    bry = 0;
+    flx = fld * Math.cos(fla);
+    fly = fld * Math.sin(fla);
+    frx = frd * Math.cos(fra);
+    fry = frd * Math.sin(fra);
+    blx = bld * Math.cos(bla);
+    bly = bld * Math.sin(bla);
+    brx = brd * Math.cos(bra);
+    bry = brd * Math.sin(bra);
+
+    sflx += flx;
+    sfly += fly;
+    sfrx += frx;
+    sfry += fry;
+    sblx += blx;
+    sbly += bly;
+    sbrx += frx;
+    sbry += fry;
+
+    x = (sflx + sfrx + sblx + sbrx)/4;
+    y = (sfly + sfry + sbly + sbry)/4;
   }
 
   public Double[][] getCoordinates() {
     //Returns 4 1D arrays, each representing the x and y of a module. Index 0, 1, 2, 3 represent
     //the front left, front right, back left, and back right modules respectively.
     Double[][] coordinates = {
-      {flx, fly}, 
-      {frx, fry}, 
-      {blx, bly}, 
-      {brx, bry}
+      {sflx, sfly}, 
+      {sfrx, sfry}, 
+      {sblx, sbly}, 
+      {sbrx, sbry}
     };
     return coordinates;
   }

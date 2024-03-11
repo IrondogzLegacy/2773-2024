@@ -53,7 +53,7 @@ public final class Constants {
     public static final double ArmMaxDeg = 1.1;
     public static final double ArmMinDeg = 0;
     public static final double armMaxRotationOverride = 0.1;
-    public static final double ControllerDeadzone = 0.1;
+    public static final double ControllerDeadzone = 0.2;
     public static final double ArmMaxRotationSpeed = 0.3;
     
     //Digital Ports
