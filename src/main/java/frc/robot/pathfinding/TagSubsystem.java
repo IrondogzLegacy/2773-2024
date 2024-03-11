@@ -7,7 +7,7 @@ import java.nio.channels.DatagramChannel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class TagsSubsystem extends SubsystemBase {
+public class TagSubsystem extends SubsystemBase {
 
     // PORT
     private final int PORT = 15200;
@@ -21,7 +21,7 @@ public class TagsSubsystem extends SubsystemBase {
     private static String lastPacket;
     private TagHandler tagHandler;
 
-    public TagsSubsystem() {
+    public TagSubsystem() {
         try {
             InetSocketAddress address = new InetSocketAddress(PORT);
             this.channel = DatagramChannel.open().bind(address);
