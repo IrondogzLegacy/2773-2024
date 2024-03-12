@@ -36,7 +36,6 @@ public class RotateRobotCommand extends Command {
     }
     rotatePID.setSetpoint(radians);
     rotatePID.setTolerance(0.01);
-    System.out.println("Rotating robot to : " + radians);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,7 +50,7 @@ public class RotateRobotCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     driveSub.stop();
-    System.out.println("Rotated robot to : " + navSub.angle);
+    System.out.println("Rotate Robot Stopped");
   }
 
   // Returns true when the command should end.
