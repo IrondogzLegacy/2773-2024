@@ -59,18 +59,10 @@ public class NavigationSubsystem extends SubsystemBase {
   double sbrx;
   double sbry;
 
-  double sfld;
-  double sfrd;
-  double sbld;
-  double sbrd;
-
   public double fla;
   public double fra;
   public double bla;
   public double bra;
-
-  double testDistanceEncoder;
-  double testPositionEncoder;
 
 
   private SwerveDriveOdometry odometry;
@@ -97,9 +89,6 @@ public class NavigationSubsystem extends SubsystemBase {
     });
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Back Right", () -> {
       return new double[] {sbrx, sbry};
-    });
-    Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Encoder Values", () -> {
-      return new double[] {testDistanceEncoder, testPositionEncoder};
     });
 
      odometry = new SwerveDriveOdometry(
@@ -130,30 +119,17 @@ public class NavigationSubsystem extends SubsystemBase {
 
     SwerveModulePosition[] positions = modulePositions.get();
 
-    // SwerveModulePosition fl = positions[0];
-    // double fld = fl.distanceMeters;
-    // fla = fl.angle.getRadians();
-    // SwerveModulePosition fr = positions[1];
-    // double frd = fr.distanceMeters;
-    // fra = fr.angle.getRadians();
-    // SwerveModulePosition bl = positions[2];
-    // double bld = bl.distanceMeters;
-    // bla = bl.angle.getRadians();
-    // SwerveModulePosition br = positions[3];
-    // double brd = br.distanceMeters;
-    // bra = br.angle.getRadians();
-
     SwerveModulePosition fl = positions[0];
-    double fld = sfld - fl.distanceMeters;
+    double fld = fl.distanceMeters;
     fla = fl.angle.getRadians();
     SwerveModulePosition fr = positions[1];
-    double frd = sfrd - fr.distanceMeters;
+    double frd = fr.distanceMeters;
     fra = fr.angle.getRadians();
     SwerveModulePosition bl = positions[2];
-    double bld = sbld - bl.distanceMeters;
+    double bld = bl.distanceMeters;
     bla = bl.angle.getRadians();
     SwerveModulePosition br = positions[3];
-    double brd = sbrd - br.distanceMeters;
+    double brd = br.distanceMeters;
     bra = br.angle.getRadians();
 
     flx = fld * Math.cos(fla);
@@ -173,11 +149,6 @@ public class NavigationSubsystem extends SubsystemBase {
     sbly += bly;
     sbrx += frx;
     sbry += fry;
-
-    sfld = fl.distanceMeters;
-    sfrd = fr.distanceMeters;
-    sbld = fr.distanceMeters;
-    sbrd = fr.distanceMeters;
 
     x = (sflx + sfrx + sblx + sbrx)/4;
     y = (sfly + sfry + sbly + sbry)/4;
