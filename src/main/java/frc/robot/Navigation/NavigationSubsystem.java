@@ -99,7 +99,7 @@ public class NavigationSubsystem extends SubsystemBase {
       return new double[] {sbrx, sbry};
     });
     Shuffleboard.getTab("Swerve Coordinates").addDoubleArray("Encoder Values", () -> {
-      return new double[] {fld, fla};
+      return new double[] {testDistanceEncoder, testPositionEncoder};
     });
 
      odometry = new SwerveDriveOdometry(
