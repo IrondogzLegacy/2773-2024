@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 
 public class DriveSubsystem extends SubsystemBase {
   public SwerveDriveModule blMotor = new SwerveDriveModule(Constants.backLeftModuleDriveCANID, Constants.backLeftModuleRotateCANID, Constants.backLeftModuleEncoderCANID, 0.3686);
@@ -21,18 +22,32 @@ public class DriveSubsystem extends SubsystemBase {
   };
   }
 
+  // PIDController flPID = new PIDController(0.63, 0, 0);
+  // PIDController frPID = new PIDController(0.63, 0, 0);
+  // PIDController blPID = new PIDController(0.63, 0, 0);
+  // PIDController brPID = new PIDController(0.63, 0, 0);
+  // boolean initDone = false;
+
   /** Creates a new TestSubsystem. */
   public DriveSubsystem() {
+    // flPID.setSetpoint(0);
+    // frPID.setSetpoint(0);
+    // blPID.setSetpoint(0);
+    // brPID.setSetpoint(0);
   }
 
   @Override
   public void periodic() {
-    // System.out.println("BL:" + blMotor.rawPosition());
-    // System.out.println("BR:" + brMotor.rawPosition());
-    // System.out.println("FL:" + flMotor.rawPosition());
-    // System.out.println("FR:" + frMotor.rawPosition());
-
-    }
+    // if (flPID.atSetpoint() && frPID.atSetpoint() && blPID.atSetpoint() && brPID.atSetpoint()) {
+    //   initDone = true;
+    // }
+    // if (!initDone) {
+    //   flMotor.directionalDrive(0, flPID.calculate(flMotor.position()));
+    //   frMotor.directionalDrive(0, frPID.calculate(frMotor.position()));
+    //   blMotor.directionalDrive(0, blPID.calculate(blMotor.position()));
+    //   brMotor.directionalDrive(0, brPID.calculate(brMotor.position()));
+    // }
+  }
 
   public void drive(double speed, double rotate) {
     blMotor.drive(speed, rotate);

@@ -76,7 +76,7 @@ public class SwerveDriveModule {
     driveMotor.set(speed * direction);
   }
 
-  private double position() {
+  public double position() {
     // position [-0.5..0.5)
     double value = encoder.getAbsolutePosition().getValueAsDouble() - alpha;
     if (value < -0.5)
