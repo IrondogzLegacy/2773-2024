@@ -3,7 +3,7 @@ package frc.robot.Navigation;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.pathfinding.UDPSubSystem;
-import frc.robot.pathfinding.TagData;
+import frc.robot.pathfinding.TagDataFile;
 import frc.robot.pathfinding.TagHandler;
 public class CamSubsystem extends SubsystemBase {
 
@@ -41,7 +41,7 @@ public class CamSubsystem extends SubsystemBase {
     this.navSub = navSub;
   }
 
-  private TagData[] apriltag = new TagData[30];
+  private TagDataFile[] apriltag = new TagDataFile[30];
 
   // reads out what the epic camera saw
   @Override
@@ -63,7 +63,7 @@ public class CamSubsystem extends SubsystemBase {
     
   }
 
-  public TagData getAprilTag(int id) {
+  public TagDataFile getAprilTag(int id) {
       return apriltag[id];
   }
 }

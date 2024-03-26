@@ -18,7 +18,7 @@ public class TagSubsystem extends SubsystemBase {
 
     // RECEIVE PACKETS (TRUE WHEN SOCKET IS INIT)
     private boolean isEnabled = false;
-    private static String lastPacket;
+    private static String lastInput;
     private TagHandler tagHandler;
 
     public TagSubsystem() {
@@ -45,8 +45,8 @@ public class TagSubsystem extends SubsystemBase {
                 String rawText = new String(buffer.array(), buffer.arrayOffset(),
                         buffer.remaining());
 
-                this.lastPacket=rawText;
-                // tagHandler.handleRawPacket(rawText);
+                this.lastInput=rawText;
+                tagHandler.handleRawPacket(rawText);
                 System.out.println(rawText);
                 buffer.clear();
             }
@@ -56,7 +56,7 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     public static String getLastPacket() {
-        return lastPacket;
+        return lastInput;
     }
 
 }

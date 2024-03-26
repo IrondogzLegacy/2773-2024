@@ -1,25 +1,26 @@
 package frc.robot.pathfinding;
 
 public class TagHandler {
+    private TagDataFile tagDataFile;
 
-    public static TagData handleRawPacket(String rawText) {
-        TagData tagData = parseTagData(rawText);
+    public TagDataFile handleRawPacket(String rawText) {
+        TagDataFile tagData = parseTagData(rawText);
             if (tagData != null) {
-                System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
+                System.out.println("First: " + tagData.apriltagID + " " + tagData.x + " " + tagData.y + " " + tagData.z);
                 // If there is data, then the data will be printed
                 return tagData;
             }
             return tagData;
         }
 
-    public static TagData parseTagData(String s) {
+    public static TagDataFile parseTagData(String s) {
         String[] tokens = s.split(";");
         String[] ids = tokens[0].split(": ");
         if (!ids[0].equals("TAG_FOUND") || tokens.length < 4) {
             return null;
         }
 
-         String apriltag = ids[1];
+         String apriltagID = ids[1];
 
         String Group1 = tokens[2];
 
@@ -38,12 +39,12 @@ public class TagHandler {
         double sinAlpha = Double.parseDouble(MatrixNum[0]);
         double minusCosAlpha = Double.parseDouble(MatrixNum[2]);
 
-        TagData data = new TagData();
+        TagDataFile data = new TagDataFile();
         data.x = XNum;
         data.y = YNum;
         data.z = ZNum;
         data.alpha = Math.atan2(sinAlpha,minusCosAlpha);
-        data.apriltag = apriltag;
+        data.apriltagID = apriltagID;
         return data;
     }
 
