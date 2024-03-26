@@ -119,21 +119,21 @@ public class NavigationSubsystem extends SubsystemBase {
     // System.out.println(x + " , " + gyro.getDisplacementX());
     // System.out.println(y + " , " + gyro.getDisplacementY());
     // System.out.println(angle + " , " + pose.getRotation().getRadians());
-    angle = pose.getRotation().getRadians();
-    flx = x + (Math.cos(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    fly = y + (Math.sin(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    frx = x + (Math.cos(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    fry = y + (Math.sin(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    blx = x + (Math.cos(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    bly = y + (Math.sin(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
-    brx = x + (Math.cos(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
-    bry = y + (Math.sin(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    // angle = pose.getRotation().getRadians();
+    // flx = x + (Math.cos(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    // fly = y + (Math.sin(angle + 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    // frx = x + (Math.cos(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    // fry = y + (Math.sin(angle + 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    // blx = x + (Math.cos(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    // bly = y + (Math.sin(angle - 0.75 * Math.PI) * Constants.DistanceBetweenWheels);
+    // brx = x + (Math.cos(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
+    // bry = y + (Math.sin(angle - 0.25 * Math.PI) * Constants.DistanceBetweenWheels);
 
-    SwerveModulePosition[] positions = modulePositions.get();
-    fla = positions[0].angle.getRadians();
-    fra = positions[1].angle.getRadians();
-    bla = positions[2].angle.getRadians();
-    bra = positions[3].angle.getRadians();
+    // SwerveModulePosition[] positions = modulePositions.get();
+    // fla = positions[0].angle.getRadians();
+    // fra = positions[1].angle.getRadians();
+    // bla = positions[2].angle.getRadians();
+    // bra = positions[3].angle.getRadians();
 
   }
 
