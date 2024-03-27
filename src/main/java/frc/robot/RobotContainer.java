@@ -110,12 +110,7 @@ public class RobotContainer {
   // JoystickButton switchButton = new JoystickButton(driveStick, 3);
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
   JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
-  JoystickButton testDriveForwardButton = new JoystickButton(driveStick, 1);
-  JoystickButton testRotateSpeakerButton = new JoystickButton(driveStick, 2);
-  JoystickButton testIntakeThenShootButton = new JoystickButton(driveStick, 3);
-  JoystickButton testShootIntoAmpButton = new JoystickButton(driveStick, 4);
-  JoystickButton testRotateAmpButton = new JoystickButton(driveStick, 5);
-  
+    
   //armStick
     JoystickButton intakeButton = new JoystickButton(armStick, 2);
     JoystickButton shootButton = new JoystickButton(armStick, 6);
@@ -285,9 +280,9 @@ public class RobotContainer {
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
-      testRotateSpeakerButton.onTrue(rotateToSpeaker); //button 2
-      testIntakeThenShootButton.onTrue(intakeThenShoot); //button 3
-      testShootIntoAmpButton.whileTrue(shootIntoAmpCommand); //button 4
+      //button 2
+      //button 3
+      //button 4
       //dPad Buttons on DriveStick
 
 
