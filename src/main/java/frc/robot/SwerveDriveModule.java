@@ -35,6 +35,7 @@ public class SwerveDriveModule {
     distanceEncoder.setPositionConversionFactor((1/6.75) * 2 * Math.PI * 4 * 0.0254);
     rotationEncoder = rotateMotor.getEncoder();
     rotationEncoder.setPositionConversionFactor((1.0/21) * 2 * Math.PI);
+    rotationEncoder.setPosition(position());
     id = encoderId;
     this.alpha = alpha;
     this.pidRotate = new PIDController(0.63, 0, 0);
@@ -48,7 +49,7 @@ public class SwerveDriveModule {
 
   public SwerveModulePosition getMotorEncoderPosition() {
     return new SwerveModulePosition(
-        distanceEncoder.getPosition(), new Rotation2d(rotationEncoder.getPosition()));
+        distanceEncoder.getPosition(), new Rotation2d(-rotationEncoder.getPosition()));
   }
   
   public void directionalDrive(double speed, double angle) {
