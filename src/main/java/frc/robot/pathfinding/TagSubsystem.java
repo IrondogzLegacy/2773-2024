@@ -18,7 +18,7 @@ public class TagSubsystem extends SubsystemBase {
 
     // RECEIVE PACKETS (TRUE WHEN SOCKET IS INIT)
     private boolean isEnabled = false;
-    private static String lastInput;
+    private String lastInput;
     private TagHandler tagHandler;
 
     public TagSubsystem() {
@@ -55,7 +55,7 @@ public class TagSubsystem extends SubsystemBase {
         }
     }
 
-    public static String getLastPacket() {
+    public String getLastPacket() {
         return lastInput;
     }
 
