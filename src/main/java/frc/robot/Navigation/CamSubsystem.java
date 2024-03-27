@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.pathfinding.UDPSubSystem;
 import frc.robot.pathfinding.TagDataFile;
 import frc.robot.pathfinding.TagHandler;
+import frc.robot.pathfinding.TagDataFile.TagData;
 public class CamSubsystem extends SubsystemBase {
 
   /*
@@ -41,12 +42,12 @@ public class CamSubsystem extends SubsystemBase {
     this.navSub = navSub;
   }
 
-  private TagDataFile[] apriltag = new TagDataFile[30];
+  private TagData[] apriltag = new TagData[30];
 
   // reads out what the epic camera saw
   @Override
   public void periodic() {
-    String s/* = null*/;
+    String s;
     /*s = TagsSubsystem.getLastPacket();
     if (s != null) {
       TagData tagData = TagHandler.parseTagData(s);
@@ -63,7 +64,7 @@ public class CamSubsystem extends SubsystemBase {
     
   }
 
-  public TagDataFile getAprilTag(int id) {
+  public TagData getAprilTag(int id) {
       return apriltag[id];
   }
 }

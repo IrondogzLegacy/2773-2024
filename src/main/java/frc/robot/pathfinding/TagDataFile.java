@@ -2,7 +2,9 @@ package frc.robot.pathfinding;
 
 public class TagDataFile {
     
-    public class TagData{
+    public class TagData
+    
+{
     public String apriltagID;
     public double x; // How far right or left (I think)
     public double y; // How high or low the april tag is
@@ -19,7 +21,7 @@ public class TagDataFile {
  * xyz is tokens[2], it is the three floats at the end of String s
  * When an april tag is found, a string will print with the id and xyz.
  */
-private static TagDataFile parseTagData(String s) {
+public TagData parseTagData(String s) {
     String[] tokens = s.split(";");
     String[] ids = tokens[0].split(": ");
     if (!ids[0].equals("TAG_FOUND") || tokens.length < 4) {
