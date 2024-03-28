@@ -34,12 +34,19 @@ public class NavigationSubsystem extends SubsystemBase {
   double pitch;
   private Supplier<SwerveModulePosition[]> modulePositions;
   
-  public double x;
-  public double y;
-  public double z;
+  private double x;
+  private double y;
+
+  public double savedX;
+  public double savedY;
+
+  public double displacementX;
+  public double displacementY;
 
   private SwerveDriveOdometry odometry;
   public Pose2d pose;
+
+  public OdometrySubsystem odomSub;
 
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
@@ -68,15 +75,17 @@ public class NavigationSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     angle = gyro.getAngle() / 180.0 * Math.PI;
-    pitch = gyro.getPitch();
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
-    x = pose.getX();
-    y = pose.getY();
+    x = pose.getY();
+    y = pose.getX();
+    displacementX = x - savedX;
+    displacementY = y - savedY;
+    savedX = x;
+    savedY = y;
   }
 
   public void reset() {
-    x   = 0;
-    y   = 0;
-    z   = 0;
+    x = 0;
+    y = 0;
   }
 }

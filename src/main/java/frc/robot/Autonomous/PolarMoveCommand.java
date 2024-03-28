@@ -8,14 +8,14 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.Navigation.OdometrySubsystem;
 
 public class PolarMoveCommand extends Command {
 
   double radians;
   double distance;
   DriveSubsystem driveSubsystem;
-  NavigationSubsystem navigationSubsystem;
+  OdometrySubsystem odomSub;
   double differenceY;
   double differenceX;
   double goalX;
@@ -29,12 +29,12 @@ public class PolarMoveCommand extends Command {
 
   /** Creates a new MovePolarCommand. */
   public PolarMoveCommand(double radians, double distance, 
-    DriveSubsystem driveSubsystem, NavigationSubsystem navigationSubsystem) {
+    DriveSubsystem driveSubsystem, OdometrySubsystem odomSub) {
     addRequirements(driveSubsystem);
     this.radians = radians;
     this.distance = distance;
     this.driveSubsystem = driveSubsystem;
-    this.navigationSubsystem = navigationSubsystem;
+    this.odomSub = odomSub;
   }
 
   // Called when the command is initially scheduled.
@@ -42,8 +42,8 @@ public class PolarMoveCommand extends Command {
   public void initialize() {
     differenceY = Math.sin(radians) * distance;
     differenceX = Math.cos(radians) * distance;
-    y = navigationSubsystem.y;
-    x = navigationSubsystem.x;
+    y = odomSub.y;
+    x = odomSub.x;
     goalY = y + differenceY;
     goalX = x + differenceX;
     pid.setSetpoint(0);
@@ -53,8 +53,8 @@ public class PolarMoveCommand extends Command {
   // Called every time the schetduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = navigationSubsystem.x;
-    y = navigationSubsystem.y;
+    x = odomSub.x;
+    y = odomSub.y;
     differenceX = -(x - goalX);
     differenceY = -(y - goalY);
 

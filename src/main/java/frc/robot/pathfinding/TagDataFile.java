@@ -5,11 +5,12 @@ public class TagDataFile {
     public class TagData
     
 {
-    public String apriltagID;
+    public int aprilTagID;
     public double x; // How far right or left (I think)
     public double y; // How high or low the april tag is
     public double z; // How far away (I think)
-    public double alpha;}
+    public double alpha;
+}
 
 
 /*
@@ -52,7 +53,7 @@ public TagData parseTagData(String s) {
     data.y = YNum;
     data.z = ZNum;
     data.alpha = Math.atan2(sinAlpha, minusCosAlpha);
-    data.apriltagID = apriltag;
+    data.aprilTagID = Integer.parseInt(apriltag);
     return data;
 }
 }
