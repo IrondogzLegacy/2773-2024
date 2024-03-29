@@ -42,6 +42,7 @@ import frc.robot.IntakeShooter.ShootIntoAmpCommand;
 import frc.robot.IntakeShooter.ShootIntoSpeakerCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.pathfinding.TagSubsystem;
 import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.MoveToCommand;
 
@@ -57,6 +58,8 @@ public class RobotContainer {
   ArmSubsystem armSubsystem = new ArmSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   ClimbSubsystem climbSubsystem = new ClimbSubsystem(armStick);
+  TagSubsystem tagSubsystem = new TagSubsystem();
+
 
   // Commands from files
     //Drive Commands

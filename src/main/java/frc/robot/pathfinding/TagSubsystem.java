@@ -26,6 +26,7 @@ public class TagSubsystem extends SubsystemBase {
             InetSocketAddress address = new InetSocketAddress(PORT);
             this.channel = DatagramChannel.open().bind(address);
             this.isEnabled = true;
+            System.out.println("Connected to Port " + PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +47,7 @@ public class TagSubsystem extends SubsystemBase {
                         buffer.remaining());
 
                 this.lastInput=rawText;
-                tagHandler.handleRawPacket(rawText);
+                //tagHandler.handleRawPacket(rawText);
                 System.out.println(rawText);
                 buffer.clear();
             }
