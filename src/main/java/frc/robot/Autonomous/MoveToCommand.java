@@ -8,11 +8,11 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.Navigation.OdometrySubsystem;
 
 public class MoveToCommand extends Command {
 
-  NavigationSubsystem navigationSubsystem;
+  OdometrySubsystem odometrySubsystem;
   DriveSubsystem driveSubsystem;
   double x;
   double y;
@@ -30,10 +30,10 @@ public class MoveToCommand extends Command {
   double speed;
 
   /** Creates a new MoveToCommand. */
-  public MoveToCommand(double x, double y, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
-    addRequirements(driveSubsystem, navigationSubsystem);
+  public MoveToCommand(double x, double y, OdometrySubsystem odometrySubsystem, DriveSubsystem driveSubsystem) {
+    addRequirements(driveSubsystem, odometrySubsystem);
     this.driveSubsystem = driveSubsystem;
-    this.navigationSubsystem = navigationSubsystem;
+    this.odometrySubsystem = odometrySubsystem;
     this.goalX = x;
     this.goalY = y;
   }
@@ -48,8 +48,8 @@ public class MoveToCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    x = navigationSubsystem.x;
-    y = navigationSubsystem.y;
+    x = odometrySubsystem.x;
+    y = odometrySubsystem.y;
     differenceX = -(x - goalX);
     differenceY = -(y - goalY);
     radians = Math.atan2(differenceY, differenceX);

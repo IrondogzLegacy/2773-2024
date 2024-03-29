@@ -6,19 +6,19 @@ package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.Navigation.OdometrySubsystem;
 
 public class MoveDirectionCommand extends Command {
 
-  NavigationSubsystem navigationSubsystem;
+  OdometrySubsystem odometrySubsystem;
   DriveSubsystem driveSubsystem;
   double radians;
 
   /** Creates a new MoveDirectionCommand. */
-  public MoveDirectionCommand(double radians, DriveSubsystem driveSubsystem, NavigationSubsystem navigationSubsystem) {
-    addRequirements(driveSubsystem, navigationSubsystem);
+  public MoveDirectionCommand(double radians, DriveSubsystem driveSubsystem, OdometrySubsystem odometrySubsystem) {
+    addRequirements(driveSubsystem, odometrySubsystem);
     this.driveSubsystem = driveSubsystem;
-    this.navigationSubsystem = navigationSubsystem;
+    this.odometrySubsystem = odometrySubsystem;
     this.radians = radians;
   }
 
@@ -30,7 +30,7 @@ public class MoveDirectionCommand extends Command {
   @Override
   public void execute() {
     driveSubsystem.directionalDrive(0.3, radians);
-    System.out.println(navigationSubsystem.x + " , " + navigationSubsystem.y);
+    System.out.println(odometrySubsystem.x + " , " + odometrySubsystem.y);
   }
 
   // Called once the command ends or is interrupted.
