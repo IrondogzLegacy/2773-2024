@@ -302,9 +302,6 @@ public class RobotContainer {
         new IntakeCommand(intakeSubsystem),
         new ShootCommand(shooterSubsystem),
         new WaitCommand(1)
-      )).andThen(new ParallelRaceGroup(
-        new RotateArmToAngleCommand(armSubsystem, 0),
-        new WaitCommand(1.5)
       ))); //Button 3
       sideSpeakerShootButton.onTrue(sideShootCommand[1]); //Button 3
       reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5

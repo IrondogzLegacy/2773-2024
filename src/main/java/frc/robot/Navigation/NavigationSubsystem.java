@@ -52,8 +52,8 @@ public class NavigationSubsystem extends SubsystemBase {
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
    
-    Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
-      return new double[] {x, y};
+    Shuffleboard.getTab("Navigation").addDoubleArray("Displacement", () -> {
+      return new double[] {displacementX, displacementY};
     });
 
      odometry = new SwerveDriveOdometry(

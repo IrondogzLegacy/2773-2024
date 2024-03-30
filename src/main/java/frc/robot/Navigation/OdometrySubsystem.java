@@ -4,12 +4,16 @@
 
 package frc.robot.Navigation;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class OdometrySubsystem extends SubsystemBase {
   /** Creates a new OdometrySubsystem. */
   public OdometrySubsystem(NavigationSubsystem navSub) {
     this.navSub = navSub;
+    Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
+      return new double[] {x, y};
+    });
   }
 
   public double x;
@@ -18,11 +22,14 @@ public class OdometrySubsystem extends SubsystemBase {
 
   private NavigationSubsystem navSub;
 
+
+
   @Override
   public void periodic() {
     x += navSub.displacementX;
     y += navSub.displacementY;
     angle = navSub.angle;
+    System.out.println(x + " , "+  y);
   }
 
   public void setPosition(double gX, double gY) {
