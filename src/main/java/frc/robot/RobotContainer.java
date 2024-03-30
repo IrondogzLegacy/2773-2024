@@ -225,7 +225,8 @@ public class RobotContainer {
   )).andThen(new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, 0),
     new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
+  )),
+  new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
@@ -233,10 +234,11 @@ public class RobotContainer {
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
+  )),//.andThen(new ParallelRaceGroup(
+  //   new RotateArmToAngleCommand(armSubsystem, 0),
+  //   new WaitCommand(1.5)
+  // )),
+    new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, 0.308),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
@@ -307,8 +309,8 @@ public class RobotContainer {
       reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
-      dpadDownButton.whileTrue(climbCommand);
-      dpadUpButton.whileTrue(letGoCommand);
+      dpadDownButton.whileTrue(climbCommand); //down arrow
+      dpadUpButton.whileTrue(letGoCommand); //up arrow
       // dpadRightButton.onTrue(PUpCommand);
       // dpadLeftButton.onTrue(PDownCommand);
     //Overrides
