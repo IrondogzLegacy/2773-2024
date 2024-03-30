@@ -135,142 +135,39 @@ public class RobotContainer {
   ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
   ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommandWithIntake); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
-  Command[] middleShootCommands = {new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
+  Command angleShootCommand(Double angle) {
+    return new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, angle),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )), new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.3),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  ))};
+  )); }
 
-  Command[] sideShootCommand = {new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
+  
+  Command middleShootCommand() {
+    return new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1.5)
   ).andThen(new ParallelRaceGroup(
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )), new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  )),new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0.308),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
-  ).andThen(new ParallelRaceGroup(
-    new IntakeCommand(intakeSubsystem),
-    new ShootCommand(shooterSubsystem),
-    new WaitCommand(1)
-  )).andThen(new ParallelRaceGroup(
-    new RotateArmToAngleCommand(armSubsystem, 0),
-    new WaitCommand(1.5)
-  ))};
+  )); }
 
+  Command sideShootCommand() {return new ParallelRaceGroup(
+    new RotateArmToAngleCommand(armSubsystem, 0.308),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1.5)
+  ).andThen(new ParallelRaceGroup(
+    new IntakeCommand(intakeSubsystem),
+    new ShootCommand(shooterSubsystem),
+    new WaitCommand(1)
+  ));}
+  
   public RobotContainer() {
     configureBindings();
   }
@@ -303,12 +200,12 @@ public class RobotContainer {
         new ShootCommand(shooterSubsystem),
         new WaitCommand(1)
       ))); //Button 3
-      sideSpeakerShootButton.onTrue(sideShootCommand[1]); //Button 3
+      sideSpeakerShootButton.onTrue(sideShootCommand()); //Button 3
       reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
-      dpadDownButton.whileTrue(climbCommand);
-      dpadUpButton.whileTrue(letGoCommand);
+      dpadDownButton.whileTrue(climbCommand); //down arrow
+      dpadUpButton.whileTrue(letGoCommand); //up arrow
       // dpadRightButton.onTrue(PUpCommand);
       // dpadLeftButton.onTrue(PDownCommand);
     //Overrides
@@ -331,7 +228,7 @@ public class RobotContainer {
   }
 
   public Command middleAutonomousCommand() {
-    return middleShootCommands[0].andThen(new ParallelCommandGroup(
+    return middleShootCommand().andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
       timed(new PickUpCommand(intakeSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
@@ -385,13 +282,13 @@ public class RobotContainer {
   }
 
   public Command angledMiddleAutoCommand() {
-    return middleShootCommands[1].andThen(
+    return middleShootCommand().andThen(
       
     );
   }
 
   public Command leftAutoCommand() {
-    return middleShootCommands[2].andThen(
+    return middleShootCommand().andThen(
       
     );
   }
@@ -407,11 +304,11 @@ public class RobotContainer {
   }
 
   public Command middlePositionShootCommand() {
-    return middleShootCommands[3].andThen(new StopCommand(driveSubsystem));
+    return middleShootCommand().andThen(new StopCommand(driveSubsystem));
   }
 
   public Command sidePositionShootCommand() {
-    return sideShootCommand[0].andThen(new StopCommand(driveSubsystem));
+    return sideShootCommand().andThen(new StopCommand(driveSubsystem));
   }
   
   

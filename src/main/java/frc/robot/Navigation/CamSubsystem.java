@@ -2,10 +2,8 @@ package frc.robot.Navigation;
 
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.pathfinding.TagSubsystem.TagData;
 // import frc.robot.pathfinding.UDPSubSystem;
-import frc.robot.pathfinding.TagDataFile;
-import frc.robot.pathfinding.TagHandler;
-import frc.robot.pathfinding.TagDataFile.TagData;
 public class CamSubsystem extends SubsystemBase {
 
   /*
