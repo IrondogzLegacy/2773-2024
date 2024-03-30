@@ -36,7 +36,6 @@ public class TagSubsystem extends SubsystemBase {
         if (isEnabled) {
             receivePacket();
         }
-        
     }
 
     private void receivePacket() {
@@ -46,8 +45,8 @@ public class TagSubsystem extends SubsystemBase {
                 String rawText = new String(buffer.array(), buffer.arrayOffset(),
                         buffer.remaining());
 
-                // this.lastPacket=rawText;
-                tagHandler.parseTagData(rawText);
+                this.lastPacket=rawText;
+                // tagHandler.handleRawPacket(rawText);
                 System.out.println(rawText);
                 buffer.clear();
             }
@@ -56,7 +55,7 @@ public class TagSubsystem extends SubsystemBase {
         }
     }
 
-    public String getLastPacket() {
+    public static String getLastPacket() {
         return lastPacket;
     }
 
