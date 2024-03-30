@@ -23,7 +23,7 @@ public class TagSubsystem extends SubsystemBase {
     // private TagHandler tagHandler;
 
     double[][] aprilTagCoordinate = {
-            { 593.68, 9.68, 53.38, 120 },
+            { 652.73, 196.17, 57.13, 180 },//{ 593.68, 9.68, 53.38, 120 },
             { 637.21, 34.79, 53.38, 120 },
             { 652.73, 196.17, 57.13, 180 },
             { 652.73, 218.42, 57.13, 180 },
@@ -96,13 +96,16 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     private void updateOdometry(TagData data) {
-        // double distance = Math.sqrt(data.x * data.x + data.z * data.z) * 0.0254;
-        // double angle = -data.alpha + Math.toRadians(aprilTagCoordinate[data.aprilTagID][3]);
-        // double processedX = Math.cos(angle) * distance;
-        // double processedY = Math.sin(angle) * distance;
-        // double robotX = aprilTagCoordinate[data.aprilTagID][0] + processedX;
-        // double robotY = aprilTagCoordinate[data.aprilTagID][1] + processedY;
-        // odomSub.setPosition(robotX, robotY);
+        double distance = Math.sqrt(data.x * data.x + data.z * data.z);
+        double angle = -data.alpha + aprilTagCoordinate[data.aprilTagID][3];
+        double processedX = Math.cos(angle) * distance;
+        double processedY = Math.sin(angle) * distance;
+        double robotX = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][0] + processedX;
+        double robotY = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][1] + processedY;
+        odomSub.setPosition(robotX, robotY);
+                System.out.print(": " + distance + " , " + angle + " "+data.alpha);
+
+        System.out.println(" Robot: " + robotX + " , " + robotY);
 
         // Transform2d trans = new Transform2d(robotX, robotY, new Rotation2d());
         // odomSub.pose.plus(trans);
@@ -142,7 +145,7 @@ public class TagSubsystem extends SubsystemBase {
         data.x = XNum;
         data.y = YNum;
         data.z = ZNum;
-        data.alpha = Math.atan2(sinAlpha, minusCosAlpha);
+        data.alpha = Math.atan2(minusCosAlpha,sinAlpha);
         data.aprilTagID = Integer.parseInt(apriltag);
         return data;
     }
