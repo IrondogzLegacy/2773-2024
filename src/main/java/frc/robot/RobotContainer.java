@@ -124,8 +124,8 @@ public class RobotContainer {
   JoystickButton reverseIntakeButton = new JoystickButton(armStick, 1);
   JoystickButton reverseShooterButton = new JoystickButton(armStick, 5);
     POVButton dpadDownButton = new POVButton(armStick, 0);
-    // POVButton dpadRightButton = new POVButton(armStick, 90);
-    // POVButton dpadLeftButton = new POVButton(armStick, -90);
+    POVButton dpadRightButton = new POVButton(armStick, 90);
+    POVButton dpadLeftButton = new POVButton(armStick, -90);
     POVButton dpadUpButton = new POVButton(armStick, 180);
   
   //Instant Commands
@@ -167,8 +167,6 @@ public class RobotContainer {
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
   ));}
-
-  RotateRobotCommand rotateRobot90 = new RotateRobotCommand(0.5 * Math.PI, navigationSubsystem, driveSubsystem);
   
   public RobotContainer() {
     configureBindings();
@@ -208,8 +206,8 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
       dpadUpButton.whileTrue(letGoCommand); //up arrow
-      // dpadRightButton.onTrue(PUpCommand);
-      // dpadLeftButton.onTrue(PDownCommand);
+      dpadRightButton.onTrue(PUpCommand);
+      dpadLeftButton.onTrue(PDownCommand);
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
@@ -296,7 +294,7 @@ public class RobotContainer {
   }
 
   public Command rotate90Command() {
-    return rotateRobot90;
+    return new RotateRobotCommand(-1.0 * Math.PI, navigationSubsystem, driveSubsystem);
   }
 
   public Command getRedLeftAutoCommand() {

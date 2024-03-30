@@ -76,7 +76,7 @@ public class ArmSubsystem extends SubsystemBase {
     return armRotationEncoder.getPosition();
   }
 
-  public PIDController rotateAnglePID = new PIDController(8, 0, 0);
+  public PIDController rotateAnglePID = new PIDController(6, 6, 0);
 
   @Override
   public void periodic() {

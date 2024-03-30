@@ -49,8 +49,11 @@ public class DriveCommand extends Command {
      }*/
 
     
-    double r = joy.getRightX() + armStick.getLeftX() + (Math.abs(driveSubsystem.setAngle) - Math.abs(gyroAngle));
-    if (joy.getRightX() + armStick.getLeftX() > 0.05) {driveSubsystem.setAngle = gyroAngle;}
+    double r = joy.getRightX() + armStick.getLeftX();// + (Math.abs(driveSubsystem.setAngle) - Math.abs(gyroAngle));
+    // if (Math.abs(joy.getRightX() + armStick.getLeftX()) > 0.1) {
+    //   driveSubsystem.setAngle = gyroAngle;
+    //   System.out.println("LeftX:" + armStick.getLeftX() + "RightX:" + joy.getRightX());
+    // }
     if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
       driveSubsystem.stop();
     } else {

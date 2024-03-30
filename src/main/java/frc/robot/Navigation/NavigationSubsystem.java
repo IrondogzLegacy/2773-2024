@@ -62,6 +62,7 @@ public class NavigationSubsystem extends SubsystemBase {
 
      odometry = new SwerveDriveOdometry(
       kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
+    gyro.reset();
   }
 
   public double angle() {

@@ -29,11 +29,6 @@ public class RotateRobotCommand extends Command {
   @Override
   public void initialize() {
     radians += navSub.angle;
-    if (radians > Math.PI) {
-      radians -= Math.PI*2;
-    } else if (radians < -Math.PI) {
-      radians += Math.PI * 2;
-    }
     rotatePID.setSetpoint(radians);
     rotatePID.setTolerance(0.01);
   }
