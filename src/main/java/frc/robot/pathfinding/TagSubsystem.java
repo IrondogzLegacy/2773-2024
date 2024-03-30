@@ -40,9 +40,7 @@ public class TagSubsystem extends SubsystemBase {
             { 182.73, 177.10, 52.00, 120 },
             { 182.73, 146.19, 52.00, 240 } };
 
-    public class TagData
-
-    {
+    public static class TagData{
         public int aprilTagID;
         public double x; // How far right or left (I think)
         public double y; // How high or low the april tag is
@@ -50,21 +48,24 @@ public class TagSubsystem extends SubsystemBase {
         public double alpha;
     }
 
-    OdometrySubsystem odomSub;
+    private OdometrySubsystem odomSub;
 
     public TagSubsystem(OdometrySubsystem odomSub) {
         try {
             InetSocketAddress address = new InetSocketAddress(PORT);
             this.channel = DatagramChannel.open().bind(address);
+            this.channel.configureBlocking(false);
             this.isEnabled = true;
-        } catch (IOException e) {
+            } catch (IOException e) {
             e.printStackTrace();
         }
         this.odomSub = odomSub;
+        
     }
 
     @Override
     public void periodic() {
+
         if (isEnabled) {
             receivePacket();
         }
@@ -72,7 +73,8 @@ public class TagSubsystem extends SubsystemBase {
 
     private void receivePacket() {
         try {
-            while (channel.receive(buffer) != null) {
+
+            if (channel.receive(buffer) != null) {
                 buffer.flip();
                 String rawText = new String(buffer.array(), buffer.arrayOffset(),
                         buffer.remaining());
@@ -80,13 +82,13 @@ public class TagSubsystem extends SubsystemBase {
                 this.lastInput = rawText;
                 TagData data = parseTagData(rawText);
                 if (data != null) {
-                    updateOdometry(data);
-                    // System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
+                    //updateOdometry(data);
+                     System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
                 }
                 buffer.clear();
 
             }
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

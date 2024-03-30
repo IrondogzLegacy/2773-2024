@@ -55,6 +55,10 @@ public class NavigationSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Navigation").addDoubleArray("Displacement", () -> {
       return new double[] {displacementX, displacementY};
     });
+    Shuffleboard.getTab("Navigation").addDoubleArray("Rotation", () -> {
+      return new double[] {angle};
+    });
+    
 
      odometry = new SwerveDriveOdometry(
       kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));

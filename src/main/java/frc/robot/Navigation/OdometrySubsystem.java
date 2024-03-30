@@ -29,7 +29,7 @@ public class OdometrySubsystem extends SubsystemBase {
     x += navSub.displacementX;
     y += navSub.displacementY;
     angle = navSub.angle;
-    System.out.println(x + " , "+  y);
+    //System.out.println(x + " , "+  y);
   }
 
   public void setPosition(double gX, double gY) {
