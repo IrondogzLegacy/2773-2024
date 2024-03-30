@@ -112,9 +112,6 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     public TagData parseTagData(String s) {
-
-
-
         /*TAG: 4; 0.92... 123 123 123 123 123 123 123 123; 123 123 123; 123 */
         String[] tokens = s.split(";");  
         String[] ids = tokens[0].split(": ");
