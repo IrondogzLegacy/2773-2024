@@ -40,6 +40,7 @@ public class ArmControlCommand extends Command {
     }
     armSubsystem.rotateBy(
         -Constants.ControlArmSpeed * MathUtil.applyDeadband(armStick.getRightY(), Constants.ControllerDeadzone));
+        // System.out.println("RightY: " + armStick.getRightY());
   }
 
   // Called once the command ends or is interrupted.

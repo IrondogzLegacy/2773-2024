@@ -70,7 +70,7 @@ public class PolarMoveCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     driveSubsystem.stop();
-    System.out.println("Stopped Move Polar");
+    System.out.println("Move Polar at Destination");
   }
 
   // Returns true when the command should end.

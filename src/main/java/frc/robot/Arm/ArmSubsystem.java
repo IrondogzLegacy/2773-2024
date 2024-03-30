@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,6 +29,9 @@ public class ArmSubsystem extends SubsystemBase {
     armRotationEncoder.setPosition(1.15);
     rotateAnglePID.setSetpoint(0);
     rotateAnglePID.setTolerance(0.001);
+    Shuffleboard.getTab("Navigation").addDoubleArray("Arm Speed", () -> {
+      return new double[] {armMotor.get()};
+    });
   }
 
   private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
@@ -76,8 +80,8 @@ public class ArmSubsystem extends SubsystemBase {
     return armRotationEncoder.getPosition();
   }
 
-  public PIDController rotateAnglePID = new PIDController(6, 6, 0);
-
+  public PIDController rotateAnglePID = new PIDController(5, 9, 0);
+// 5, 9
   @Override
   public void periodic() {
     angTableEntry.setDouble(getRotationAngle());
@@ -86,6 +90,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     double rotate = rotateAnglePID.calculate(getRotationAngle());
     if (rotateAnglePID.atSetpoint()) {
+
       armMotor.stopMotor();
       return;
     }

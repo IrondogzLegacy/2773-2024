@@ -27,6 +27,7 @@ import frc.robot.Arm.PUpCommand;
 import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
+import frc.robot.Arm.ShakeCommand;
 import frc.robot.Autonomous.MoveDirectionCommand;
 import frc.robot.Autonomous.PolarMoveCommand;
 import frc.robot.Autonomous.RotateRobotCommand;
@@ -151,7 +152,7 @@ public class RobotContainer {
     return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, 0.3),
     new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
+    new WaitCommand(1.5) //Maybe less
   ).andThen(new ParallelRaceGroup(
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
@@ -201,7 +202,8 @@ public class RobotContainer {
         new WaitCommand(1)
       ))); //Button 3
       sideSpeakerShootButton.onTrue(sideShootCommand()); //Button 3
-      reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
+      // reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
+      reverseShooterButton.onTrue(new ShakeCommand(armSubsystem));
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
@@ -228,8 +230,9 @@ public class RobotContainer {
   }
 
   public Command middleAutonomousCommand() {
-    return middleShootCommand().andThen(new ParallelCommandGroup(
+    return timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
+      timed(new RotateArmToAngleCommand(armSubsystem, 0), 1.5),
       timed(new PickUpCommand(intakeSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
       new RotateArmToAngleCommand(armSubsystem, 0.3),
@@ -294,7 +297,7 @@ public class RobotContainer {
   }
 
   public Command rotate90Command() {
-    return new RotateRobotCommand(-1.0 * Math.PI, navigationSubsystem, driveSubsystem);
+    return middleShootCommand();
   }
 
   public Command getRedLeftAutoCommand() {
