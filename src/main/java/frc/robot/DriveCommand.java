@@ -47,7 +47,9 @@ public class DriveCommand extends Command {
        driveSubsystem.directionalDrive(speed, angle - gyroAngle);
      }*/
 
-    double r = joy.getRightX() + armStick.getLeftX();
+    
+    double r = joy.getRightX() + armStick.getLeftX() + (Math.abs(driveSubsystem.setAngle) - Math.abs(gyroAngle));
+    if (joy.getRightX() + armStick.getLeftX() > 0.05) {driveSubsystem.setAngle = gyroAngle;}
     if (Math.abs(x) < Deadzone && Math.abs(y) < Deadzone && Math.abs(r) < Deadzone) {
       driveSubsystem.stop();
     } else {

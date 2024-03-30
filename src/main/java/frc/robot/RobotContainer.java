@@ -167,6 +167,8 @@ public class RobotContainer {
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
   ));}
+
+  RotateRobotCommand rotateRobot90 = new RotateRobotCommand(0.5 * Math.PI, navigationSubsystem, driveSubsystem);
   
   public RobotContainer() {
     configureBindings();
@@ -291,6 +293,10 @@ public class RobotContainer {
     return middleShootCommand().andThen(
       
     );
+  }
+
+  public Command rotate90Command() {
+    return rotateRobot90;
   }
 
   public Command getRedLeftAutoCommand() {
