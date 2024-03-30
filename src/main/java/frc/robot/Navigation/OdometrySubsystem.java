@@ -8,10 +8,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class OdometrySubsystem extends SubsystemBase {
   /** Creates a new OdometrySubsystem. */
-  public OdometrySubsystem() {}
+  public OdometrySubsystem(NavigationSubsystem navSub) {
+    this.navSub = navSub;
+  }
+
+  public double x;
+  public double y;
+  public double angle;
+
+  private NavigationSubsystem navSub;
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    x += navSub.displacementX;
+    y += navSub.displacementY;
+    angle = navSub.angle;
+  }
+
+  public void setPosition(double gX, double gY) {
+    x = gX;
+    y = gY;
   }
 }

@@ -66,8 +66,11 @@ public final class Constants {
     public static final double letGoSpeed = -0.3;
     
     //Distances (meters)
-    public static final double betweenNotes = 57 * 0.0254;
-    public static final double betweenMiddleStartAndNote = 63.68 * 0.0254;
-    public static final double betweenSideAwayAndNote = 0;
-    public static final double extraIntakeNeeded = 0;
+    public static final double betweenInsideNotes = 57 * 0.0254;
+    public static final double betweenMiddleStartAndInsideNote = 65.08 * 0.0254;
+    public static final double betweenSideAwayAndNote = 0 * 0.0254;
+    public static final double extraIntakeNeeded = 0 * 0.0254;
+    public static final double betweenOutsideNotes = 66 * 0.0254;
+    public static final double initialAngledDistance = 0 * 0.0254;
+    public static final double initialDistanceToNote = 0 * 0.0254;
 }
