@@ -74,7 +74,7 @@ public class NavigationSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    angle = gyro.getAngle() / 180.0 * Math.PI;
+    angle = (gyro.getAngle() - 0) / 180.0 * Math.PI;
     pose = odometry.update(gyro.getRotation2d(), modulePositions.get());
     x = pose.getY();
     y = pose.getX();

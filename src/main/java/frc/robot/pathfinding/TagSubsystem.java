@@ -47,14 +47,14 @@ public class TagSubsystem extends SubsystemBase {
     OdometrySubsystem odomSub;
 
     public TagSubsystem(OdometrySubsystem odomSub) {
-        try {
-            InetSocketAddress address = new InetSocketAddress(PORT);
-            this.channel = DatagramChannel.open().bind(address);
-            this.isEnabled = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.odomSub = odomSub;
+        // try {
+        //     InetSocketAddress address = new InetSocketAddress(PORT);
+        //     this.channel = DatagramChannel.open().bind(address);
+        //     this.isEnabled = true;
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
+        // this.odomSub = odomSub;
     }
 
     @Override
@@ -65,22 +65,22 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     private void receivePacket() {
-        try {
-            while (channel.receive(buffer) != null) {
-                buffer.flip();
-                String rawText = new String(buffer.array(), buffer.arrayOffset(),
-                        buffer.remaining());
+        // try {
+        //     while (channel.receive(buffer) != null) {
+        //         buffer.flip();
+        //         String rawText = new String(buffer.array(), buffer.arrayOffset(),
+        //                 buffer.remaining());
 
-                this.lastInput=rawText;
-                TagData data = tagHandler.handleRawPacket(rawText);
-                updateOdometry(data);
-                System.out.println(rawText);
-                buffer.clear();
+        //         this.lastInput=rawText;
+        //         TagData data = tagHandler.handleRawPacket(rawText);
+        //         updateOdometry(data);
+        //         System.out.println(rawText);
+        //         buffer.clear();
 
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public String getLastPacket() {
@@ -88,13 +88,14 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     private void updateOdometry(TagData data) {
-        double distance = Math.sqrt(data.x * data.x + data.z * data.z) * 0.0254;
-        double angle = -data.alpha + Math.toRadians(aprilTagCoordinate[data.aprilTagID][3]);
-        double processedX = Math.cos(angle) * distance;
-        double processedY = Math.sin(angle) * distance;
-        double robotX = aprilTagCoordinate[data.aprilTagID][0] + processedX;
-        double robotY = aprilTagCoordinate[data.aprilTagID][1] + processedY;
-        odomSub.setPosition(robotX, robotY);
+        // double distance = Math.sqrt(data.x * data.x + data.z * data.z) * 0.0254;
+        // double angle = -data.alpha + Math.toRadians(aprilTagCoordinate[data.aprilTagID][3]);
+        // double processedX = Math.cos(angle) * distance;
+        // double processedY = Math.sin(angle) * distance;
+        // double robotX = aprilTagCoordinate[data.aprilTagID][0] + processedX;
+        // double robotY = aprilTagCoordinate[data.aprilTagID][1] + processedY;
+        // odomSub.setPosition(robotX, robotY);
+
         // Transform2d trans = new Transform2d(robotX, robotY, new Rotation2d());
         // odomSub.pose.plus(trans);
     }
