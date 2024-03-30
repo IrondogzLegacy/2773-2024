@@ -96,16 +96,17 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     private void updateOdometry(TagData data) {
-        double distance = Math.sqrt(data.x * data.x + data.z * data.z);
-        double angle = -data.alpha + aprilTagCoordinate[data.aprilTagID][3];
-        double processedX = Math.cos(angle) * distance;
-        double processedY = Math.sin(angle) * distance;
-        double robotX = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][0] + processedX;
-        double robotY = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][1] + processedY;
-        odomSub.setPosition(robotX, robotY);
-                System.out.print(": " + distance + " , " + angle + " "+data.alpha);
+ System.out.println(" Robot: " + data.aprilTagID + " , " + data.x + ", " + data.z + " " + data.alpha);
+        // double distance = Math.sqrt(data.x * data.x + data.z * data.z);
+        // double angle = -data.alpha + aprilTagCoordinate[data.aprilTagID][3];
+        // double processedX = Math.cos(angle) * distance;
+        // double processedY = Math.sin(angle) * distance;
+        // double robotX = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][0] + processedX;
+        // double robotY = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][1] + processedY;
+        // odomSub.setPosition(robotX, robotY);
+        //         System.out.print(": " + distance + " , " + angle + " "+data.alpha);
 
-        System.out.println(" Robot: " + robotX + " , " + robotY);
+
 
         // Transform2d trans = new Transform2d(robotX, robotY, new Rotation2d());
         // odomSub.pose.plus(trans);
