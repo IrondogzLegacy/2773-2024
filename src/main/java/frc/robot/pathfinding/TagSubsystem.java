@@ -82,8 +82,8 @@ public class TagSubsystem extends SubsystemBase {
                 this.lastInput = rawText;
                 TagData data = parseTagData(rawText);
                 if (data != null) {
-                    //updateOdometry(data);
-                     System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
+                    updateOdometry(data);
+                    //System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
                 }
                 buffer.clear();
 
@@ -98,15 +98,15 @@ public class TagSubsystem extends SubsystemBase {
     }
 
     private void updateOdometry(TagData data) {
- System.out.println(" Robot: " + data.aprilTagID + " , " + data.x + ", " + data.z + " " + data.alpha);
-        // double distance = Math.sqrt(data.x * data.x + data.z * data.z);
-        // double angle = -data.alpha + aprilTagCoordinate[data.aprilTagID][3];
-        // double processedX = Math.cos(angle) * distance;
-        // double processedY = Math.sin(angle) * distance;
-        // double robotX = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][0] + processedX;
-        // double robotY = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][1] + processedY;
-        // odomSub.setPosition(robotX, robotY);
-        //         System.out.print(": " + distance + " , " + angle + " "+data.alpha);
+//  System.out.println(" Robot: " + data.aprilTagID + " , " + data.x + ", " + data.z + " " + data.alpha);
+        double distance = Math.sqrt(data.x * data.x + data.z * data.z);
+        double angle = -data.alpha + aprilTagCoordinate[data.aprilTagID][3];
+        double processedX = Math.cos(angle) * distance;
+        double processedY = Math.sin(angle) * distance;
+        double robotX = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][0] + processedX;
+        double robotY = 0.0254 * aprilTagCoordinate[data.aprilTagID-1][1] + processedY;
+        odomSub.setPosition(robotX, robotY);
+        // System.out.print(": " + distance + " , " + angle + " "+data.alpha);
 
 
 

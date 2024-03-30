@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 
@@ -35,6 +36,9 @@ public class DriveSubsystem extends SubsystemBase {
     // frPID.setSetpoint(0);
     // blPID.setSetpoint(0);
     // brPID.setSetpoint(0);
+    Shuffleboard.getTab("Navigation").addDoubleArray("Set Angle gilcswdicqewe", () -> {
+      return new double[] {setAngle};
+    });
   }
 
   @Override
