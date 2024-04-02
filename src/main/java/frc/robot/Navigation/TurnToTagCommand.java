@@ -9,20 +9,21 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
+import frc.robot.pathfinding.TagSubsystem;
 
 public class TurnToTagCommand extends Command {
   private final DriveSubsystem driveSubsystem;
   private NavigationSubsystem navigationSubsystem;
-  private CamSubsystem cameraSubsystem;
+  private TagSubsystem tagSubsystem;
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("April Tag");
   private NetworkTableEntry tagIdEntry = table.getEntry("Id");
 
   /* Creates a new TurnToTag. */
   public TurnToTagCommand(DriveSubsystem driveSubsystem,
-      NavigationSubsystem navigationSubsystem, CamSubsystem cameraSubsystem) {
+      NavigationSubsystem navigationSubsystem, TagSubsystem tagSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.navigationSubsystem = navigationSubsystem;
-    this.cameraSubsystem = cameraSubsystem;
+    this.tagSubsystem = tagSubsystem;
   }
   double turnAngle;
   double angleToTag;
@@ -44,7 +45,7 @@ public class TurnToTagCommand extends Command {
   @Override
   public void initialize() {
     long id = tagIdEntry.getInteger(1);
-        var tagData = cameraSubsystem.getAprilTag(1);
+        var tagData = tagSubsystem.getAprilTag(1);
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     if (tagData != null) { 
@@ -95,8 +96,7 @@ public class TurnToTagCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    long id = tagIdEntry.getInteger(1);
-    var tagData = cameraSubsystem.getAprilTag(1);
+    var tagData = tagSubsystem.getAprilTag(1);
 
     if (tagData != null) { 
       x = tagData.x;

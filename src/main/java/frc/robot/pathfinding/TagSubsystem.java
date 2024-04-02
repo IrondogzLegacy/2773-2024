@@ -22,7 +22,7 @@ public class TagSubsystem extends SubsystemBase {
     private String lastInput;
     // private TagHandler tagHandler;
 
-    double[][] aprilTagCoordinate = {
+    public static double[][] aprilTagCoordinate = {
             { 652.73, 196.17, 57.13, 180 },//{ 593.68, 9.68, 53.38, 120 },
             { 637.21, 34.79, 53.38, 120 },
             { 652.73, 196.17, 57.13, 180 },
@@ -39,6 +39,11 @@ public class TagSubsystem extends SubsystemBase {
             { 209.48, 161.62, 52.00, 0 },
             { 182.73, 177.10, 52.00, 120 },
             { 182.73, 146.19, 52.00, 240 } };
+    public static TagData[] lastAprilTagData = new TagData[30];
+    public TagData getAprilTag(int id) {
+        return lastAprilTagData[id];
+    }
+
 
     public static class TagData{
         public int aprilTagID;
@@ -83,6 +88,7 @@ public class TagSubsystem extends SubsystemBase {
                 TagData data = parseTagData(rawText);
                 if (data != null) {
                     updateOdometry(data);
+                    updateTags(data);
                     //System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
                 }
                 buffer.clear();
@@ -148,6 +154,11 @@ public class TagSubsystem extends SubsystemBase {
         data.alpha = Math.atan2(minusCosAlpha,sinAlpha);
         data.aprilTagID = Integer.parseInt(apriltag);
         return data;
+    }
+
+    public void updateTags(TagData dataToUpdate)
+    {
+        lastAprilTagData[dataToUpdate.aprilTagID] = dataToUpdate;
     }
 
 }
