@@ -226,7 +226,7 @@ public class RobotContainer {
         timed(new RotateArmToAngleCommand(armSubsystem, 0), 2),
         timed(new PickUpCommand(intakeSubsystem), 2)
     )).andThen(new ParallelCommandGroup(
-      timed(new RotateArmToAngleCommand(armSubsystem, 0.3), 1.5),
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
       timed(new ShootCommand(shooterSubsystem), 1.5),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
@@ -245,7 +245,7 @@ public class RobotContainer {
     ).andThen(
       timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
-      timed(new RotateArmToAngleCommand(armSubsystem, 0.26), 1.5),
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
       timed(new ShootCommand(shooterSubsystem), 1.5),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
@@ -264,7 +264,7 @@ public class RobotContainer {
     ).andThen(
       timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
-      timed(new RotateArmToAngleCommand(armSubsystem, 0.26), 1),
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1),
       timed(new ShootCommand(shooterSubsystem), 1),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
