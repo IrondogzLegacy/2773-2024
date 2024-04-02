@@ -80,6 +80,6 @@ public final class Constants {
     public static final double outsideAutoInit4 = 70.37  * 0.0254;
 
     //Angles for speaker shooting
-    public static final double sideShootAngle   = 0.3; //Needs to be double checked
-    public static final double middleShootAngle = 0.308;
+    public static final double sideShootAngle   = 0.308; //Needs to be double checked
+    public static final double middleShootAngle = 0.3;
 }
