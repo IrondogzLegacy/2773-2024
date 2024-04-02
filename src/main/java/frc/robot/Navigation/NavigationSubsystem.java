@@ -23,17 +23,21 @@ public class NavigationSubsystem extends SubsystemBase {
   public AHRS gyro = new AHRS(SPI.Port.kMXP);
   public double angle;
   // Locations for the swerve drive modules relative to the robot center.
-  Translation2d frontLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
-  Translation2d frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, Constants.DistanceBetweenWheels/2);
-  Translation2d backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
-  Translation2d backRightLocation = new Translation2d(Constants.DistanceBetweenWheels/2, -Constants.DistanceBetweenWheels/2);
+  Translation2d frontLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels / 2,
+      Constants.DistanceBetweenWheels / 2);
+  Translation2d frontRightLocation = new Translation2d(Constants.DistanceBetweenWheels / 2,
+      Constants.DistanceBetweenWheels / 2);
+  Translation2d backLeftLocation = new Translation2d(-Constants.DistanceBetweenWheels / 2,
+      -Constants.DistanceBetweenWheels / 2);
+  Translation2d backRightLocation = new Translation2d(Constants.DistanceBetweenWheels / 2,
+      -Constants.DistanceBetweenWheels / 2);
 
   // Creating my kinematics object using the module locations
   SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
       frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   double pitch;
   private Supplier<SwerveModulePosition[]> modulePositions;
-  
+
   private double x;
   private double y;
 
@@ -51,17 +55,15 @@ public class NavigationSubsystem extends SubsystemBase {
   /** Creates a new NavigationSubsystem. */
   public NavigationSubsystem(Supplier<SwerveModulePosition[]> modulePositions) {
     this.modulePositions = modulePositions;
-   
+
     Shuffleboard.getTab("Navigation").addDoubleArray("Displacement", () -> {
-      return new double[] {displacementX, displacementY};
+      return new double[] { displacementX, displacementY };
     });
     Shuffleboard.getTab("Navigation").addDoubleArray("Rotation", () -> {
-      return new double[] {angle};
+      return new double[] { angle };
     });
-    
-
-     odometry = new SwerveDriveOdometry(
-      kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
+    odometry = new SwerveDriveOdometry(
+        kinematics, gyro.getRotation2d(), modulePositions.get(), new Pose2d(0.0, 0.0, new Rotation2d()));
     gyro.reset();
   }
 
