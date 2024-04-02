@@ -73,4 +73,13 @@ public final class Constants {
     public static final double betweenOutsideNotes = 66 * 0.0254;
     public static final double initialAngledDistance = 0 * 0.0254;
     public static final double initialDistanceToNote = 0 * 0.0254;
+
+    public static final double outsideAutoInit1 = 18.686 * 0.0254;
+    public static final double outsideAutoInit2 = 18.686 * 0.0254;
+    public static final double outsideAutoInit3 = 295.96 * 0.0254;
+    public static final double outsideAutoInit4 = 70.37  * 0.0254;
+
+    //Angles for speaker shooting
+    public static final double sideShootAngle   = 0.3; //Needs to be double checked
+    public static final double middleShootAngle = 0.308;
 }
