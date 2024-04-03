@@ -5,28 +5,48 @@
 package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.DriveSubsystem;
+import frc.robot.Navigation.OdometrySubsystem;
 
 public class DriveToWallCommand extends Command {
   /** Creates a new DriveToWallCommand. */
-  public DriveToWallCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveToWallCommand(double radians, DriveSubsystem driveSub, OdometrySubsystem odomSub) {
+    radians = this.radians;
+    driveSub = this.driveSub;
+    odomSub = this.odomSub;
   }
+
+  double radians;
+  double last = 0;
+  double max = 0;
+  DriveSubsystem driveSub;
+  OdometrySubsystem odomSub;
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (odomSub.displacementX + odomSub.displacementY > last) {
+      max = odomSub.displacementX + odomSub.displacementY;
+    }
+    last = odomSub.displacementX + odomSub.displacementY;
+    driveSub.directionalDrive(0.3, radians);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (odomSub.displacementX + odomSub.displacementY < last - 0.05 || (odomSub.displacementX + odomSub.displacementY < 0.01 && odomSub.displacementX + odomSub.displacementY < max));
   }
 }

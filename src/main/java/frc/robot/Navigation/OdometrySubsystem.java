@@ -18,6 +18,8 @@ public class OdometrySubsystem extends SubsystemBase {
 
   public double x;
   public double y;
+  public double displacementX;
+  public double displacementY;
   public double angle;
 
   private NavigationSubsystem navSub;
@@ -28,6 +30,8 @@ public class OdometrySubsystem extends SubsystemBase {
   public void periodic() {
     x += navSub.displacementX;
     y += navSub.displacementY;
+    displacementX = navSub.displacementX;
+    displacementY = navSub.displacementY;
     angle = navSub.angle;
     //System.out.println(x + " , "+  y);
   }
