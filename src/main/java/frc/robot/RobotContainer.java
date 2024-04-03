@@ -45,6 +45,7 @@ import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.Navigation.OdometrySubsystem;
 import frc.robot.Navigation.TagSubsystem;
+import frc.robot.Navigation.TurnToTagCommand;
 import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.MoveToCommand;
 
@@ -66,6 +67,7 @@ public class RobotContainer {
   // Commands from files
     //Drive Commands
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
+  TurnToTagCommand turnToTagCommand = new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, 4);
   //CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
@@ -112,7 +114,7 @@ public class RobotContainer {
 
   //Buttons
     //driveStick
-  // JoystickButton switchButton = new JoystickButton(driveStick, 3);
+  JoystickButton turnToTagButton = new JoystickButton(driveStick, 2);
   // JoystickButton resetMotorsButton = new JoystickButton(driveStick, 4);
   JoystickButton resetOrientationButton = new JoystickButton(driveStick, 7);
     
@@ -182,7 +184,7 @@ public class RobotContainer {
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
-      //button 2
+      turnToTagButton.onTrue(turnToTagCommand); //button 2
       //button 3
       //button 4
       //dPad Buttons on DriveStick
