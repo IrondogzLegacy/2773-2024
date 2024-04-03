@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Navigation.OdometrySubsystem;
 
-public class PolarMoveCommand extends Command {
+public class TestPolarMoveCommand extends Command {
 
   double radians;
   double distance;
@@ -28,7 +28,7 @@ public class PolarMoveCommand extends Command {
   
 
   /** Creates a new MovePolarCommand. */
-  public PolarMoveCommand(double radians, double distance, 
+  public TestPolarMoveCommand(double radians, double distance, 
     DriveSubsystem driveSubsystem, OdometrySubsystem odomSub) {
     addRequirements(driveSubsystem);
     this.radians = radians;
@@ -58,7 +58,7 @@ public class PolarMoveCommand extends Command {
     differenceX = -(x - goalX);
     differenceY = -(y - goalY);
 
-    radians = Math.atan2(differenceY, differenceX);
+    // radians = Math.atan2(differenceY, differenceX);
     
     distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     speed = MathUtil.clamp(-pid.calculate(distance), -0.3, 0.3);
