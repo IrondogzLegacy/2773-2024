@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+
 public final class Constants {
     // The distance between swerve wheels
     public static final double DistanceBetweenWheels = 0.616;
@@ -82,4 +84,7 @@ public final class Constants {
     //Angles for speaker shooting
     public static final double sideShootAngle   = 0.308; //Needs to be double checked
     public static final double middleShootAngle = 0.3;
+    //I believe these are correct!
+    public static final int PowerDistributionHubCANID = 0;
+    public static final ModuleType PowerHubModuleType = ModuleType.kRev;
 }

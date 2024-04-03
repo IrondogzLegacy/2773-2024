@@ -4,11 +4,15 @@
 
 package frc.robot.Navigation;
 
+import edu.wpi.first.hal.PowerDistributionVersion;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class OdometrySubsystem extends SubsystemBase {
-  /** Creates a new OdometrySubsystem. */
+
   public OdometrySubsystem(NavigationSubsystem navSub) {
     this.navSub = navSub;
     Shuffleboard.getTab("Navigation").addDoubleArray("Robot", () -> {
@@ -23,7 +27,7 @@ public class OdometrySubsystem extends SubsystemBase {
   public double angle;
 
   private NavigationSubsystem navSub;
-
+  public PowerDistribution powerHub = new PowerDistribution(Constants.PowerDistributionHubCANID, Constants.PowerHubModuleType);
 
 
   @Override
