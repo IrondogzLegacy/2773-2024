@@ -44,7 +44,7 @@ import frc.robot.IntakeShooter.ShootIntoSpeakerCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 import frc.robot.Navigation.OdometrySubsystem;
-import frc.robot.pathfinding.TagSubsystem;
+import frc.robot.Navigation.TagSubsystem;
 import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.MoveToCommand;
 

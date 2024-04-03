@@ -1,4 +1,4 @@
-package frc.robot.pathfinding;
+package frc.robot.Navigation;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Navigation.OdometrySubsystem;
 
 public class TagSubsystem extends SubsystemBase {
 
