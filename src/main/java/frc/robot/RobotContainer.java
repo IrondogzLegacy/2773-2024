@@ -197,8 +197,8 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
       dpadUpButton.whileTrue(letGoCommand); //up arrow
-      dpadRightButton.onTrue(PUpCommand);
-      dpadLeftButton.onTrue(PDownCommand);
+      // dpadRightButton.onTrue(PUpCommand);
+      // dpadLeftButton.onTrue(PDownCommand);
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
