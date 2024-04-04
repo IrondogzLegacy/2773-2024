@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Navigation.NavigationSubsystem;
 
-public class RotateRobotCommand extends Command {
+public class TestRotateRobotCommand extends Command {
 
   NavigationSubsystem navSub;
   DriveSubsystem driveSub;
@@ -18,7 +18,7 @@ public class RotateRobotCommand extends Command {
 
   PIDController rotatePID = new PIDController(0.63, 0, 0);
 
-  public RotateRobotCommand(double radians, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
+  public TestRotateRobotCommand(double radians, NavigationSubsystem navigationSubsystem, DriveSubsystem driveSubsystem) {
     addRequirements(navigationSubsystem, driveSubsystem);
     this.navSub = navigationSubsystem;
     this.driveSub = driveSubsystem;
@@ -28,11 +28,11 @@ public class RotateRobotCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    radians += navSub.angle;
+    // radians += navSub.angle;
     rotatePID.setSetpoint(radians);
     rotatePID.setTolerance(0.01);
     System.out.println();
-    System.out.println("Rotate Robot Going To: " + radians + " , "  + (radians - navSub.angle));
+    System.out.println("Test Rotate Robot Going To: " + radians);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,7 +47,7 @@ public class RotateRobotCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     driveSub.stop();
-    System.out.println("Rotate Robot Ended At:" + navSub.angle);
+    System.out.println("Test Rotate Robot Ended At:" + navSub.angle);
     System.out.println();
   }
 

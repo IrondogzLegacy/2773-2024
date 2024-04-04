@@ -502,6 +502,25 @@ public class RobotContainer {
     ));
   }
 
+  public Command twoNoteAuto() {
+    return timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
+        timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 2),
+        timed(new PickUpCommand(intakeSubsystem), 2)
+    )).andThen(new ParallelCommandGroup(
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
+      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 1.5)
+    )).andThen(new ParallelCommandGroup(
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
+    ));
+  }
+
+  public Command testRotateCommand() {
+    return timed(new RotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1);
+  }
+
   public Command angledMiddleAutoCommand() {
     return middleShootCommand().andThen(
       
