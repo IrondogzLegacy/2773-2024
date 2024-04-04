@@ -1,4 +1,4 @@
-package frc.robot.Navigation;
+package frc.robot.Information;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

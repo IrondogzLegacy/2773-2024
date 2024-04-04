@@ -30,6 +30,10 @@ import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.PolarMoveCommand;
 import frc.robot.Autonomous.RotateRobotCommand;
 import frc.robot.Autonomous.TestPolarMoveCommand;
+import frc.robot.Information.NavigationSubsystem;
+import frc.robot.Information.OdometrySubsystem;
+import frc.robot.Information.TagSubsystem;
+import frc.robot.Information.TurnToTagCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
@@ -40,10 +44,6 @@ import frc.robot.IntakeShooter.ShootCommand;
 import frc.robot.IntakeShooter.ShootIntoAmpCommand;
 import frc.robot.IntakeShooter.ShootIntoSpeakerCommand;
 import frc.robot.IntakeShooter.ShooterSubsystem;
-import frc.robot.Navigation.NavigationSubsystem;
-import frc.robot.Navigation.OdometrySubsystem;
-import frc.robot.Navigation.TagSubsystem;
-import frc.robot.Navigation.TurnToTagCommand;
 
 public class RobotContainer {
   // Controllers
@@ -145,7 +145,7 @@ public class RobotContainer {
     new WaitCommand(1)
   )); }
 
-  
+
 
   
   Command middleShootCommand() {

@@ -15,7 +15,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Navigation.PowerSubsystem;
+import frc.robot.Information.PowerSubsystem;
 
 public class ArmSubsystem extends SubsystemBase {
   CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);

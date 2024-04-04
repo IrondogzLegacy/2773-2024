@@ -2,12 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Navigation;
+package frc.robot.Information;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Autonomous.RotateRobotCommand;
-import frc.robot.Navigation.TagSubsystem.TagData;
+import frc.robot.Information.TagSubsystem.TagData;
 
 public class TurnToTagCommand extends Command {
   private TagSubsystem tagSubsystem;
