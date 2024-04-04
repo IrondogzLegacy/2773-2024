@@ -88,5 +88,5 @@ public final class Constants {
     public static final int PowerDistributionHubCANID = 0;
     public static final ModuleType PowerHubModuleType = ModuleType.kRev;
     public static final int speakerTagIDRed = 4;
-    public static final int speakerTagIDBlue = 8;
+    public static final int speakerTagIDBlue = 7;
 }
