@@ -2,12 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Navigation;
+package frc.robot.Information;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
 import frc.robot.Autonomous.RotateRobotCommand;
-import frc.robot.Navigation.TagSubsystem.TagData;
+import frc.robot.Information.TagSubsystem.TagData;
 
 public class TurnToTagCommand extends Command {
   private TagSubsystem tagSubsystem;
@@ -28,8 +28,8 @@ public class TurnToTagCommand extends Command {
   double alpha;
   final double conversionToDeg = 180./Math.PI;
   final double conversionToRad = Math.PI/180.;
-  // RotateRobotCommand rotateRobotLeft = new RotateRobotCommand(-0.5, navigationSubsystem,driveSubsystem);
-  // RotateRobotCommand rotateRobotRight = new RotateRobotCommand(0.5, navigationSubsystem, driveSubsystem);
+  RotateRobotCommand rotateRobotLeft = new RotateRobotCommand(-0.05, navigationSubsystem,driveSubsystem);
+  RotateRobotCommand rotateRobotRight = new RotateRobotCommand(0.05, navigationSubsystem, driveSubsystem);
 
   @Override
   public void initialize() {
@@ -50,8 +50,9 @@ public class TurnToTagCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(alpha > 0.05) {rotateRobotRight.schedule();}
-    // else if(alpha < -0.05) {rotateRobotLeft.schedule();}
+    if (alpha > 10 || alpha < -10) {alpha *= conversionToRad;}
+    if(alpha > 0.05) {rotateRobotRight.schedule();}
+    else if(alpha < -0.05) {rotateRobotLeft.schedule();}
   }
 
   // Called once the command ends or is interrupted.

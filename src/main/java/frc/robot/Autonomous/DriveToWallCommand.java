@@ -6,7 +6,7 @@ package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.Navigation.OdometrySubsystem;
+import frc.robot.Information.OdometrySubsystem;
 
 public class DriveToWallCommand extends Command {
   /** Creates a new DriveToWallCommand. */

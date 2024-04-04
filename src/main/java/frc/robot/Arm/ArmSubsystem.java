@@ -15,6 +15,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Information.PowerSubsystem;
+import frc.robot.Information.TagSubsystem;
 
 public class ArmSubsystem extends SubsystemBase {
   CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);
@@ -35,6 +37,15 @@ public class ArmSubsystem extends SubsystemBase {
   }
   //first array is with a high charge battery, second is with a low charge battery
   public double[][] speakerAngles = {{0.25,0.31,0.35,0.37,0.39,0.41,0.43,0.45},{0.31,0.362,0.39,0.435,0.465,0.49,0.49,0.5}};
+  public int speakerAngleIndex()
+  {
+    if(PowerSubsystem.currentVoltage > 1.9) 
+    {return 0;} 
+    else return 1;
+  }
+  public double getSpeakerAngle(double distance) {
+    return speakerAngles[speakerAngleIndex()][(int) Math.ceil(distance)];
+  }
 
   private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
   private final NetworkTableEntry angTableEntry = armTable.getEntry("encoderAngle");
@@ -104,4 +115,5 @@ public class ArmSubsystem extends SubsystemBase {
     return rotateAnglePID.atSetpoint();
   }
 
+  
 }

@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Navigation.*;
+import frc.robot.Information.*;
 
 public class DriveCommand extends Command {
   private final DriveSubsystem driveSubsystem;
