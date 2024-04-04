@@ -146,6 +146,8 @@ public class RobotContainer {
   )); }
 
   
+
+  
   Command middleShootCommand() {
     return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle),
@@ -190,7 +192,7 @@ public class RobotContainer {
       intakeButton.whileTrue(intakeCommand); //Button 2
       shootButton.whileTrue(shootCommand); //Button 6
       middleSpeakerShootButton.onTrue(middleShootCommand()); //Button 3
-      sideSpeakerShootButton.onTrue(sideShootCommand()); //Button 3
+      sideSpeakerShootButton.onTrue(sideShootCommand()); //Button 4
       // reverseShooterButton.whileTrue(reverseShooterCommand); //Button 5
       // reverseShooterButton.onTrue(new ShakeCommand(armSubsystem));
       reverseIntakeButton.whileTrue(reverseIntakeCommand); //Button 1
