@@ -147,7 +147,7 @@ public class RobotContainer {
   
   Command shootSpeakerAnywhere() {
     double currentSpeakerAngle = armSubsystem.getSpeakerAngle((tagSubsystem.getLastSpeakerDistance() -3.0));
-    return angleShootCommand(currentSpeakerAngle);
+    return new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()).andThen(angleShootCommand(currentSpeakerAngle));
   }
 
   Command middleShootCommand() {
@@ -201,8 +201,8 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
       dpadUpButton.whileTrue(letGoCommand); //up arrow
-      dpadRightButton.onTrue(new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()));
-      // dpadLeftButton.onTrue(PDownCommand);
+      dpadRightButton.onTrue(shootSpeakerAnywhere());
+      dpadLeftButton.onTrue(new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()));
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
