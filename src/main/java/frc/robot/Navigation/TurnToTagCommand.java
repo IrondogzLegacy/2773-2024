@@ -19,6 +19,7 @@ public class TurnToTagCommand extends Command {
     this.tagSubsystem = tagSubsystem;
     this.navigationSubsystem = navigationSubsystem;
     this.driveSubsystem = driveSubsystem;
+    addRequirements(tagSubsystem, navigationSubsystem, driveSubsystem);
   }
   
   double angleToTag;
@@ -27,8 +28,8 @@ public class TurnToTagCommand extends Command {
   double alpha;
   final double conversionToDeg = 180./Math.PI;
   final double conversionToRad = Math.PI/180.;
-  RotateRobotCommand rotateRobotLeft = new RotateRobotCommand(-0.5, navigationSubsystem,driveSubsystem);
-  RotateRobotCommand rotateRobotRight = new RotateRobotCommand(0.5, navigationSubsystem, driveSubsystem);
+  // RotateRobotCommand rotateRobotLeft = new RotateRobotCommand(-0.5, navigationSubsystem,driveSubsystem);
+  // RotateRobotCommand rotateRobotRight = new RotateRobotCommand(0.5, navigationSubsystem, driveSubsystem);
 
   @Override
   public void initialize() {
@@ -49,8 +50,8 @@ public class TurnToTagCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(alpha > 0.05) {rotateRobotRight.schedule();}
-    else if(alpha < -0.05) {rotateRobotLeft.schedule();}
+    // if(alpha > 0.05) {rotateRobotRight.schedule();}
+    // else if(alpha < -0.05) {rotateRobotLeft.schedule();}
   }
 
   // Called once the command ends or is interrupted.

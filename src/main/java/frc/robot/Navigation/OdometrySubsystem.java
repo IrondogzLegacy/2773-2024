@@ -27,7 +27,7 @@ public class OdometrySubsystem extends SubsystemBase {
   public double angle;
 
   private NavigationSubsystem navSub;
-  public PowerDistribution powerHub = new PowerDistribution(Constants.PowerDistributionHubCANID, Constants.PowerHubModuleType);
+  // public PowerDistribution powerHub = new PowerDistribution(Constants.PowerDistributionHubCANID, Constants.PowerHubModuleType);
 
 
   @Override

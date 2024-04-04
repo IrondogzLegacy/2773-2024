@@ -49,7 +49,7 @@ public class TagSubsystem extends SubsystemBase {
         public double x; // How far right or left (I think)
         public double y; // How high or low the april tag is
         public double z; // How far away (I think)
-        public double alpha;
+        public double alpha; //Angle from tag to robot
     }
 
     private OdometrySubsystem odomSub;
