@@ -5,7 +5,10 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class TagSubsystem extends SubsystemBase {
 
@@ -77,7 +80,6 @@ public class TagSubsystem extends SubsystemBase {
 
     private void receivePacket() {
         try {
-
             if (channel.receive(buffer) != null) {
                 buffer.flip();
                 String rawText = new String(buffer.array(), buffer.arrayOffset(),
@@ -160,4 +162,16 @@ public class TagSubsystem extends SubsystemBase {
         lastAprilTagData[dataToUpdate.aprilTagID] = dataToUpdate;
     }
 
+    public int getSpeakerTagID()
+    {
+        if(DriverStation.getAlliance().equals(Alliance.Red)) {
+            return Constants.speakerTagIDRed;
+        }
+        else return Constants.speakerTagIDBlue;
+    }
+    public double getLastSpeakerDistance()
+    {
+        TagData tempData = getAprilTag(getSpeakerTagID());
+        return Math.sqrt(tempData.x * tempData.x + tempData.z * tempData.z);
+    }
 }

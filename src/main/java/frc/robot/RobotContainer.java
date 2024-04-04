@@ -134,7 +134,7 @@ public class RobotContainer {
   ParallelRaceGroup intake1sec = new ParallelRaceGroup(new WaitCommand(1), intakeCommand1sec); //intake for 1 second
   ParallelRaceGroup shootWithIntake = new ParallelRaceGroup(new WaitCommand(3), shootCommandWithIntake); //run the shooter for 3 seconds
   ParallelCommandGroup intakeThenShoot = new ParallelCommandGroup(new WaitCommand(2).andThen(intake1sec), shootWithIntake);
-  Command angleShootCommand(Double angle) {
+  Command angleShootCommand(double angle) {
     return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, angle),
     new ShootCommand(shooterSubsystem),
@@ -144,10 +144,12 @@ public class RobotContainer {
     new ShootCommand(shooterSubsystem),
     new WaitCommand(1)
   )); }
-
-
-
   
+  Command shootSpeakerAnywhere() {
+    double currentSpeakerAngle = armSubsystem.getSpeakerAngle((tagSubsystem.getLastSpeakerDistance() -3.0));
+    return angleShootCommand(currentSpeakerAngle);
+  }
+
   Command middleShootCommand() {
     return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle),
@@ -199,7 +201,7 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
       dpadUpButton.whileTrue(letGoCommand); //up arrow
-      // dpadRightButton.onTrue(PUpCommand);
+      dpadRightButton.onTrue(new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()));
       // dpadLeftButton.onTrue(PDownCommand);
     //Overrides
       //Arm button 7 --> arm override
