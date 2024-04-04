@@ -31,7 +31,7 @@ public class TestPolarMoveCommand extends Command {
   public TestPolarMoveCommand(double radians, double distance, 
     DriveSubsystem driveSubsystem, OdometrySubsystem odomSub) {
     addRequirements(driveSubsystem);
-    this.radians = radians;
+    this.radians = radians + (Math.PI/2);
     this.distance = distance;
     this.driveSubsystem = driveSubsystem;
     this.odomSub = odomSub;
