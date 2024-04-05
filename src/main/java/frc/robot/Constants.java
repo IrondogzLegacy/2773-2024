@@ -35,7 +35,7 @@ public final class Constants {
     public static final int backLeftModuleEncoderCANID = 54;
     public static final int backRightModuleEncoderCANID = 55;
 
-    public static final double DriveSpeedMultiplier = 0.7;
+    public static final double DriveSpeedMultiplier = 0.85;
     public static final double RotateSpeedMultiplier = 0.3;
 
     //Speeds for Intake, Shooter, Arm
@@ -82,8 +82,8 @@ public final class Constants {
     public static final double outsideAutoInit4 = (70.37 - 13.5)  * 0.0254;
 
     //Angles for speaker shooting
-    public static final double sideShootAngle   = 0.32; //Needs to be double checked
-    public static final double middleShootAngle = 0.35;
+    public static final double sideShootAngle   = 0.335; //Needs to be double checked
+    public static final double middleShootAngle = 0.3;
     //I believe these are correct!
     public static final int PowerDistributionHubCANID = 0;
     public static final ModuleType PowerHubModuleType = ModuleType.kRev;

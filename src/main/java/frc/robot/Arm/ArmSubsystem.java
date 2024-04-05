@@ -21,7 +21,7 @@ import frc.robot.Information.TagSubsystem;
 public class ArmSubsystem extends SubsystemBase {
   CANSparkMax armMotor = new CANSparkMax(Constants.armMotorCANID, Constants.motorType);
   /** Creates a new ArmSubsystem. */
-  private final RelativeEncoder armRotationEncoder = armMotor.getEncoder();
+  public final RelativeEncoder armRotationEncoder = armMotor.getEncoder();
 
   public ArmSubsystem() {
     armMotor.setSmartCurrentLimit(35);
@@ -93,7 +93,9 @@ public class ArmSubsystem extends SubsystemBase {
     return armRotationEncoder.getPosition();
   }
 
-  public PIDController rotateAnglePID = new PIDController(5, 9, 0);
+  public PIDController rotateAnglePID = new PIDController(6, 9, 0);
+  public double middleSavedAngle;
+  public double sideSavedAngle;
 // 5, 9
   @Override
   public void periodic() {
