@@ -5,12 +5,15 @@
 package frc.robot.IntakeShooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Information.OdometrySubsystem;
 
 public class PickUpCommand extends Command {
-  private final IntakeSubsystem intakeSubsystem;
+  private IntakeSubsystem intakeSubsystem;
+  private OdometrySubsystem odomSub;
   /** Creates a new IntakeCommand. */
-  public PickUpCommand(IntakeSubsystem intakeSubsystem) {
+  public PickUpCommand(IntakeSubsystem intakeSubsystem, OdometrySubsystem odometrySubsystem) {
     this.intakeSubsystem = intakeSubsystem;
+    this.odomSub = odometrySubsystem;
     // Use addRequirements() here to dec  lare subsystem dependencies.
   }
 
@@ -28,6 +31,7 @@ public class PickUpCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.stopIntake();
+    odomSub.addSetPoint();
   }
 
   // Returns true when the command should end.

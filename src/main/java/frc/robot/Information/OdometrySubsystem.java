@@ -21,6 +21,9 @@ public class OdometrySubsystem extends SubsystemBase {
   public double displacementX;
   public double displacementY;
   public double angle;
+  public double[] setX = {0.0, 0.0, 0.0, 0.0, 0.0};
+  public double[] setY = {0.0, 0.0, 0.0, 0.0, 0.0};
+  public int i = 0;
 
   private NavigationSubsystem navSub;
 
@@ -38,4 +41,10 @@ public class OdometrySubsystem extends SubsystemBase {
     x = gX;
     y = gY;
   }
+
+public void addSetPoint() {
+    setX[i] = x;
+    setY[i] = y;
+    i++;
+}
 }

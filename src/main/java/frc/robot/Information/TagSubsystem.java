@@ -88,7 +88,7 @@ public class TagSubsystem extends SubsystemBase {
                 this.lastInput = rawText;
                 TagData data = parseTagData(rawText);
                 if (data != null) {
-                    updateOdometry(data);
+                    // updateOdometry(data);
                     updateTags(data);
                     //System.out.println("Tag: " + data.aprilTagID + " " + data.x + " " + data.y + " " + data.z);
                 }
@@ -171,7 +171,7 @@ public class TagSubsystem extends SubsystemBase {
     }
     public double getLastSpeakerDistance()
     {
-        TagData tempData = getAprilTag(getSpeakerTagID());
-        return Math.sqrt(tempData.x * tempData.x + tempData.z * tempData.z);
+        // TagData tempData = getAprilTag(getSpeakerTagID());
+        return 4.0;//Math.sqrt(tempData.x * tempData.x + tempData.z * tempData.z);
     }
 }

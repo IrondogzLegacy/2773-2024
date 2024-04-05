@@ -82,8 +82,8 @@ public final class Constants {
     public static final double outsideAutoInit4 = (70.37 - 13.5)  * 0.0254;
 
     //Angles for speaker shooting
-    public static final double sideShootAngle   = 0.308; //Needs to be double checked
-    public static final double middleShootAngle = 0.3;
+    public static final double sideShootAngle   = 0.32; //Needs to be double checked
+    public static final double middleShootAngle = 0.35;
     //I believe these are correct!
     public static final int PowerDistributionHubCANID = 0;
     public static final ModuleType PowerHubModuleType = ModuleType.kRev;

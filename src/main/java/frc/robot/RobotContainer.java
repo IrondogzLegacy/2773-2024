@@ -24,16 +24,17 @@ import frc.robot.Arm.PUpCommand;
 import frc.robot.Arm.RotateArmToAngleCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
+import frc.robot.Autonomous.DriveToSetpointCommand;
 import frc.robot.Autonomous.DriveToWallCommand;
 import frc.robot.Autonomous.MoveDirectionCommand;
 import frc.robot.Autonomous.MoveRelativeCommand;
 import frc.robot.Autonomous.PolarMoveCommand;
 import frc.robot.Autonomous.RotateRobotCommand;
 import frc.robot.Autonomous.TestPolarMoveCommand;
+import frc.robot.Autonomous.TestRotateRobotCommand;
 import frc.robot.Information.NavigationSubsystem;
 import frc.robot.Information.OdometrySubsystem;
 import frc.robot.Information.TagSubsystem;
-import frc.robot.Information.TurnToTagCommand;
 import frc.robot.IntakeShooter.ControlledShootCommand;
 import frc.robot.IntakeShooter.IntakeCommand;
 import frc.robot.IntakeShooter.IntakeSubsystem;
@@ -63,7 +64,7 @@ public class RobotContainer {
   // Commands from files
     //Drive Commands
   DriveCommand driveCommand = new DriveCommand(driveSubsystem, driveStick, armStick, navigationSubsystem);
-  TurnToTagCommand turnToTagCommand = new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, 4);
+  // TurnToTagCommand turnToTagCommand = new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, 4);
   //CarDriveCommand carDriveCommand = new CarDriveCommand(driveSubsystem, driveStick);
   // SwitchCommand switchCommand = new SwitchCommand(driveSubsystem, carDriveCommand, driveCommand);
   // MoveDistanceAngleCommand moveDistanceAngleCommand = new MoveDistanceAngleCommand(autoMoveSubsystem);
@@ -147,14 +148,14 @@ public class RobotContainer {
   
   Command shootSpeakerAnywhere() {
     double currentSpeakerAngle = armSubsystem.getSpeakerAngle((tagSubsystem.getLastSpeakerDistance() -3.0));
-    return new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()).andThen(angleShootCommand(currentSpeakerAngle));
+    return null;//new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()).andThen(angleShootCommand(currentSpeakerAngle));
   }
 
   Command middleShootCommand() {
     return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle),
     new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5) //Maybe less
+    new WaitCommand(2.5) //Maybe less
   ).andThen(new ParallelRaceGroup(
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
@@ -164,7 +165,7 @@ public class RobotContainer {
   Command sideShootCommand() {return new ParallelRaceGroup(
     new RotateArmToAngleCommand(armSubsystem, Constants.sideShootAngle),
     new ShootCommand(shooterSubsystem),
-    new WaitCommand(1.5)
+    new WaitCommand(2.5)
   ).andThen(new ParallelRaceGroup(
     new IntakeCommand(intakeSubsystem),
     new ShootCommand(shooterSubsystem),
@@ -184,7 +185,7 @@ public class RobotContainer {
       // resetMotorsButton.whileTrue(new RunCommand(() -> driveSubsystem.resetMotors(), driveSubsystem));
       resetOrientationButton.onTrue(new InstantCommand(navigationSubsystem::resetOrientation));
       // switchButton.onTrue(switchCommand);
-      turnToTagButton.onTrue(turnToTagCommand); //button 2
+      // turnToTagButton.onTrue(turnToTagCommand); //button 2
       //button 3
       //button 4
       //dPad Buttons on DriveStick
@@ -201,8 +202,8 @@ public class RobotContainer {
       //dPad Buttons on ArmStick
       dpadDownButton.whileTrue(climbCommand); //down arrow
       dpadUpButton.whileTrue(letGoCommand); //up arrow
-      dpadRightButton.onTrue(shootSpeakerAnywhere());
-      dpadLeftButton.onTrue(new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()));
+      // dpadRightButton.onTrue(shootSpeakerAnywhere());
+      // dpadLeftButton.onTrue(new TurnToTagCommand(tagSubsystem, navigationSubsystem, driveSubsystem, tagSubsystem.getSpeakerTagID()));
     //Overrides
       //Arm button 7 --> arm override
       //Arm buttons 7 & 8 --> arm reset
@@ -226,7 +227,7 @@ public class RobotContainer {
     return timed(middleShootCommand(), 2).andThen(new ParallelRaceGroup(
         timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
         timed(new RotateArmToAngleCommand(armSubsystem, 0), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2)
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
       timed(new ShootCommand(shooterSubsystem), 1.5),
@@ -241,7 +242,7 @@ public class RobotContainer {
         timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelRaceGroup(
         timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2)
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2)
     ).andThen(
@@ -260,7 +261,7 @@ public class RobotContainer {
         timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelRaceGroup(
         timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2.5)
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2.5)
     )).andThen(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2)
     ).andThen(
@@ -279,9 +280,8 @@ public class RobotContainer {
 
   public Command testMiddleInnerAutoCommand() {
     return timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
-        timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new RotateArmToAngleCommand(armSubsystem, 0), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2)
+        timed(new ParallelRaceGroup(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), new PickUpCommand(intakeSubsystem, odometrySubsystem)), 2),
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 0.3)
     )).andThen(new ParallelCommandGroup(
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
       timed(new ShootCommand(shooterSubsystem), 1.5),
@@ -294,9 +294,9 @@ public class RobotContainer {
         timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
     )).andThen(
         timed(new RotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(new ParallelCommandGroup(
+    ).andThen(new ParallelRaceGroup(
         timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2)
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(
       timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2)
     ).andThen(
@@ -313,9 +313,9 @@ public class RobotContainer {
         timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
     )).andThen(
         timed(new RotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
-    ).andThen(new ParallelCommandGroup(
+    ).andThen(new ParallelRaceGroup(
         timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2.5)
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2.5)
     )).andThen(
       timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2)
     ).andThen(
@@ -330,6 +330,74 @@ public class RobotContainer {
     )).andThen(
       timed(new RotateArmToAngleCommand(armSubsystem, 0), 1)
     );
+  }
+
+  public Command newestMiddleAuto() {
+    return timed(new RotateArmToAngleCommand(armSubsystem, 0), 2).andThen(timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
+        timed(new ParallelRaceGroup(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), new PickUpCommand(intakeSubsystem, odometrySubsystem)), 2),
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 0.3)
+    ))).andThen(new ParallelCommandGroup(
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
+      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 1.5)
+    )).andThen(new ParallelCommandGroup(
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
+    )).andThen(new ParallelCommandGroup(
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 1.5),
+        timed(new DriveToSetpointCommand(0, 1.0, driveSubsystem, odometrySubsystem), 2)
+    )).andThen(
+        timed(new TestRotateRobotCommand(1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(new ParallelRaceGroup(
+        timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
+    )).andThen(
+      timed(new DriveToSetpointCommand(0, -1.0, driveSubsystem, odometrySubsystem), 1.5)
+    ).andThen(
+      timed(new TestRotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(new ParallelCommandGroup(
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
+      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
+    )).andThen(new ParallelCommandGroup(
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
+    )).andThen(new ParallelCommandGroup(
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 1),
+        timed(new DriveToSetpointCommand(0, 1.0, driveSubsystem, odometrySubsystem), 2)
+    )).andThen(
+        timed(new TestRotateRobotCommand(-1.0/2 * Math.PI, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(new ParallelRaceGroup(
+        timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenInsideNotes + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
+        timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2.5)
+    )).andThen(
+      timed(new DriveToSetpointCommand(0, -1.0, driveSubsystem, odometrySubsystem), 2)
+    ).andThen(
+      timed(new TestRotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(new ParallelCommandGroup(
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1),
+      timed(new ShootCommand(shooterSubsystem), 1),
+      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote, driveSubsystem, odometrySubsystem), 2)
+    )).andThen(new ParallelCommandGroup(
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
+    )).andThen(
+      timed(new RotateArmToAngleCommand(armSubsystem, 0), 1)
+    );
+  }
+
+  public Command twoNoteAuto() {
+    return timed(new RotateArmToAngleCommand(armSubsystem, 0), 1).andThen(timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
+        timed(new ParallelRaceGroup(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), new PickUpCommand(intakeSubsystem, odometrySubsystem)), 2),
+        timed(new RotateArmToAngleCommand(armSubsystem, 0), 0.3)
+    ))).andThen(new ParallelCommandGroup(
+      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
+      timed(new ShootCommand(shooterSubsystem), 1.5),
+      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 1.5)
+    )).andThen(new ParallelCommandGroup(
+      timed(new IntakeCommand(intakeSubsystem), 1),
+      timed(new ShootCommand(shooterSubsystem), 1)
+    ));
   }
 
   public Command oppositeAmpOuterAutoCommand() {
@@ -351,7 +419,7 @@ public class RobotContainer {
       timed(new RotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1)
     ).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-1.0/2 * Math.PI, Constants.outsideAutoInit4, driveSubsystem, odometrySubsystem), 2), 
-      timed(new PickUpCommand(intakeSubsystem), 2)
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
       timed(new RotateArmToAngleCommand(armSubsystem, 0.3), 1),
       timed(new PolarMoveCommand(1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 1),
@@ -364,7 +432,7 @@ public class RobotContainer {
         timed(new PolarMoveCommand(Math.PI, Constants.betweenOutsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelRaceGroup(
           timed(new PolarMoveCommand(-1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 0.5),
-          timed(new PickUpCommand(intakeSubsystem), 1)
+          timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 1),
       timed(new RotateArmToAngleCommand(armSubsystem, 0.3), 1),
@@ -382,7 +450,7 @@ public class RobotContainer {
         timed(new PolarMoveCommand(Math.PI, Constants.betweenOutsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelRaceGroup(
           timed(new PolarMoveCommand(-1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 0.5),
-          timed(new PickUpCommand(intakeSubsystem), 1)
+          timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelRaceGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 1),
       new ShootCommand(shooterSubsystem)
@@ -393,7 +461,7 @@ public class RobotContainer {
         timed(new PolarMoveCommand(Math.PI, Constants.betweenOutsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelRaceGroup(
           timed(new PolarMoveCommand(-1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 0.5),
-          timed(new PickUpCommand(intakeSubsystem), 1)
+          timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 1),
       timed(new RotateArmToAngleCommand(armSubsystem, 0.3), 1),
@@ -411,7 +479,7 @@ public class RobotContainer {
         timed(new PolarMoveCommand(Math.PI, Constants.betweenOutsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelRaceGroup(
           timed(new PolarMoveCommand(-1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 0.5),
-          timed(new PickUpCommand(intakeSubsystem), 1)
+          timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1)
     )).andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(1.0/2 * Math.PI, 0.3, driveSubsystem, odometrySubsystem), 1),
       timed(new RotateArmToAngleCommand(armSubsystem, 0.3), 1),
@@ -425,7 +493,7 @@ public class RobotContainer {
   public Command otherTestCommand() {
     return middleShootCommand().andThen(new ParallelCommandGroup(
       timed(new PolarMoveCommand(-Math.PI/4, 0, driveSubsystem, odometrySubsystem), 2),
-      timed(new PickUpCommand(intakeSubsystem), 2)
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
       timed(new DriveToWallCommand(Math.PI/2, driveSubsystem, odometrySubsystem), 1.5),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
@@ -437,7 +505,7 @@ public class RobotContainer {
       timed(new PolarMoveCommand(-Math.PI/4, Constants.betweenInsideNotes * Math.sqrt(2.0), driveSubsystem, odometrySubsystem), 2),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1)
     )).andThen(new ParallelCommandGroup(
-      timed(new PickUpCommand(intakeSubsystem), 1),
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1),
       timed(new PolarMoveCommand(-Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(
       timed(new PolarMoveCommand(Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
@@ -451,7 +519,7 @@ public class RobotContainer {
       timed(new PolarMoveCommand(-3 * Math.PI/4, Constants.betweenInsideNotes * Math.sqrt(2.0), driveSubsystem, odometrySubsystem), 2),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1)
     )).andThen(new ParallelCommandGroup(
-      timed(new PickUpCommand(intakeSubsystem), 1),
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1),
       timed(new PolarMoveCommand(-Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(
       timed(new PolarMoveCommand(Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
@@ -467,7 +535,7 @@ public class RobotContainer {
   public Command doubleTestCommand() {
     return middleShootCommand().andThen(new ParallelCommandGroup(
       timed(new TestPolarMoveCommand(-Math.PI/4, 0, driveSubsystem, odometrySubsystem), 2),
-      timed(new PickUpCommand(intakeSubsystem), 2)
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 2)
     )).andThen(new ParallelCommandGroup(
       timed(new DriveToWallCommand(Math.PI/2, driveSubsystem, odometrySubsystem), 1.5),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
@@ -479,7 +547,7 @@ public class RobotContainer {
       timed(new TestPolarMoveCommand(-Math.PI/4, Constants.betweenInsideNotes * Math.sqrt(2.0), driveSubsystem, odometrySubsystem), 2),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1)
     )).andThen(new ParallelCommandGroup(
-      timed(new PickUpCommand(intakeSubsystem), 1),
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1),
       timed(new TestPolarMoveCommand(-Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(
       timed(new TestPolarMoveCommand(Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
@@ -493,7 +561,7 @@ public class RobotContainer {
       timed(new TestPolarMoveCommand(-3 * Math.PI/4, Constants.betweenInsideNotes * Math.sqrt(2.0), driveSubsystem, odometrySubsystem), 2),
       timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1)
     )).andThen(new ParallelCommandGroup(
-      timed(new PickUpCommand(intakeSubsystem), 1),
+      timed(new PickUpCommand(intakeSubsystem, odometrySubsystem), 1),
       timed(new TestPolarMoveCommand(-Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
     )).andThen(
       timed(new TestPolarMoveCommand(Math.PI/2, Constants.betweenMiddleStartAndInsideNote - Constants.betweenInsideNotes, driveSubsystem, odometrySubsystem), 1)
@@ -506,23 +574,16 @@ public class RobotContainer {
     ));
   }
 
-  public Command twoNoteAuto() {
-    return timed(middleShootCommand(), 2).andThen(new ParallelCommandGroup(
-        timed(new TestPolarMoveCommand(-1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 2),
-        timed(new RotateArmToAngleCommand(armSubsystem, 0), 2),
-        timed(new PickUpCommand(intakeSubsystem), 2)
-    )).andThen(new ParallelCommandGroup(
-      timed(new RotateArmToAngleCommand(armSubsystem, Constants.middleShootAngle), 1.5),
-      timed(new ShootCommand(shooterSubsystem), 1.5),
-      timed(new TestPolarMoveCommand(1.0/2 * Math.PI, Constants.betweenMiddleStartAndInsideNote + Constants.extraIntakeNeeded, driveSubsystem, odometrySubsystem), 1.5)
-    )).andThen(new ParallelCommandGroup(
-      timed(new IntakeCommand(intakeSubsystem), 1),
-      timed(new ShootCommand(shooterSubsystem), 1)
-    ));
-  }
-
   public Command testRotateCommand() {
-    return timed(new RotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1);
+    return timed(new TestRotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1).andThen(
+      timed(new TestRotateRobotCommand(-Math.PI/2, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(
+      timed(new TestRotateRobotCommand(-Math.PI/2, navigationSubsystem, driveSubsystem), 1)
+    ). andThen(
+      timed(new TestRotateRobotCommand(Math.PI/2, navigationSubsystem, driveSubsystem), 1)
+    ).andThen(
+      timed(new TestRotateRobotCommand(0, navigationSubsystem, driveSubsystem), 1)
+    );
   }
 
   public Command angledMiddleAutoCommand() {
@@ -555,8 +616,8 @@ public class RobotContainer {
     return middleShootCommand().andThen(new StopCommand(driveSubsystem));
   }
 
-  public Command sidePositionShootCommand() {
-    return sideShootCommand().andThen(new StopCommand(driveSubsystem));
+  public Command sideAutoCommand() {
+    return timed(new RotateArmToAngleCommand(armSubsystem, 0), 2).andThen(timed(sideShootCommand(), 4)).andThen(new StopCommand(driveSubsystem));
   }
   
   

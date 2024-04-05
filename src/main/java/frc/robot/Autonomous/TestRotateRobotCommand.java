@@ -8,7 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveSubsystem;
-import frc.robot.Navigation.NavigationSubsystem;
+import frc.robot.Information.NavigationSubsystem;
 
 public class TestRotateRobotCommand extends Command {
 
