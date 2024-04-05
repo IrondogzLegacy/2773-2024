@@ -174,4 +174,8 @@ public class TagSubsystem extends SubsystemBase {
         TagData tempData = getAprilTag(getSpeakerTagID());
         return Math.sqrt(tempData.x * tempData.x + tempData.z * tempData.z);
     }
+    public void printAlliance()
+    {
+        System.out.println(DriverStation.getAlliance());
+    }*69-
 }
